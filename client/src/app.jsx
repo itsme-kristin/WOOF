@@ -12,9 +12,9 @@ const App = () => {
     <Router>
       <h1 className="app">
         <Header />
-        <Route path='/user'/>
-        <Route path='/research'/>
-        <Route path='/dogProfile' />
+        <Route path='/user' component={UserPage}/>
+        <Route path='/research' component={ResearchPage}/>
+        <Route path='/animal' component={AnimalPage}/>
       </h1>
     </Router>
   )
