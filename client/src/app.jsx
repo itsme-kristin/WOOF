@@ -10,21 +10,14 @@ import DogCard from './components/card/card.jsx';
 
 const App = () => {
   return (
-<<<<<<< HEAD
-    // <h1 className="app">
-    //   Hello World!
-    // </h1>
-    <DogCard />
-=======
     <Router>
       <h1 className="app">
         <Header />
         <Route path='/user' component={UserPage}/>
-        <Route path='/research' component={ResearchPage}/>
-        <Route path='/animal' component={AnimalPage}/>
+        {/* <Route path='/research' component={ResearchPage}/>
+        <Route path='/animal' component={AnimalPage}/> */}
       </h1>
     </Router>
->>>>>>> main
   )
 };
 

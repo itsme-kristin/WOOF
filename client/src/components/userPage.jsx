@@ -10,7 +10,7 @@ const UserPage = () => {
   return (
     <div>
       <h1>UserName here</h1>
-      <Menu />
+      {/* <Menu /> */}
     </div>
   )
 }
