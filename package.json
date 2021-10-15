@@ -21,6 +21,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.4.0",
