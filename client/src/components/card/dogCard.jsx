@@ -9,6 +9,8 @@ import EmptyHeart from '@mui/icons-material/FavoriteBorder';
 import FullHeart from '@mui/icons-material/Favorite';
 import EmptyStar from '@mui/icons-material/StarBorder';
 import FullStar from '@mui/icons-material/Star';
+import Grid from '@mui/material/Grid';
+// import Circle from '@mui/icons-material/Circle';
 
 const height = {landscape: 200, portrait: 250};
 const width = {landscape: 250, portrait: 200};
@@ -16,10 +18,10 @@ const width = {landscape: 250, portrait: 200};
 const DogCard = (props) => {
   const image = props.image || './oliver.jpg';
   const orientation = props.orientation || 'landscape';
-  const text = props.text || 'Oliver | 3 Mths | Labrador Retriever';
-  const favorable = props.favorite? true: true;
+  const text = props.text || '3 Mths | Labrador Retriever || 8 miles';
+  const type = props.type || 'star';
+  const name = props.name || 'Oliver';
   const [ activeIcon, setActiveIcon ] = useState(false);
-
 
   const handleClick = (event) => {
     setActiveIcon(!activeIcon);
@@ -27,10 +29,36 @@ const DogCard = (props) => {
 
   const getIcon = () => {
     let icon = <div />
-    if (favorable) {
-      icon = activeIcon ? <FullHeart /> : <EmptyHeart />;
+    switch (type.toLowerCase()) {
+      case 'heart': icon = activeIcon ? <FullHeart sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/> : <EmptyHeart sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/>;
+        break;
+      case 'star' :icon = activeIcon ? <FullStar sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/> : <EmptyStar sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/>;
+        break;
+      default:
+        break;
     }
     return ( icon );
+  }
+
+  const getText =() => {
+    const nameElement = <Typography color="text.secondary" align='center'> {name} </Typography> ;
+    const textElement = <Typography color="text.secondary" align='center'>{text}</Typography> ;
+    let fullElement;
+    if (orientation === 'portrait') {
+      fullElement = (
+        <div>
+          {nameElement}
+          {textElement}
+        </div>
+      )
+    } else {
+      fullElement = (
+        <div>
+          {nameElement}
+        </div>
+      )
+    }
+    return(fullElement)
   }
 
   return (
@@ -47,8 +75,15 @@ const DogCard = (props) => {
           width: width[orientation]
         }}
       >
-        <CardActions onClick={handleClick} style={{ float: 'right'}}>
-          <Button size="small"> { getIcon() } </Button>
+        <CardActions
+          onClick={handleClick}
+          style={{ float: 'right'}}
+          sx={{
+            padding: '2px',
+            // width: 50
+          }}
+        >
+          { getIcon() }
         </CardActions>
       </div>
       <CardMedia
@@ -61,15 +96,20 @@ const DogCard = (props) => {
           backgroundColor: 'linen'
         }}
       />
-      <CardContent>
-        <Typography variant="subtitle2" color="text.secondary" textAlign='center'
-        component="h2"
-        sx={{ padding: '0px',
-
-        }}
+      <CardContent
+      sx={{
+        padding: '5px',
+      }}
+      >
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          height={height[orientation] - 150}
         >
-          {text}
-        </Typography>
+          {getText()}
+        </Grid>
       </CardContent>
     </Card>
   );
