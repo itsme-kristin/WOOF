@@ -7,7 +7,7 @@ import ResearchPage from './components/researchPage.jsx';
 import AnimalPage from './components/animalPage.jsx';
 import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import DogCard from './components/card/card.jsx';
+import DogCard from './components/card/dogCard.jsx';
 
 
 const App = () => {
@@ -28,3 +28,5 @@ const App = () => {
 };
 
 export default App;
+
+

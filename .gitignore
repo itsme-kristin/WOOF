@@ -4,3 +4,5 @@ client/dist/bundle.js
 
 # Configuration
 config.js
+
+.DS_Store
