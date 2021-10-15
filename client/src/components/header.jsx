@@ -12,11 +12,12 @@ const Header = () => {
         <Link to='/research'>
           <li>Research Breeds</li>
         </Link>
-        <Link to='/user'>
-          <li>User</li>
+        <Link to='/search'>
+          <li>Search for pets</li>
         </Link>
-        {/* <Link>
-        </Link> */}
+        <Link to='/user'>
+          <li>My Profile</li>
+        </Link>
       </ul>
     </nav>
   )
