@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from './components/header.jsx';
+import Footer from './components/footer.jsx';
+import HomePage from './components/homePage.jsx';
 import UserPage from './components/userPage.jsx';
 import ResearchPage from './components/researchPage.jsx';
 import AnimalPage from './components/animalPage.jsx';
@@ -11,12 +13,16 @@ import DogCard from './components/card/card.jsx';
 const App = () => {
   return (
     <Router>
-      <h1 className="app">
+      <div className="app">
         <Header />
-        <Route path='/user' component={UserPage}/>
-        {/* <Route path='/research' component={ResearchPage}/>
-        <Route path='/animal' component={AnimalPage}/> */}
-      </h1>
+        <Switch>
+          <Route path='/' exact component={HomePage}/>
+          <Route path='/user' exact component={UserPage}/>
+          <Route path='/research' exact component={ResearchPage}/>
+          <Route path='/animal' component={AnimalPage}/>
+        </Switch>
+        <Footer />
+      </div>
     </Router>
   )
 };
