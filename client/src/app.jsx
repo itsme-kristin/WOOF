@@ -10,12 +10,6 @@ import DogCard from './components/card/card.jsx';
 
 const App = () => {
   return (
-<<<<<<< HEAD
-    // <h1 className="app">
-    //   Hello World!
-    // </h1>
-    <DogCard />
-=======
     <Router>
       <h1 className="app">
         <Header />
@@ -24,8 +18,9 @@ const App = () => {
         <Route path='/dogProfile' />
       </h1>
     </Router>
->>>>>>> main
   )
 };
 
 export default App;
+
+
