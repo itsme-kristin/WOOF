@@ -1,4 +1,3 @@
-// import { Breed } from "./index.js";
 const { Breed } = require("./index.js");
 const { Description } = require("./index.js");
 
