@@ -28,23 +28,6 @@ const icon = {
 const Header = () => {
   return (
     <nav>
-<<<<<<< HEAD
-      <h1>Logo</h1>
-      <ul>
-        <Link to='/'>
-          <li>Home</li>
-        </Link>
-        <Link to='/research'>
-          <li>Research Breeds</li>
-        </Link>
-        <Link to='/search'>
-          <li>Search for pets</li>
-        </Link>
-        <Link to='/user'>
-          <li>My Profile</li>
-        </Link>
-      </ul>
-=======
         <Grid container spacing={1} alignItems="center" className="header">
           <Grid item xs={1} class="logo">
             <PetsIcon sx={logo}/>
@@ -76,7 +59,6 @@ const Header = () => {
               </Button>
           </Grid>
         </Grid>
->>>>>>> main
     </nav>
   )
 }
