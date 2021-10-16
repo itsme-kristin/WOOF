@@ -70,7 +70,7 @@ const updateUser = (name, updateObj) => {
       email: updateObj.email,
       password: updateObj.password
     }
-    User.findOneAndUpdate({'name': name}, update)
+    User.updateOne({'name': name}, update)
     .then(result => {
       console.log('User updated.');
     })
@@ -79,4 +79,3 @@ const updateUser = (name, updateObj) => {
     console.info('There was an error updating the user.');
   })
 }
-
