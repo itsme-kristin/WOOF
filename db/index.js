@@ -63,4 +63,10 @@ const Breed = mongoose.model("Breed", breedSchema);
 
 const Description = mongoose.model("Description", breedDescriptionSchema);
 
-module.exports = { User, Breed, Description };
+
+module.exports = {
+  User,
+  Breed,
+  Description
+}
+
