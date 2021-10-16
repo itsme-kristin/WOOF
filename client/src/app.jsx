@@ -10,12 +10,8 @@ import ResearchPage from './components/researchPage.jsx';
 import AnimalPage from './components/animalPage.jsx';
 import DogCard from './components/card/dogCard.jsx';
 
-<<<<<<< HEAD
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Container from '@mui/material/Container';
-=======
-import { Container } from '@mui/material';
->>>>>>> main
 
 
 const App = () => {
