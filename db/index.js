@@ -1,52 +1,64 @@
-const mongoose = require ('mongoose');
-const config = require ('../config.js');
+const mongoose = require("mongoose");
+const config = require("../config.js");
 
-mongoose.connect(config.mongoURI)
+mongoose
+  .connect(config.mongoURI)
   .then(() => {
-    console.log('Database connected.');
-  }
-  ).catch((err) => {
-    console.log('Not connected');
+    console.log("Database connected.");
+  })
+  .catch((err) => {
+    console.log("Not connected");
   });
 
-  const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-    savedDogs: Object,
-  })
+const userSchema = new mongoose.Schema({
+  name: String,
+  street_address: String,
+  city: String,
+  state: String,
+  zip: String,
+  lat: String,
+  lng: String,
+  email: String,
+  password: String,
+  savedDogs: Object,
+});
 
-  const breedSchema = new mongoose.Schema({
-    bred_for: String,
-    breed_group: String,
-    country_code: {
-      type: String,
-      default: ''
-    },
-    height: {
-      imperial: String,
-      metric: String
-    },
-    id: Number,
-    image: {
-      height: Number,
-      id: String,
-      url: String,
-      width: Number,
-    },
-    life_span: String,
-    name: String,
-    origin: String,
-    reference_image_id: String,
-    temperament: String,
-    weight: {
-      imperial: String,
-      metric: String
-    }
+const breedSchema = new mongoose.Schema({
+  bred_for: String,
+  breed_group: String,
+  country_code: {
+    type: String,
+    default: "",
+  },
+  height: {
+    imperial: String,
+    metric: String,
+  },
+  id: Number,
+  image: {
+    height: Number,
+    id: String,
+    url: String,
+    width: Number,
+  },
+  life_span: String,
+  name: String,
+  origin: String,
+  reference_image_id: String,
+  temperament: String,
+  weight: {
+    imperial: String,
+    metric: String,
+  },
+});
 
-  })
+const breedDescriptionSchema = new mongoose.Schema({
+  breedName: String,
+  description: String,
+});
 
-  const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
-  const Breed = mongoose.model('Breed', breedSchema);
+const Breed = mongoose.model("Breed", breedSchema);
 
+const Description = mongoose.model("Description", breedDescriptionSchema);
