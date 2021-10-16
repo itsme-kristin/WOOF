@@ -5,6 +5,7 @@ import {
   CardContent,
   Grid,
   Typography } from '@mui/material';
+import OrganizationCard from './card/organizationCard.jsx';
 
 const BreedPage = (props) => {
   const { breed } = props;
