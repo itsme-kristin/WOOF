@@ -1,18 +1,28 @@
 import React from 'react';
 
 import {
-  Box,
+  Button,
   Typography,
   Grid,
 } from '@mui/material';
 import PetsIcon from '@mui/icons-material/Pets';
+import PersonIcon from '@mui/icons-material/Person';
+import RoomServiceIcon from '@mui/icons-material/RoomService';
 
 const logo = {
   fontSize: '55px',
   color: 'white',
   transform: 'rotate(-30deg)',
   paddingLeft: '2px',
-}
+};
+
+const icon = {
+  fontSize: '12px',
+  color: '#22333B',
+  backgroundColor: '#EAE0D5',
+  borderRadius: '10px',
+  padding: '2px',
+};
 
 const Header = () => {
   return (
@@ -27,12 +37,25 @@ const Header = () => {
             </Typography>
           </Grid>
           <Grid item xs={3} className="nav">
-            <ul>
-              <li>Services</li>
-              <li>Breeds</li>
-              {/* Conditional Rendering */}
-              <li>Login</li>
-            </ul>
+            <Button
+            variant="text"
+            color='inherit'
+            startIcon={<RoomServiceIcon sx={icon}/>}>
+              Services
+            </Button>
+            <Button
+            variant="text"
+            color='inherit'
+            startIcon={<PetsIcon sx={icon}/>}>
+              Breeds
+            </Button>
+            <Button
+              variant="text"
+              color='inherit'
+              startIcon={<PersonIcon sx={icon}/>}>
+                {/* Conditional Value */}
+                Login
+              </Button>
           </Grid>
         </Grid>
     </nav>

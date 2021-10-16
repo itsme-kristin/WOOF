@@ -10,7 +10,7 @@ body{
 }
 
 .header {
-  background-color: #22333B;
+  background-color: #0A0908;
   color: white;
 }
 
@@ -31,9 +31,5 @@ body{
 
 .nav {
   text-align: right;
-}
-
-.nav li {
-  display: inline;
-  padding: 10px;
+  color: #EAE0D5;
 }
