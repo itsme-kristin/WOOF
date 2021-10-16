@@ -47,13 +47,13 @@ const BreedPage = (props) => {
         </Grid>
         <Grid item xs={8} sx={{height:"100%"}}>
           {/* map over the organizations array and populate this section with organizationCards */}
-          <Card>card1</Card>
-          <Card>card2</Card>
-          <Card>card3</Card>
+          <OrganizationCard />
+          <OrganizationCard />
+          <OrganizationCard />
         </Grid>
         <Grid height="315" width="315" item xs={4} sx={{height:"100%"}}>
           {/* Google Maps API integration, maps placeholder for now */}
-          <img></img>
+          <img src="https://tinyimg.io/i/rir4bHt.png"></img>
         </Grid>
       </Grid>
     </Box>
