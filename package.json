@@ -20,6 +20,7 @@
   "homepage": "https://github.com/hratx-blue-ocean/WOOF#readme",
   "dependencies": {
     "@mui/material": "^5.0.4",
+    "axios": "^0.23.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.4.0",
     "express": "^4.17.1",
