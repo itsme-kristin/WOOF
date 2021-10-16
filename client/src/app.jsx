@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 
 const App = () => {
   return (
+    <>
     <Router>
 <<<<<<< HEAD
       <Header />
@@ -38,6 +39,7 @@ const App = () => {
       </div>
 >>>>>>> main
     </Router>
+    </>
   )
 };
 
