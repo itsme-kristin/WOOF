@@ -62,32 +62,14 @@ app.get('/animal', function (req, res) {
 });
 
 app.get('/adopt', (req, res) => {
-  if (
-    !pf.tokenInfo.expiration ||
-    pf.tokenInfo.expiration - new Date().getTime() < 1
-  ) {
-    pf.getAuthToken().then(() => {
-      axios
-        .get('https://api.petfinder.com/v2/animals', {
-          headers: {
-            Authorization: `${pf.tokenInfo.tokenType} ${pf.tokenInfo.token}`
-          }
-        })
-        .then(({ data }) => {
-          res.send(data);
-        });
+  pf.getDogs()
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log('Error retrieving available dogs');
+      res.sendStatus(400);
     });
-  } else {
-    axios
-      .get('https://api.petfinder.com/v2/animals', {
-        headers: {
-          Authorization: `${pf.tokenInfo.tokenType} ${pf.tokenInfo.token}`
-        }
-      })
-      .then(({ data }) => {
-        res.send(data);
-      });
-  }
 });
 
 module.exports = app;
