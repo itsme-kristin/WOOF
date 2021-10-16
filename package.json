@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/hratx-blue-ocean/WOOF#readme",
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "axios": "^0.23.0",
     "babel-loader": "^8.2.2",

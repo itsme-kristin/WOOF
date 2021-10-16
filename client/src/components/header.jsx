@@ -1,8 +1,15 @@
 import React from 'react';
 
-const User = () => {
-
+const Header = () => {
+  return (
+    <nav>
+      <h1>Logo</h1>
+      <ul>
+        <li>Research Breeds</li>
+      </ul>
+    </nav>
+  )
 }
 
 
-export default User;
+export default Header;

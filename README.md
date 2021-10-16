@@ -12,10 +12,10 @@ git clone https://github.com/hratx-blue-ocean/WOOF.git
 ```
 npm install
 ```
-3. Create a `config.js` file in the `server` directory:
+3. Create a `config.js` file in the root directory:
 ```
 module.exports = {
-  // list your personal data objects here
+  mongoURI: <<Your Mongo DB link>>,
 };
 ```
 * Note, this file is ignored in .gitignore but can be used for any API(s) that require authentication.
