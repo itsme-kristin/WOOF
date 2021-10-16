@@ -7,16 +7,21 @@ import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import DogCard from './components/card/dogCard.jsx';
 
+import { Container } from '@mui/material';
+
 
 const App = () => {
   return (
     <>
     <Router>
-      <div className="app">
+      <div class="app">
         <Header />
+        <Container maxWidth="lg">
         <Route path='/user'/>
         <Route path='/research'/>
         <Route path='/dogProfile' />
+        </Container>
+        {/* <Footer /> */}
       </div>
     </Router>
     </>
