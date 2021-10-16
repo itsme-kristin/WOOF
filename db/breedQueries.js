@@ -7,7 +7,6 @@ const getDogBreedByValue = (property, value) => {
     if (errorFilteringDogs) {
       return errorFilteringDogs;
     } else {
-      console.log(filteredDogBreed);
       return filteredDogBreed;
     }
   });
@@ -16,8 +15,8 @@ const getDogBreedByValue = (property, value) => {
 // getDogBreedByValue("breed_group", "Toy");
 // getDogBreedByValue("bred_for", "Companion");
 
-const getDogInformationByName = (breedName) => {
-  let dogBreedToLowerCase = breedName.toLowerCase();
+const getDogInformationByName = (dogBreedName) => {
+  let dogBreedToLowerCase = dogBreedName.toLowerCase();
   Promise.all([
     Breed.find({ name: breedName }),
     Description.find({ breedName: dogBreedToLowerCase }),
