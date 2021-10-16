@@ -11,7 +11,7 @@ const SideBar = () => {
   return (
     <Grid container spacing={2} direction='column'>
       <Grid item id='userInfo' sm={2}>
-        <Typography variant='h3'>Sidebar</Typography>
+        <Typography variant='h3'>SideBar</Typography>
         <Typography>contact info</Typography>
         <Typography>address</Typography>
         <Typography>email</Typography>
