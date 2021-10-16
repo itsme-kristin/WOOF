@@ -12,14 +12,14 @@ import FullStar from '@mui/icons-material/Star';
 import Grid from '@mui/material/Grid';
 // import Circle from '@mui/icons-material/Circle';
 
-const height = {landscape: 200, portrait: 250};
-const width = {landscape: 250, portrait: 200};
+const height = {landscape: 200, portrait: 252};
+const width = {landscape: 252, portrait: 200};
 
 const DogCard = (props) => {
   const image = props.image || './oliver.jpg';
-  const orientation = props.orientation || 'landscape';
+  const orientation = props.orientation || 'portrait';
   const text = props.text || '3 Mths | Labrador Retriever || 8 miles';
-  const type = props.type || 'star';
+  const type = props.type || 'none';
   const name = props.name || 'Oliver';
   const [ activeIcon, setActiveIcon ] = useState(false);
 
@@ -30,9 +30,19 @@ const DogCard = (props) => {
   const getIcon = () => {
     let icon = <div />
     switch (type.toLowerCase()) {
-      case 'heart': icon = activeIcon ? <FullHeart sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/> : <EmptyHeart sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/>;
+      case 'heart':
+        if (activeIcon){
+          icon = <FullHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+        } else {
+          icon = <EmptyHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+        }
         break;
-      case 'star' :icon = activeIcon ? <FullStar sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/> : <EmptyStar sx={{color:'error.light', padding: .1, backgroundColor: 'white', borderRadius: '100%'}}/>;
+      case 'star' :
+        if (activeIcon){
+          icon = <FullStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+        }  else {
+          icon = <EmptyStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+        }
         break;
       default:
         break;
@@ -44,17 +54,17 @@ const DogCard = (props) => {
     const nameElement = <Typography color="text.secondary" align='center'> {name} </Typography> ;
     const textElement = <Typography color="text.secondary" align='center'>{text}</Typography> ;
     let fullElement;
-    if (orientation === 'portrait') {
+    if (orientation === 'landscape') {
       fullElement = (
         <div>
           {nameElement}
-          {textElement}
         </div>
       )
     } else {
       fullElement = (
         <div>
           {nameElement}
+          {textElement}
         </div>
       )
     }
@@ -79,8 +89,7 @@ const DogCard = (props) => {
           onClick={handleClick}
           style={{ float: 'right'}}
           sx={{
-            padding: '2px',
-            // width: 50
+            padding: '5px',
           }}
         >
           { getIcon() }
@@ -98,7 +107,8 @@ const DogCard = (props) => {
       />
       <CardContent
       sx={{
-        padding: '5px',
+        px: '4px',
+        py: '0px'
       }}
       >
         <Grid
@@ -114,6 +124,5 @@ const DogCard = (props) => {
     </Card>
   );
 }
-
 
 export default DogCard;
