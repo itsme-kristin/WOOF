@@ -17,8 +17,8 @@ import Container from '@mui/material/Container';
 const App = () => {
   return (
     <Router>
+      <Header />
       <Container id='appContainer'>
-        <Header />
         <Switch>
           <Route path='/' exact component={HomePage}/>
           <Route path='/user' exact component={UserPage}/>
@@ -26,8 +26,8 @@ const App = () => {
           <Route path='/animal' component={AnimalPage}/>
           <Route path='/search' component={SearchForPets}/>
         </Switch>
-        <Footer />
       </Container>
+      <Footer />
     </Router>
   )
 };

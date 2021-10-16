@@ -2,17 +2,22 @@ import React from 'react';
 
 import UserMenu from './userMenu.jsx';
 
+import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
 const SideBar = () => {
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-      <h1>Sidebar</h1>
-      {/* <UserMenu /> */}
+    <Grid container spacing={2} direction='column'>
+      <Grid item id='userInfo' sm={2}>
+        <Typography variant='h3'>Sidebar</Typography>
+        <Typography>contact info</Typography>
+        <Typography>address</Typography>
+        <Typography>email</Typography>
+        <UserMenu />
       </Grid>
-    </Box>
+    </Grid>
   )
 }
 

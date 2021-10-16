@@ -6,7 +6,9 @@ const FavoriteBreeds = () => {
   return (
     <div>
       {/* map the dataset of dogs */}
-      <DogCard orientation='portrait' />
+      <ul>
+        <DogCard orientation='portrait' />
+      </ul>
     </div>
   )
 }
