@@ -34,21 +34,49 @@ const addUser = ({
     });
   })
     .catch(err => {
-      console.info('There was an error getting coordinates');
+      console.info('There was an error adding a user.');
     })
   }
 
+const getUser = ({name: name}) => {
+  let targetUser = User.findOne({ name: name }, (err, user) => {
+    if (err) {
+      console.error(err);
+    } else {
+      return user;
+    }
+  })
+}
 
-
-
-addUser({
-  name: 'Kristin',
-  street_address: '1901 Ashberry Trl',
-  city: 'Georgetown',
-  state: 'TX',
-  zip: '78626',
-  email: 'coconutwater.com',
-  password: 'wouldntyouliketoknow'
-});
-
+const updateUser = (name, updateObj) => {
+  let latitudeStr = '';
+  let longitudeStr = '';
+  const pieces = updateObj.street_address.split(' ');
+  const specialJoin = pieces.join('%');
+  axios.get(`https://api.myptv.com/geocoding/v1/locations/by-text?searchText=${specialJoin}%${updateObj.city}%${updateObj.state}%${updateObj.zip}&apiKey=${iptv}`)
+  .then(({ data }) => {
+    console.log(data.locations);
+    const latitudeInt = data.locations[0].referencePosition.latitude;
+    latitudeStr = latitudeInt.toString();
+    const longitudeInt = data.locations[0].referencePosition.longitude;
+    longitudeStr = longitudeInt.toString();
+    let update = {
+      street_address: updateObj.street_address,
+      city: updateObj.city,
+      state: updateObj.state,
+      zip: updateObj.zip,
+      lat: latitudeStr,
+      lng: longitudeStr,
+      email: updateObj.email,
+      password: updateObj.password
+    }
+    User.findOneAndUpdate({'name': name}, update)
+    .then(result => {
+      console.log('User updated.');
+    })
+  })
+  .catch(err => {
+    console.info('There was an error updating the user.');
+  })
+}
 
