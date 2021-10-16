@@ -83,6 +83,6 @@ const Header = () => {
     </nav>
   )
 }
-
+//check out material ui's avatar component mixed with the menu component
 
 export default Header;
