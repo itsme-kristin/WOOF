@@ -1,4 +1,4 @@
-const { db, User } = require ('./index.js');
+const { User } = require ('./index.js');
 const { iptv } = require ('../config.js');
 const axios = require('axios');
 
@@ -39,5 +39,16 @@ const addUser = ({
   }
 
 
+
+
+addUser({
+  name: 'Kristin',
+  street_address: '1901 Ashberry Trl',
+  city: 'Georgetown',
+  state: 'TX',
+  zip: '78626',
+  email: 'coconutwater.com',
+  password: 'wouldntyouliketoknow'
+});
 
 
