@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("../config.js");
 
-mongoose
+const db = mongoose
   .connect(config.mongoURI)
   .then(() => {
     console.log("Database connected.");
@@ -62,3 +62,10 @@ const User = mongoose.model("User", userSchema);
 const Breed = mongoose.model("Breed", breedSchema);
 
 const Description = mongoose.model("Description", breedDescriptionSchema);
+
+module.exports = {
+  db,
+  User,
+  Breed,
+  Description
+}
