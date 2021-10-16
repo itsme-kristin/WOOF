@@ -18,7 +18,6 @@ const App = () => {
   return (
     <>
     <Router>
-<<<<<<< HEAD
       <Header />
       <Container id='appContainer'>
         <Switch>
@@ -30,14 +29,6 @@ const App = () => {
         </Switch>
       </Container>
       <Footer />
-=======
-      <div className="app">
-        <Header />
-        <Route path='/user'/>
-        <Route path='/research'/>
-        <Route path='/dogProfile' />
-      </div>
->>>>>>> main
     </Router>
     </>
   )
