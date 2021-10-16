@@ -21,12 +21,12 @@ const Header = () => {
           <Grid item xs={1} class="logo">
             <PetsIcon sx={logo}/>
           </Grid>
-          <Grid item xs={6} alignSelf="flex-end">
+          <Grid item xs={8} alignSelf="flex-end">
             <Typography class="title">
               Woof
             </Typography>
           </Grid>
-          <Grid item xs={4} className="nav">
+          <Grid item xs={3} className="nav">
             <ul>
               <li>Services</li>
               <li>Breeds</li>

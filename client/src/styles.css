@@ -28,3 +28,12 @@ body{
   font-size: 64px;
   margin: 0 10px;
 }
+
+.nav {
+  text-align: right;
+}
+
+.nav li {
+  display: inline;
+  padding: 10px;
+}
