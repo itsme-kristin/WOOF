@@ -72,3 +72,9 @@ const updateUser = (name, { street_address, city, state, zip, email, password })
       console.info('There was an error adding a user.');
     });
 }
+
+module.exports = {
+  addUser,
+  getUser,
+  updateUser
+}
