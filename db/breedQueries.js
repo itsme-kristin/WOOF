@@ -12,10 +12,7 @@ const getDogBreedByValue = (property, value) => {
   });
 };
 
-// getDogBreedByValue("breed_group", "Toy");
-// getDogBreedByValue("bred_for", "Companion");
-
-const getDogInformationByName = (dogBreedName) => {
+const getDogBreedInformationByName = (dogBreedName) => {
   let dogBreedToLowerCase = dogBreedName.toLowerCase();
   Promise.all([
     Breed.find({ name: breedName }),
@@ -31,4 +28,39 @@ const getDogInformationByName = (dogBreedName) => {
     });
 };
 
-// getDogInformationByName("Irish Terrier");
+const sortDogBreedBySize = (size) => {
+  Breed.find({}, (err, result) => {
+    //breedName
+    if (err) {
+      console.log("err");
+    } else {
+      result.forEach((dog) => {
+        const dogWeightRangeInString = dog.weight.imperial.split("-");
+        const dogWeightRangeToNums = dogWeightRangeInString.map((stringNum) => {
+          return parseInt(stringNum);
+        });
+        const avgWeight =
+          (dogWeightRangeToNums[0] + dogWeightRangeToNums[1]) / 2;
+        let dogSize;
+        if (!avgWeight || avgWeight <= 22) {
+          dogSize = "small";
+        } else if (avgWeight > 23 && avgWeight <= 54) {
+          dogSize = "medium";
+        } else {
+          dogSize = "large";
+        }
+        // console.log(dog.name, dogSize);
+
+        const filter = { name: dog.name };
+        const update = { weight: dogSize };
+
+        Breed.findOneAndUpdate(filter, update, {
+          new: true,
+        }).then((result) => {
+          console.log(result);
+        });
+      });
+    }
+  });
+};
+// sortDogBreedBySize();
