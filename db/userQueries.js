@@ -31,9 +31,9 @@ const addUser = ({
   email,
   password,
 }) => {
-  getCoordinates({ street_address, city, state, zip })
+  return getCoordinates({ street_address, city, state, zip })
     .then(({ latitudeStr, longitudeStr }) => {
-      User.create({
+      return User.create({
         name: name,
         street_address: street_address,
         city: city,
@@ -50,33 +50,34 @@ const addUser = ({
     });
 };
 
-const getUser = ({ email }) => {
-  let targetUser = User.findOne({ email }, (err, user) => {
-    if (err) {
-      console.error(err);
-    } else {
+const getUser = (email) => {
+  return User.findOne({ email })
+    .then((user) => {
       return user;
-    }
-  });
+    })
+    .catch((err) => {
+      console.log("Couldn't find user");
+      return err;
+    });
 };
 
 const updateUser = (
-  name,
-  { street_address, city, state, zip, email, password }
+  email,
+  { name, street_address, city, state, zip, password }
 ) => {
-  getCoordinates({ street_address, city, state, zip })
+  return getCoordinates({ street_address, city, state, zip })
     .then(({ latitudeStr, longitudeStr }) => {
       let update = {
+        name: name,
         street_address: street_address,
         city: city,
         state: state,
         zip: zip,
         lat: latitudeStr,
         lng: longitudeStr,
-        email: email,
         password: password,
       };
-      User.updateOne({ name: name }, update)
+      return User.updateOne({ email: email }, update)
         .then((result) => {
           console.info("User updated.");
         })
