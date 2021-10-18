@@ -3,20 +3,28 @@
 body{
   padding: 0;
   margin: 0;
+  background-color: #EAE0D5;
 }
 
 #appContainer {
   font-family: 'Montserrat', sans-serif;
+  background-color: white;
 }
 
 .header {
   background-color: #0A0908;
   color: white;
+  max-height: 100px;
 }
 
 .header a {
   color: inherit;
   text-decoration: inherit;
+}
+
+.logo {
+  padding: 0;
+  margin: 0;
 }
 
 .nav {
