@@ -9,8 +9,8 @@ body{
 #appContainer {
   font-family: 'Montserrat', sans-serif;
   background-color: white;
-  overflow: auto;
   min-height: 87.4vh;
+  overflow: auto;
 }
 
 .header {
@@ -23,6 +23,7 @@ body{
   background-color: #0A0908;
   color: #EAE0D5;
   max-height: 50px;
+  margin-top: 0;
 }
 
 .header a, .footer a {
@@ -38,11 +39,6 @@ body{
 .nav {
   text-align: right;
   color: #EAE0D5;
-}
-
-.homeSearch {
-  border: 1 dotted grey;
-  max-width: 50vw;
 }
 
 .debug {
