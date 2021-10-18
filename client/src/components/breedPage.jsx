@@ -5,7 +5,7 @@ import {
   CardContent,
   Grid,
   Typography } from '@mui/material';
-import OrganizationCard from './card/organizationCard.jsx';
+  import OrganizationCard from './card/organizationCard.jsx';
 
 const BreedPage = (props) => {
   const { breed } = props;
@@ -19,7 +19,7 @@ const BreedPage = (props) => {
 
   useEffect(() => {
     getBreedInfo
-  }, [breed])
+  }, [breedInfo])
 
   return (
     <Box sx={{width: 1100, backgroundColor: 'primary.dark'}}>
@@ -34,7 +34,7 @@ const BreedPage = (props) => {
          </Card>
         </Grid>
         <Grid item xs={2}>
-          <Card sx={{height:"100%"}}>
+          <Card sx={{height:"100%", backgroundColor:'#C6AC8F'}}>
             <CardContent>
               A list of temperament traits
               <ul>
@@ -57,7 +57,6 @@ const BreedPage = (props) => {
         </Grid>
       </Grid>
     </Box>
-
   );
 
 }
