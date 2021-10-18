@@ -118,7 +118,7 @@ app.get("/breed-name", (req, res) => {
     });
 });
 
-//'/breed-details?filter=property&value=value'
+//'/breed-details?property=property&value=value'
 app.get("/breed-details", (req, res) => {
   let property = req.query.property;
   let value = req.query.value;
