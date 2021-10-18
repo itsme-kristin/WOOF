@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DogCard from './card/dogCard.jsx';
 
 import {
@@ -12,8 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 const searchBar = () => {
 
   const homeSearch = {
-    border: '1 dotted grey',
-    marginTop: '40px',
+    marginTop: '20px',
   }
 
   const dogButton = {
@@ -67,7 +67,7 @@ const researchBreeds = () => {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    marginTop: '20px',
+    marginTop: '10px',
     marginBottom: '20px',
   },
 
@@ -90,9 +90,11 @@ const researchBreeds = () => {
           </Typography>
         </Grid>
         <Grid item >
-          <Button variant="contained" size="large" sx={style.button}>
-            Get Started
-          </Button>
+          <Link to='/research'>
+            <Button variant="contained" size="large" sx={style.button}>
+              Get Started
+            </Button>
+          </Link>
         </Grid>
       </Grid>
     </Grid>
