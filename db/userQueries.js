@@ -43,6 +43,7 @@ const addUser = ({
         lng: longitudeStr,
         email: email,
         password: password,
+        savedDogs: []
       });
     })
     .catch((err) => {
@@ -88,8 +89,30 @@ const updateUser = (
     });
 };
 
+const addSavedDog = (email, id) => {
+  return User.updateOne({ email: email }, {'$push': {savedDogs: id}})
+    .then(user => {
+      console.info('Dog saved');
+    })
+    .catch(err => {
+      console.info('There was an error adding the dog.');
+    })
+}
+
+const deleteSavedDog = (email, id) => {
+  return User.updateOne({ email: email }, {'$pull': { savedDogs: id}})
+  .then(user => {
+    console.info('Dog removed');
+  })
+  .catch(err => {
+    console.info('There was an error removing the dog.')
+  })
+}
+
 module.exports = {
   addUser,
   getUser,
   updateUser,
-};
+  addSavedDog,
+  deleteSavedDog
+}

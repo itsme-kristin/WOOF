@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   lng: String,
   email: String,
   password: String,
-  savedDogs: Object,
+  savedDogs: Array,
 });
 
 const breedSchema = new mongoose.Schema({
