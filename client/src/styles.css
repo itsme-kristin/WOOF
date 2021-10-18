@@ -9,6 +9,7 @@ body{
 #appContainer {
   font-family: 'Montserrat', sans-serif;
   background-color: white;
+  overflow: auto;
   min-height: 87.4vh;
 }
 
