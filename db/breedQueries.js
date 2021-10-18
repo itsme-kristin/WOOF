@@ -3,19 +3,19 @@ const { Description } = require("./index.js");
 
 const getDogBreedByValue = (property, value) => {
   const queryObj = { property: value };
-  Breed.find(queryObj, (errorFilteringDogs, filteredDogBreed) => {
-    if (errorFilteringDogs) {
-      return errorFilteringDogs;
-    } else {
+  return Breed.find(queryObj)
+    .then((filteredDogBreed) => {
       return filteredDogBreed;
-    }
-  });
+    })
+    .catch((errorFilteringDogs) => {
+      return errorFilteringDogs;
+    });
 };
 
 const getDogBreedInformationByName = (dogBreedName) => {
   let dogBreedToLowerCase = dogBreedName.toLowerCase();
-  Promise.all([
-    Breed.find({ name: breedName }),
+  return Promise.all([
+    Breed.find({ name: dogBreedName }),
     Description.find({ breedName: dogBreedToLowerCase }),
   ])
     .then((dogObject) => {
@@ -26,4 +26,9 @@ const getDogBreedInformationByName = (dogBreedName) => {
     .catch((errorGettingDogInformation) => {
       return errorGettingDogInformation;
     });
+};
+
+module.exports = {
+  getDogBreedByValue,
+  getDogBreedInformationByName,
 };
