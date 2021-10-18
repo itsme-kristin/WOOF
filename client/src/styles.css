@@ -40,5 +40,14 @@ body{
   color: #EAE0D5;
 }
 
+.homeSearch {
+  border: 1 dotted grey;
+  max-width: 50vw;
+}
+
+.debug {
+  border: 1 dotted grey;
+}
+
 
 
