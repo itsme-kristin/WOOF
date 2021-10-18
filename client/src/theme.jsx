@@ -5,10 +5,14 @@ const theme = createTheme({
     fontFamily: '"Montserrat", Open Sans'
   },
 
-  palette: {
-    primary: {
-      main: "#22333B"
-    }
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          backgroundColor: '#22333B',
+        },
+      },
+    },
   }
 });
 
