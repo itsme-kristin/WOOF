@@ -37,7 +37,7 @@ const icon = {
 
 const Header = () => {
   return (
-    <nav>
+    < >
         <Grid container spacing={1} alignItems="center" className="header">
           <Grid item xs={1} className="logo">
             <Link to ='/'>
@@ -85,7 +85,7 @@ const Header = () => {
               </Link>
           </Grid>
         </Grid>
-    </nav>
+    </>
   )
 }
 //check out material ui's avatar component mixed with the menu component
