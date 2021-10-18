@@ -3,15 +3,18 @@
 body{
   padding: 0;
   margin: 0;
+  background-color: #EAE0D5;
 }
 
-.app {
+#appContainer {
   font-family: 'Montserrat', sans-serif;
+  background-color: white;
 }
 
 .header {
   background-color: #0A0908;
   color: white;
+  max-height: 100px;
 }
 
 .header a {
@@ -19,10 +22,9 @@ body{
   text-decoration: inherit;
 }
 
-.title {
-  font-family: 'Alex Brush', cursive;
-  font-size: 64px;
-  margin: 0 10px;
+.logo {
+  padding: 0;
+  margin: 0;
 }
 
 .nav {

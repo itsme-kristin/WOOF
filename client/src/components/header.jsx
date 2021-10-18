@@ -17,10 +17,15 @@ const logo = {
   color: 'white',
   transform: 'rotate(-30deg)',
   borderRadius: '50px',
-  margin: '5px 0 0 5px',
+  marginLeft: '5px',
   padding: '5px',
   border: '5px solid white',
 };
+
+const title = {
+  fontFamily: '"Alex Brush", cursive',
+  fontSize: '60px',
+}
 
 const icon = {
   fontSize: '12px',
@@ -34,14 +39,14 @@ const Header = () => {
   return (
     <nav>
         <Grid container spacing={1} alignItems="center" className="header">
-          <Grid item xs={1}>
+          <Grid item xs={1} className="logo">
             <Link to ='/'>
               <PetsIcon sx={logo}/>
             </Link>
           </Grid>
           <Grid item xs={7} alignSelf="flex-end">
             <Link to ='/'>
-              <Typography class="title">
+              <Typography sx={title}>
                 Woof
               </Typography>
             </Link>
