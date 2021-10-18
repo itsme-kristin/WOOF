@@ -30,6 +30,23 @@ const searchBar = () => {
   );
 }
 
+const listTop5 = () => {
+  // axios call to pull top 5 in location and then list from data
+  const fakelist = [];
+  for (var i = 0; i < 5; i++) {
+    fakelist.push(
+      <Grid item key={i}>
+        <DogCard />
+      </Grid>
+    );
+  }
+  return (
+    <Grid container justifyContent="center" spacing={3}>
+      {fakelist}
+    </Grid>
+  );
+}
+
 const HomePage = () => {
   return (
     < >
