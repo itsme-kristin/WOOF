@@ -81,6 +81,7 @@ const DogCard = (props) => {
       >
       <div
         style={{
+          // TODO: this absolute position is not allowing scroll
           position: 'absolute',
           width: width[orientation]
         }}
