@@ -17,7 +17,7 @@ const logo = {
   color: '#EAE0D5',
   transform: 'rotate(-30deg)',
   borderRadius: '50px',
-  marginLeft: '5px',
+  margin: '5px 5px 0 5px',
   padding: '5px',
   border: '5px solid #EAE0D5',
 };
@@ -39,50 +39,64 @@ const Header = () => {
   return (
     < >
         <Grid container alignItems="center" className="header">
-          <Grid item xs={1} className="logo">
-            <Link to ='/'>
-              <PetsIcon sx={logo}/>
-            </Link>
+          <Grid item xs={3} sx={{minWidth: '220px'}}>
+            <Grid container>
+              <Grid item>
+                <Link to ='/'>
+                  <PetsIcon sx={logo}/>
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to ='/'>
+                  <Typography sx={title}>
+                    Woof
+                  </Typography>
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={2} alignSelf="flex-end">
-            <Link to ='/'>
-              <Typography sx={title}>
-                Woof
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item xs={9} className="nav">
-            <Link to ='/search'>
-              <Button
-              variant="text"
-              color='inherit'
-              startIcon={<FavoriteIcon sx={icon}/>}>
-                Adopt
-              </Button>
-            </Link>
-              <Button
-              variant="text"
-              color='inherit'
-              startIcon={<RoomServiceIcon sx={icon}/>}>
-                Services
-              </Button>
-            <Link to ='/research'>
-              <Button
-              variant="text"
-              color='inherit'
-              startIcon={<PetsIcon sx={icon}/>}>
-                Breeds
-              </Button>
-            </Link>
-            <Link to='/user'>
-              {/* Conditional Value */}
-              <Button
-              variant="text"
-              color='inherit'
-              startIcon={<PersonIcon sx={icon}/>}>
-                Login
-              </Button>
-              </Link>
+          <Grid item xs={9}>
+            <Grid container justifyContent="flex-end">
+              <Grid item xs={12} sm={6} md='auto'>
+                <Link to ='/search'>
+                  <Button
+                  variant="text"
+                  color='inherit'
+                  startIcon={<FavoriteIcon sx={icon}/>}>
+                    Adopt
+                  </Button>
+                </Link>
+              </Grid>
+              <Grid item xs={12} sm={6} md='auto'>
+                <Button
+                variant="text"
+                color='inherit'
+                startIcon={<RoomServiceIcon sx={icon}/>}>
+                  Services
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={6} md='auto'>
+                <Link to ='/research'>
+                  <Button
+                  variant="text"
+                  color='inherit'
+                  startIcon={<PetsIcon sx={icon}/>}>
+                    Breeds
+                  </Button>
+                </Link>
+              </Grid>
+              <Grid item xs={12} sm={6} md='auto'>
+                <Link to='/user'>
+                  {/* Conditional Value */}
+                  <Button
+                  variant="text"
+                  color='inherit'
+                  startIcon={<PersonIcon sx={icon}/>}>
+                    Login
+                  </Button>
+                </Link>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
     </>
