@@ -22,6 +22,11 @@ const logo = {
   border: '5px solid white',
 };
 
+const title = {
+  fontFamily: '"Alex Brush", cursive',
+  fontSize: '64px',
+}
+
 const icon = {
   fontSize: '12px',
   color: '#22333B',
@@ -41,7 +46,7 @@ const Header = () => {
           </Grid>
           <Grid item xs={7} alignSelf="flex-end">
             <Link to ='/'>
-              <Typography class="title">
+              <Typography sx={title}>
                 Woof
               </Typography>
             </Link>

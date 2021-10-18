@@ -5,7 +5,7 @@ body{
   margin: 0;
 }
 
-.app {
+#appContainer {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -17,12 +17,6 @@ body{
 .header a {
   color: inherit;
   text-decoration: inherit;
-}
-
-.title {
-  font-family: 'Alex Brush', cursive;
-  font-size: 64px;
-  margin: 0 10px;
 }
 
 .nav {
