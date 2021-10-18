@@ -53,24 +53,47 @@ const listTop5 = () => {
 }
 
 const researchBreeds = () => {
-  const image='https://i0.wp.com/images.ctfassets.net/440y9b545yd9/4xeV5wnpElbhV0aG2wTiQy/c8d921df3e81977dcdc5a03706502bc4/dog_pack_top10_850__1_.jpg'
+  const image = 'https://i0.wp.com/images.ctfassets.net/440y9b545yd9/4xeV5wnpElbhV0aG2wTiQy/c8d921df3e81977dcdc5a03706502bc4/dog_pack_top10_850__1_.jpg';
 
-
-  const overlay = {
+  const style = {
+    overlay: {
     width: "95%",
+    maxWidth: '850px',
     height: "320px",
     borderRadius: '10px',
-    backgroundImage: `url(${image}), linear-gradient(rgba(196,196,196,0.7),rgba(196,196,196,196.7))`,
-    backgroundBlendMode: 'overlay',
+    backgroundImage: `linear-gradient(rgba(193,193,193,1),rgba(193,193,193,1)), url(${image})`,
+    backgroundBlendMode: 'screen',
+    backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    marginTop: '20px',
     marginBottom: '20px',
+  },
+
+  title: {
+    fontWeight: 'bold',
+  },
+
+  button: {
+    width: '300px',
+  },
+
   }
 
   return (
     <Grid container justifyContent="center">
-      <Grid item sx={overlay}>
-        Research Breeds
+      <Grid container direction="column" justifyContent="center" alignItems="center" sx={style.overlay} spacing={5}>
+        <Grid item>
+          <Typography variant="h6" sx={style.title}>
+            Don't know what you want yet? Research breeds here!
+          </Typography>
+        </Grid>
+        <Grid item >
+          <Button variant="contained" size="large" sx={style.button}>
+            Get Started
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   )
@@ -91,7 +114,7 @@ const HomePage = () => {
         <Grid item xs={12}>
             {listTop5()}
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} >
           {researchBreeds()}
         </Grid>
       </Grid>
