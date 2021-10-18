@@ -27,3 +27,8 @@ const getDogBreedInformationByName = (dogBreedName) => {
       return errorGettingDogInformation;
     });
 };
+
+module.exports = {
+  getDogBreedByValue,
+  getDogBreedInformationByName,
+};
