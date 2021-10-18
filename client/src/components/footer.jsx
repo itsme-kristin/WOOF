@@ -9,7 +9,7 @@ import {
 const Footer = () => {
   return (
     < >
-      <Grid container spacing={1} alignItems="center" className="footer">
+      <Grid container alignItems="center" className="footer">
         <Grid item xs={12}>
           <Typography align="center">
             <a href="https://github.com/hratx-blue-ocean/WOOF" target="_blank" rel="noreferrer">

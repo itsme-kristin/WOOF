@@ -10,16 +10,16 @@ import {
 import PetsIcon from '@mui/icons-material/Pets';
 import PersonIcon from '@mui/icons-material/Person';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
-import SearchIcon from '@mui/icons-material/Search';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const logo = {
   fontSize: '55px',
-  color: 'white',
+  color: '#EAE0D5',
   transform: 'rotate(-30deg)',
   borderRadius: '50px',
   marginLeft: '5px',
   padding: '5px',
-  border: '5px solid white',
+  border: '5px solid #EAE0D5',
 };
 
 const title = {
@@ -38,26 +38,26 @@ const icon = {
 const Header = () => {
   return (
     < >
-        <Grid container spacing={1} alignItems="center" className="header">
+        <Grid container alignItems="center" className="header">
           <Grid item xs={1} className="logo">
             <Link to ='/'>
               <PetsIcon sx={logo}/>
             </Link>
           </Grid>
-          <Grid item xs={7} alignSelf="flex-end">
+          <Grid item xs={2} alignSelf="flex-end">
             <Link to ='/'>
               <Typography sx={title}>
                 Woof
               </Typography>
             </Link>
           </Grid>
-          <Grid item xs={4} className="nav">
+          <Grid item xs={9} className="nav">
             <Link to ='/search'>
               <Button
               variant="text"
               color='inherit'
-              startIcon={<SearchIcon sx={icon}/>}>
-                Search
+              startIcon={<FavoriteIcon sx={icon}/>}>
+                Adopt
               </Button>
             </Link>
               <Button
@@ -75,11 +75,11 @@ const Header = () => {
               </Button>
             </Link>
             <Link to='/user'>
+              {/* Conditional Value */}
               <Button
               variant="text"
               color='inherit'
               startIcon={<PersonIcon sx={icon}/>}>
-                {/* Conditional Value */}
                 Login
               </Button>
               </Link>
