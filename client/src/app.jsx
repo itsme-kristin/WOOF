@@ -19,15 +19,15 @@ const App = () => {
     <>
     <Router>
       <Header />
-      <Container id='appContainer'>
-        <Switch>
-          <Route path='/' exact component={HomePage}/>
-          <Route path='/user' exact component={UserPage}/>
-          <Route path='/research' exact component={ResearchPage}/>
-          <Route path='/animal' component={AnimalPage}/>
-          <Route path='/search' component={SearchForPets}/>
-        </Switch>
-      </Container>
+        <Container id='appContainer' fixed>
+          <Switch>
+            <Route path='/' exact component={HomePage}/>
+            <Route path='/user' exact component={UserPage}/>
+            <Route path='/research' exact component={ResearchPage}/>
+            <Route path='/animal' component={AnimalPage}/>
+            <Route path='/search' component={SearchForPets}/>
+          </Switch>
+        </Container>
       <Footer />
     </Router>
     </>
