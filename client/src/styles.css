@@ -40,5 +40,9 @@ body{
   color: #EAE0D5;
 }
 
+.debug {
+  border: 1 dotted grey;
+}
+
 
 
