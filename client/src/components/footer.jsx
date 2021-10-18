@@ -1,20 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const tempStyle = {
-  color: 'brown',
-  position: 'fixed',
-  bottom: 0,
-}
+import {
+  Grid,
+  Typography,
+} from '@mui/material';
 
 
-const Header = () => {
+const Footer = () => {
   return (
-    <nav style={tempStyle}>
-      <h5>footer</h5>
-    </nav>
+    < >
+      <Grid container spacing={1} alignItems="center" className="footer">
+        <Grid item xs={12}>
+          <Typography align="center">
+            <a href="https://github.com/hratx-blue-ocean/WOOF" target="_blank" rel="noreferrer">
+              Team Dogg House
+            </a>
+          </Typography>
+        </Grid>
+      </Grid>
+    </>
   )
 }
 //check out material ui's avatar component mixed with the menu component
 
-export default Header;
+export default Footer;

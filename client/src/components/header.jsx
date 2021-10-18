@@ -10,7 +10,7 @@ import {
 import PetsIcon from '@mui/icons-material/Pets';
 import PersonIcon from '@mui/icons-material/Person';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
-import SearchIcon from '@mui/icons-material/Search';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const logo = {
   fontSize: '55px',
@@ -37,7 +37,7 @@ const icon = {
 
 const Header = () => {
   return (
-    <nav>
+    < >
         <Grid container spacing={1} alignItems="center" className="header">
           <Grid item xs={1} className="logo">
             <Link to ='/'>
@@ -56,8 +56,8 @@ const Header = () => {
               <Button
               variant="text"
               color='inherit'
-              startIcon={<SearchIcon sx={icon}/>}>
-                Search
+              startIcon={<FavoriteIcon sx={icon}/>}>
+                Adopt
               </Button>
             </Link>
               <Button
@@ -85,7 +85,7 @@ const Header = () => {
               </Link>
           </Grid>
         </Grid>
-    </nav>
+    </>
   )
 }
 //check out material ui's avatar component mixed with the menu component
