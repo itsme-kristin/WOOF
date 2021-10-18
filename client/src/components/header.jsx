@@ -10,7 +10,7 @@ import {
 import PetsIcon from '@mui/icons-material/Pets';
 import PersonIcon from '@mui/icons-material/Person';
 import RoomServiceIcon from '@mui/icons-material/RoomService';
-import SearchIcon from '@mui/icons-material/Search';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const logo = {
   fontSize: '55px',
@@ -56,8 +56,8 @@ const Header = () => {
               <Button
               variant="text"
               color='inherit'
-              startIcon={<SearchIcon sx={icon}/>}>
-                Search
+              startIcon={<FavoriteIcon sx={icon}/>}>
+                Adopt
               </Button>
             </Link>
               <Button
