@@ -71,5 +71,3 @@ app.get('/adopt', (req, res) => {
       res.sendStatus(400);
     });
 });
-
-module.exports = app;
