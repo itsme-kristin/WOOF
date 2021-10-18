@@ -5,6 +5,7 @@ import Header from './components/header.jsx';
 import Footer from './components/footer.jsx';
 import HomePage from './components/homePage.jsx';
 import UserPage from './components/userProfile/userPage.jsx';
+import UserSignup from './components/UserSignup/UserSignupPage.jsx';
 import SearchForPets from './components/searchForPets.jsx';
 import ResearchPage from './components/researchPage.jsx';
 import AnimalPage from './components/animalPage.jsx';
@@ -19,13 +20,14 @@ const App = () => {
     <>
     <Router>
       <Header />
-        <Container id='appContainer' fixed>
+        <Container id='appContainer'>
           <Switch>
             <Route path='/' exact component={HomePage}/>
             <Route path='/user' exact component={UserPage}/>
             <Route path='/research' exact component={ResearchPage}/>
             <Route path='/animal' component={AnimalPage}/>
             <Route path='/search' component={SearchForPets}/>
+            <Route path='/signup' component={UserSignup}/>
           </Switch>
         </Container>
       <Footer />

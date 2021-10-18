@@ -61,6 +61,17 @@ app.get('/animal', function (req, res) {
   );
 });
 
+app.get('/signup', function (req, res) {
+  res.sendFile(
+    path.join(__dirname, '../client/dist/index.html'),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
+
 app.get('/adopt', (req, res) => {
   pf.getDogs()
     .then(({ data }) => {
