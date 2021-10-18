@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { petfinderConfig } = require('../../config');
+const { petfinderConfig } = require('../config');
 
 const tokenInfo = {
   token: '',
