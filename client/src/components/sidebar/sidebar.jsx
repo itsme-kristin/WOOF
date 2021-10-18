@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import SearchBar from './searchbar.jsx';
+import SearchBar from './searchBar.jsx';
 import Dropdown from './dropdown.jsx';
 import Box from '@mui/material/Box';
-import TraitCheckbox from './traitcheckbox.jsx';
+import TraitCheckbox from './traitCheckbox.jsx';
 
 const Sidebar = (props) => {
   const [filters, setFilters] = useState([
@@ -40,10 +40,7 @@ const Sidebar = (props) => {
       direction="column"
       justifyContent="flex-start"
       alignItems="center"
-      sx={{
-        backgroundColor: 'linen',
-        maxWidth: '300px',
-      }}
+      sx={{ width: '300px' }}
     >
       <SearchBar updateFilter={updateFilter}/>
       <Box
