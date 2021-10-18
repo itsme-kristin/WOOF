@@ -10,15 +10,22 @@ body{
   font-family: 'Montserrat', sans-serif;
   background-color: white;
   overflow: auto;
+  min-height: 87.4vh;
 }
 
 .header {
   background-color: #0A0908;
-  color: white;
+  color: #EAE0D5;
   max-height: 100px;
 }
 
-.header a {
+.footer {
+  background-color: #0A0908;
+  color: #EAE0D5;
+  max-height: 50px;
+}
+
+.header a, .footer a {
   color: inherit;
   text-decoration: inherit;
 }
@@ -32,4 +39,6 @@ body{
   text-align: right;
   color: #EAE0D5;
 }
+
+
 

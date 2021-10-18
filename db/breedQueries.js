@@ -12,10 +12,7 @@ const getDogBreedByValue = (property, value) => {
   });
 };
 
-// getDogBreedByValue("breed_group", "Toy");
-// getDogBreedByValue("bred_for", "Companion");
-
-const getDogInformationByName = (dogBreedName) => {
+const getDogBreedInformationByName = (dogBreedName) => {
   let dogBreedToLowerCase = dogBreedName.toLowerCase();
   Promise.all([
     Breed.find({ name: breedName }),
@@ -30,5 +27,3 @@ const getDogInformationByName = (dogBreedName) => {
       return errorGettingDogInformation;
     });
 };
-
-// getDogInformationByName("Irish Terrier");
