@@ -57,7 +57,7 @@ const Header = () => {
           </Grid>
           <Grid item xs={9}>
             <Grid container justifyContent="flex-end">
-              <Grid item xs={12} sm={6} md='auto'>
+              <Grid item xs={12} sm='auto'>
                 <Link to ='/search'>
                   <Button
                   variant="text"
@@ -67,15 +67,15 @@ const Header = () => {
                   </Button>
                 </Link>
               </Grid>
-              <Grid item xs={12} sm={6} md='auto'>
+              {/* <Grid item xs={12} sm='auto'>
                 <Button
                 variant="text"
                 color='inherit'
                 startIcon={<RoomServiceIcon sx={icon}/>}>
                   Services
                 </Button>
-              </Grid>
-              <Grid item xs={12} sm={6} md='auto'>
+              </Grid> */}
+              <Grid item xs={12} sm='auto'>
                 <Link to ='/research'>
                   <Button
                   variant="text"
@@ -85,7 +85,7 @@ const Header = () => {
                   </Button>
                 </Link>
               </Grid>
-              <Grid item xs={12} sm={6} md='auto'>
+              <Grid item xs={12} sm='auto'>
                 <Link to='/user'>
                   {/* Conditional Value */}
                   <Button
