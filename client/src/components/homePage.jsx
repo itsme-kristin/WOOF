@@ -80,6 +80,7 @@ const researchBreeds = () => {
 
   button: {
     margin: 0,
+    width: '200px',
   },
 
   }
@@ -94,7 +95,7 @@ const researchBreeds = () => {
         </Grid>
         <Grid item xs='auto'>
           <Link to='/research'>
-            <Button variant="contained" size="large" sx={style.button}>
+            <Button variant="contained" sx={style.button}>
               Get Started
             </Button>
           </Link>
