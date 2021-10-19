@@ -1,19 +1,28 @@
 import React, { useState, useRef } from 'react';
-
+import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext.jsx';
 import { Typography, TextField, Grid, Button, Card } from '@mui/material/';
 
 const UserSignIn = ({ history }) => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { signin } = useAuth();
-
+  const { signin, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData
   const handleSubmit = e => {
     e.preventDefault();
 
     signin(emailRef.current.value, passwordRef.current.value)
       .then(userCredential => {
         const user = userCredential.user;
+        console.log(emailRef.current.value)
+        axios.get(`/userData?email=${emailRef.current.value}`)
+          .then((response) => {
+            console.log('get request response', response);
+            setUserDataState(response.data)
+          })
+          .catch(error => {
+            console.error(error)
+          })
         history.push('/');
       })
       .catch(error => {
