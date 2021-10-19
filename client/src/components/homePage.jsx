@@ -59,7 +59,7 @@ const researchBreeds = () => {
     overlay: {
     width: "95%",
     maxWidth: '850px',
-    height: "320px",
+    height: "280px",
     borderRadius: '10px',
     border: '1px solid black',
     backgroundImage: `linear-gradient(rgba(193,193,193,1),rgba(193,193,193,1)), url(${image})`,
