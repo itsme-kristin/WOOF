@@ -55,10 +55,14 @@ const addUser = ({
 const getUser = (email) => {
   return User.findOne({ email })
     .then((user) => {
-      return user;
+      if (user === null) {
+        throw new Error('No user found with this email');
+      } else {
+        return user;
+      }
     })
     .catch((err) => {
-      console.log("Couldn't find user");
+      console.log("Couldn't find user", err);
       return err;
     });
 };
