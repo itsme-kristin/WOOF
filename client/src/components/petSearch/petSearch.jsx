@@ -4,7 +4,7 @@ import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
 
 // const dogArray = new Array(12).fill('dog');
-let height = screen.height - 170;
+let height = screen.height - 140;
 
 
 const PetSearch = () => {
