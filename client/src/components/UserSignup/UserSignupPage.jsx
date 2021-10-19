@@ -83,7 +83,12 @@ const UserSignup = () => {
           <br />
           <Grid item>
             {/* <Typography variant='subtitle1'>Address Field</Typography> */}
-            <TextField id='addressField' label='Address' variant='outlined' inputRef={addressRef} required/>
+            <TextField
+              id='addressField'
+              label='Address'
+              variant='outlined'
+              inputRef={addressRef}
+              required/>
           </Grid>
           <Button onClick={handleSubmit}>Submit</Button>
         </form>
