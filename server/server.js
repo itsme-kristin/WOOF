@@ -145,6 +145,7 @@ app.put('/userData', function (req, res) {
 
 //{email: <"email_address">, dogObj: {<dogObj>}}
 app.put('/saveDog', function (req, res) {
+  console.log(user)
   user
     .addSavedDog(req.body.email, req.body.dogObj)
     .then(() => {
