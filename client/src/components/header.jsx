@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles.css';
 
+import { useAuth } from '../contexts/AuthContext.jsx';
 import {
   Button,
   Typography,
@@ -36,6 +37,9 @@ const icon = {
 };
 
 const Header = () => {
+
+  const { currentUser } = useAuth();
+
   return (
     < >
         <Grid container alignItems="center" className="header">
@@ -86,15 +90,29 @@ const Header = () => {
                 </Link>
               </Grid>
               <Grid item xs={12} sm='auto'>
-                <Link to='/user'>
-                  {/* Conditional Value */}
+                {currentUser ? <Link to='/user'>
                   <Button
                   variant="text"
                   color='inherit'
                   startIcon={<PersonIcon sx={icon}/>}>
-                    Login
+                    My profile
                   </Button>
-                </Link>
+                </Link> : <Link to='/signup'>
+                  <Button
+                  variant="text"
+                  color='inherit'
+                  startIcon={<PersonIcon sx={icon}/>}>
+                    Login/Logout
+                  </Button>
+                </Link>}
+                {currentUser ? <Link to='/user'>
+                  <Button
+                  variant="text"
+                  color='inherit'
+                  startIcon={<PersonIcon sx={icon}/>}>
+                    myProfile
+                  </Button>
+                </Link> : <></>}
               </Grid>
             </Grid>
           </Grid>

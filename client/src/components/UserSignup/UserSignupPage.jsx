@@ -16,7 +16,6 @@ const UserSignup = () => {
   const addressRef = useRef()
   const { signup } = useAuth();
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
