@@ -43,7 +43,8 @@ const addUser = ({
         lng: longitudeStr,
         email: email,
         password: password,
-        savedDogs: []
+        savedDogs: [],
+        savedBreeds: []
       });
     })
     .catch((err) => {
@@ -89,8 +90,8 @@ const updateUser = (
     });
 };
 
-const addSavedDog = (email, id) => {
-  return User.updateOne({ email: email }, {$push: {savedDogs: { $each: [id], $position: 0}}})
+const addSavedDog = (email, dogObj) => {
+  return User.updateOne({ email: email }, {$push: {savedDogs: { $each: [dogObj], $position: 0}}})
     .then(user => {
       console.info('Dog saved');
     })
@@ -99,8 +100,8 @@ const addSavedDog = (email, id) => {
     })
 }
 
-const deleteSavedDog = (email, id) => {
-  return User.updateOne({ email: email }, {'$pull': { savedDogs: id}})
+const deleteSavedDog = (email, dogId) => {
+  return User.updateOne({ email: email }, {'$pull': { savedDogs: { id: dogId}}})
   .then(user => {
     console.info('Dog removed');
   })
@@ -109,10 +110,36 @@ const deleteSavedDog = (email, id) => {
   })
 }
 
+const addDogBreed = (email, breedObj) => {
+  return User.updateOne({ email: email },
+    {$push: {savedBreeds: { $each: [breedObj], $position: 0}}})
+      .then(user => {
+        console.info('Breed saved');
+      })
+      .catch(err => {
+        console.info('There was an error adding the breed.');
+      })
+}
+
+const deleteDogBreed = (email, breedId) => {
+  return User.updateOne({ email: email }, {'$pull': { savedBreeds: { id: breedId}}})
+  .then(user => {
+    console.info('Breed removed');
+  })
+  .catch(err => {
+    console.info('There was an error removing the breed.')
+  })
+}
+
+// addUser({name: 'Kristin', street_address: '1901 Ashberry Trl', city: 'Georgetown', state: 'TX', zip: '78626', email: 'awesome.com', password: 'password'});
+
+deleteDogBreed('awesome.com', 264);
 module.exports = {
   addUser,
   getUser,
   updateUser,
   addSavedDog,
-  deleteSavedDog
+  deleteSavedDog,
+  addDogBreed,
+  deleteDogBreed
 }

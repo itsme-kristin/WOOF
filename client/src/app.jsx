@@ -10,6 +10,7 @@ import UserSignup from './components/UserSignup/UserSignupPage.jsx';
 import SearchForPets from './components/searchForPets.jsx';
 import ResearchPage from './components/researchPage.jsx';
 import AnimalPage from './components/animalPage.jsx';
+import BreedPage from './components/breedPage.jsx';
 import DogCard from './components/card/dogCard.jsx';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -29,6 +30,7 @@ const App = () => {
                 <Route path='/animal' component={AnimalPage}/>
                 <Route path='/search' component={SearchForPets}/>
                 <Route path='/signup' component={UserSignup}/>
+                <Route path='/breed' component={BreedPage}/>
               </Switch>
             </Container>
         <Footer />
