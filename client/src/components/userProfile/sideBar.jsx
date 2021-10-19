@@ -14,7 +14,7 @@ const SideBar = () => {
         <Typography variant='h3'>SideBar</Typography>
         <Typography>contact info</Typography>
         <Typography>address</Typography>
-        <Typography>email</Typography>
+        {/* <Typography>{currentUser.email}</Typography> */}
         <UserMenu />
       </Grid>
     </Grid>

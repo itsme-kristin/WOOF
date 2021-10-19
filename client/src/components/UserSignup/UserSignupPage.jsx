@@ -24,8 +24,8 @@ const UserSignup = () => {
       signup(emailRef.current.value, passwordRef.current.value)
         .then(userCredential => {
           const user = userCredential.user;
-          //request to /userData post email n password (address)
-          //set context for current user.email location (passed to homepage, and adopt), password, (empty savedDog savedBreed)
+          //request to /userData post email n password (address)  POST
+          //set context for current user.email location (passed to homepage, and adopt), password, savedDog, savedBreed
         })
         .catch(error => {
           console.error(error);

@@ -84,6 +84,17 @@ app.get('/signup', function (req, res) {
   );
 });
 
+app.get('/signin', function (req, res) {
+  res.sendFile(
+    path.join(__dirname, '../client/dist/index.html'),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
+
 app.get('/adopt', (req, res) => {
   pf.getDogs(req.body)
     .then(({ data }) => {
@@ -107,7 +118,7 @@ app.get('/userData', function (req, res) {
     });
 });
 
-//{name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, email: <"email_address">, password: <"password">}}
+//{name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, email: <"email_address">, password: <"password">}
 app.post('/userData', function (req, res) {
   user
     .addUser(req.body)
@@ -131,10 +142,10 @@ app.put('/userData', function (req, res) {
     });
 });
 
-//{email: <"email_address">, id: <dog_id>}
+//{email: <"email_address">, dogObj: {<dogObj>}}
 app.put('/saveDog', function (req, res) {
   user
-    .addSavedDog(req.body.email, req.body.id)
+    .addSavedDog(req.body.email, req.body.dogObj)
     .then(() => {
       res.sendStatus(204);
     })
@@ -147,6 +158,30 @@ app.put('/saveDog', function (req, res) {
 app.put('/deleteDog', function (req, res) {
   user
     .deleteSavedDog(req.body.email, req.body.id)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch(err => {
+      res.sendStatus(400);
+    });
+});
+
+//{email: <"email_address">, breedObj: {<breedObj>}}
+app.put('/saveBreed', function (req, res) {
+  user
+    .addDogBreed(req.body.email, req.body.breedObj)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch(err => {
+      res.sendStatus(400);
+    });
+});
+
+//{email: <"email_address">, id: <breed_id>}
+app.put('/deleteBreed', function (req, res) {
+  user
+    .deleteDogBreed(req.body.email, req.body.id)
     .then(() => {
       res.sendStatus(204);
     })
