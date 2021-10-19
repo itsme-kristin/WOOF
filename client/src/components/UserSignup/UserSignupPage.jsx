@@ -1,44 +1,44 @@
 import React, { useState, useRef } from 'react';
 
 import { useAuth } from '../../contexts/AuthContext.jsx';
-import { Typography,
-  TextField,
-  Grid,
-  Button,
-  Card } from '@mui/material/';
+import { Typography, TextField, Grid, Button, Card } from '@mui/material/';
 
-
-const UserSignup = () => {
-  const usernameRef = useRef()
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const passwordConfRef = useRef()
-  const addressRef = useRef()
+const UserSignup = ({ history }) => {
+  const usernameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfRef = useRef();
+  const addressRef = useRef();
   const { signup } = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-
 
     if (passwordRef.current.value === passwordConfRef.current.value) {
       signup(emailRef.current.value, passwordRef.current.value)
         .then(userCredential => {
           const user = userCredential.user;
+          history.push('/user');
         })
         .catch(error => {
           console.error(error);
-        })
+        });
     } else {
       //error with matching passwords
-      console.log('passwords dont match')
+      console.log('passwords dont match');
     }
-  }
-
+  };
 
   return (
     <div>
       <br />
-      <Grid container spacing={3} alignItems='center' justifyContent='center' direction='column'>
+      <Grid
+        container
+        spacing={3}
+        alignItems='center'
+        justifyContent='center'
+        direction='column'
+      >
         <Grid item>
           <Typography variant='h3'>Sign Up</Typography>
         </Grid>
@@ -50,7 +50,8 @@ const UserSignup = () => {
               label='Username'
               variant='outlined'
               inputRef={usernameRef}
-              required/>
+              required
+            />
           </Grid>
           <br />
           <Grid item>
@@ -59,7 +60,8 @@ const UserSignup = () => {
               label='Password'
               variant='outlined'
               inputRef={passwordRef}
-              required/>
+              required
+            />
           </Grid>
           <br />
           <Grid item>
@@ -68,7 +70,8 @@ const UserSignup = () => {
               label='Password Confirmation'
               variant='outlined'
               inputRef={passwordConfRef}
-              required/>
+              required
+            />
           </Grid>
           <br />
           <Grid item>
@@ -77,7 +80,8 @@ const UserSignup = () => {
               label='Email'
               variant='outlined'
               inputRef={emailRef}
-              required/>
+              required
+            />
           </Grid>
           <br />
           <Grid item>
@@ -87,18 +91,19 @@ const UserSignup = () => {
               label='Address'
               variant='outlined'
               inputRef={addressRef}
-              required/>
+              required
+            />
           </Grid>
           <Button onClick={handleSubmit}>Submit</Button>
         </form>
       </Grid>
-      <Typography variant='body1'>Already have an account? Login
+      <Typography variant='body1'>
+        Already have an account? Login
         {/* <Link>
         </Link> */}
       </Typography>
     </div>
-  )
-}
-
+  );
+};
 
 export default UserSignup;

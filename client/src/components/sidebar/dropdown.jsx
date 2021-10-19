@@ -17,7 +17,7 @@ const Dropdown = (props) => {
 
   useEffect(()=>{
     // console.log(text, values.indexOf(activeValue));
-    updateFilter(text, values.indexOf(activeValue));
+    updateFilter(text, activeValue);
   }, [activeValue])
 
   return (

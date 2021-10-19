@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PetRearch from './researchBreeds/researchPage.jsx';
 
 const ResearchPage = () => {
   return (
-    <div>
-      <h1>Research Breeds Here</h1>
-    </div>
+    <PetRearch />
   )
 }
 
