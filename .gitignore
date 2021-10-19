@@ -5,4 +5,8 @@ client/dist/bundle.js
 # Configuration
 config.js
 
+# Environmental Variables
+.env
+.env.local
+.env.development
 .DS_Store

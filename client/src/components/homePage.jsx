@@ -23,10 +23,10 @@ const searchBar = () => {
 
   return (
     <Grid container justifyContent="center" spacing={1} sx={homeSearch}>
-      <Grid item xs={3}>
-        <TextField label="Enter your Zip Code" variant="outlined" fullWidth/>
+      <Grid item xs='auto'>
+        <TextField label="Enter your Zip Code" variant="outlined" fullWidth sx={{minWidth: '164px'}}/>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs='auto'>
         <Button variant="contained" size="large" endIcon={<SearchIcon />} sx={dogButton}>
           Find a Dog
         </Button>
@@ -59,24 +59,28 @@ const researchBreeds = () => {
     overlay: {
     width: "95%",
     maxWidth: '850px',
-    height: "320px",
+    height: "280px",
     borderRadius: '10px',
+    border: '1px solid black',
     backgroundImage: `linear-gradient(rgba(193,193,193,1),rgba(193,193,193,1)), url(${image})`,
     backgroundBlendMode: 'screen',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    margin: 'auto',
     marginTop: '10px',
     marginBottom: '20px',
   },
 
   title: {
     fontWeight: 'bold',
+    margin: 0,
   },
 
   button: {
-    width: '300px',
+    margin: 0,
+    width: '200px',
   },
 
   }
@@ -84,14 +88,14 @@ const researchBreeds = () => {
   return (
     <Grid container justifyContent="center">
       <Grid container direction="column" justifyContent="center" alignItems="center" sx={style.overlay} spacing={5}>
-        <Grid item>
+        <Grid item xs='auto'>
           <Typography variant="h6" sx={style.title}>
             Don't know what you want yet? Research breeds here!
           </Typography>
         </Grid>
-        <Grid item >
+        <Grid item xs='auto'>
           <Link to='/research'>
-            <Button variant="contained" size="large" sx={style.button}>
+            <Button variant="contained" sx={style.button}>
               Get Started
             </Button>
           </Link>
