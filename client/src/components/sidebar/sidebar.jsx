@@ -6,6 +6,7 @@ import SearchBar from './searchbar.jsx';
 import Dropdown from './dropdown.jsx';
 import Box from '@mui/material/Box';
 import TraitCheckbox from './traitcheckbox.jsx';
+import PetMap from '../petmap/petMap.jsx';
 
 const dropDownFilters = {
   'Distance': [5,10,25,50],
@@ -101,7 +102,9 @@ const Sidebar = (props) => {
               opacity: [0.9, 0.8, 0.7],
             },
           }}
-        />
+        >
+          <PetMap />
+        </Box>
 
         <Grid
           container
