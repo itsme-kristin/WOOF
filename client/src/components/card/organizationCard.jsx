@@ -10,29 +10,29 @@ import {
   Typography } from '@mui/material';
 
 const OrganizationCard = (props) => {
-  const { organization } = props;
-  const [orgInfo, setOrgInfo] = useState([]);
+  //const { organization } = props;
 
-  const getOrgInfo = () => {
-    // GET request to server for org info;
+  const organization = {
+    phone: "555-555-5555",
+    email: "dogghouse@gmail.com",
+    address: "123 Sesame Street, Austin, TX 78754",
+    name: "Elmo's House"
   }
 
-  useEffect(() => {
-    getOrgInfo
-  }, [orgInfo])
-
   return (
-    <Box sx={{backgroundColor:'pink'}}>
+    <Box>
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h2"> Organization Title </Typography>
+          <Typography variant="h3"> {organziation.name} </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="body1"> Address Info</Typography>
+          <Typography variant="body1">
+            {organization.address}
+          </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="body1"> Contact - EMAIL </Typography>
-          <Typography variant="body1"> Contact - Phone Number </Typography>
+          <Typography variant="body1"> {(<EmailIcon />)}{' '}{organization.email} </Typography>
+          <Typography variant="body1"> {(<PhoneIphoneIcon />)}{' '}{organization.phone}</Typography>
         </Grid>
       </Grid>
     </Box>
