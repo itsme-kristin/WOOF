@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -8,24 +8,10 @@ import Box from '@mui/material/Box';
 import TraitCheckbox from './traitcheckbox.jsx';
 import PetMap from '../petmap/petMap.jsx';
 
-const dropDownFilters = {
-  'Distance': [5,10,25,50],
-  'Breed': [1,2,3,4],
-  'Size': ['small','medium','large','xlarge'],
-  'Gender': ['male', 'female'],
-  'Age': ['baby', 'young', 'adult', 'senior'],
-  'Coat': ['short', 'medium', 'long', 'wire', 'hairless'],
-}
-
-const traits = {
-  'Good with children': 'good_with_children' ,
-  'Good with dogs': 'good_with_dogs' ,
-  'Good with cats': 'good_with_cats' ,
-  'House trained': 'house_trained' ,
-  'Special needs': 'special_needs'
-}
-
 const Sidebar = (props) => {
+  const [dropDownFilters] = useState(props.dropdowns);
+  const [checkboxTraits] = useState(props.checkboxs);
+  const [buttonType] = useState(props.buttonText || 'apply');
 
   const [activeFilters, setActiveFilters] = useState({});
 
@@ -43,40 +29,45 @@ const Sidebar = (props) => {
 
 
   const getFilters = () => {
-    return Object.keys(dropDownFilters).map((filter, index)=>{
-      // console.log(filter);
-      return (
-        <Grid
-          item
-          container
-          alignItems="flex-start"
-          id={filter}
-          key={filter}
-        >
-          <Dropdown
-          key={index}
-          text={filter}
-          style={{float:'left'}}
-          updateFilter={updateFilter}
-          values={dropDownFilters[filter]}
-          />
-        </Grid>
-      )
-    });
+    if (dropDownFilters) {
+      return Object.keys(dropDownFilters).map((filter, index)=>{
+        // console.log(filter);
+        return (
+          <Grid
+            item
+            container
+            alignItems="flex-start"
+            id={filter}
+            key={filter}
+          >
+            <Dropdown
+            key={index}
+            text={filter}
+            style={{float:'left'}}
+            updateFilter={updateFilter}
+            values={dropDownFilters[filter]}
+            />
+          </Grid>
+        )
+      });
+    }
   }
 
   const getChecksboxs = () => {
-    return (Object.keys(traits).map((traitName)=>{
-      return (
-        <TraitCheckbox
-          key={traitName}
-          updateFilter={updateFilter}
-          text={traitName}
-          textKey={traits[traitName]}
-        />
-      )
+    if (checkboxTraits) {
+      const traitArr = Object.keys(checkboxTraits);
+      return (traitArr.map((traitName)=>{
+        return (
+          <TraitCheckbox
+            key={traitName}
+            updateFilter={updateFilter}
+            text={traitName}
+            textKey={checkboxTraits[traitName]}
+          />
+        )
+      }
+      ))
     }
-    ))
   }
 
   return (
@@ -128,7 +119,13 @@ const Sidebar = (props) => {
             justifyContent="flex-end"
             alignItems="center"
           >
-            <Button variant="contained" style={{marginRight:'20px'}} onClick={handleSubmit}>Apply</Button>
+            <Button
+              variant="contained"
+              style={{marginRight:'20px'}}
+              onClick={handleSubmit}
+            >
+              Apply
+            </Button>
           </Grid>
       </Grid>
     </div>
