@@ -97,11 +97,22 @@ app.get('/signin', function (req, res) {
 
 app.get('/adopt', (req, res) => {
   pf.getDogs(req.body)
+    .then(dogs => {
+      res.send(dogs);
+    })
+    .catch(err => {
+      console.log('Error retrieving available dogs');
+      res.sendStatus(400);
+    });
+});
+
+app.get('/organization', (req, res) => {
+  pf.getDogsAtOrg(req.body.id)
     .then(({ data }) => {
       res.send(data);
     })
     .catch(err => {
-      console.log('Error retrieving available dogs');
+      console.log('Could not find dogs at org');
       res.sendStatus(400);
     });
 });
