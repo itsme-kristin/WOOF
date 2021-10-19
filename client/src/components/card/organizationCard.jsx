@@ -8,6 +8,9 @@ import {
   CardMedia,
   Grid,
   Typography } from '@mui/material';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+
 
 const OrganizationCard = (props) => {
   //const { organization } = props;
@@ -23,7 +26,7 @@ const OrganizationCard = (props) => {
     <Box>
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h3"> {organziation.name} </Typography>
+          <Typography variant="h5"> {organization.name} </Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography variant="body1">
