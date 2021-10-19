@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import SearchBar from './searchBar.jsx';
+import SearchBar from './searchbar.jsx';
 import Dropdown from './dropdown.jsx';
 import Box from '@mui/material/Box';
-import TraitCheckbox from './traitCheckbox.jsx';
+import TraitCheckbox from './traitcheckbox.jsx';
 
 const dropDownFilters = {
   'Distance': [5,10,25,50],

@@ -62,6 +62,17 @@ app.get('/animal', function (req, res) {
   );
 });
 
+app.get('/signup', function (req, res) {
+  res.sendFile(
+    path.join(__dirname, '../client/dist/index.html'),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
+
 app.get('/adopt', (req, res) => {
   pf.getDogs(req.body)
     .then(({ data }) => {
@@ -73,6 +84,7 @@ app.get('/adopt', (req, res) => {
     });
 });
 
+//{email: <"email_address">}
 app.get('/userData', function (req, res) {
   user
     .getUser(req.body.email)
@@ -84,6 +96,7 @@ app.get('/userData', function (req, res) {
     });
 });
 
+//{name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, email: <"email_address">, password: <"password">}}
 app.post('/userData', function (req, res) {
   user
     .addUser(req.body)
@@ -95,16 +108,42 @@ app.post('/userData', function (req, res) {
     });
 });
 
+//{email: <"email_address>", {name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, password: <"password">}}
 app.put('/userData', function (req, res) {
   user
     .updateUser(req.body.email, req.body)
     .then(() => {
-      res.sendStatus(201);
+      res.sendStatus(204);
     })
     .catch(err => {
       res.sendStatus(400);
     });
 });
+
+//{email: <"email_address">, id: <dog_id>}
+app.put('/saveDog', function (req, res) {
+  user
+    .addSavedDog(req.body.email, req.body.id)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch(err => {
+      res.sendStatus(400);
+    });
+});
+
+//{email: <"email_address">, id: <dog_id>}
+app.put('/deleteDog', function (req, res) {
+  user
+    .deleteSavedDog(req.body.email, req.body.id)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch(err => {
+      res.sendStatus(400);
+    });
+});
+
 //{name: "dog breed"}}
 app.get('/breed-name', (req, res) => {
   const dogBreedName = req.body.name;
