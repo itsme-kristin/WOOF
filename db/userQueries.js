@@ -90,7 +90,7 @@ const updateUser = (
 };
 
 const addSavedDog = (email, id) => {
-  return User.updateOne({ email: email }, {'$push': {savedDogs: id}})
+  return User.updateOne({ email: email }, {$push: {savedDogs: { $each: [id], $position: 0}}})
     .then(user => {
       console.info('Dog saved');
     })
