@@ -24,6 +24,8 @@ const UserSignup = () => {
       signup(emailRef.current.value, passwordRef.current.value)
         .then(userCredential => {
           const user = userCredential.user;
+          //request to /userData post email n password (address)
+          //set context for current user.email location (passed to homepage, and adopt), password, (empty savedDog savedBreed)
         })
         .catch(error => {
           console.error(error);
@@ -81,7 +83,7 @@ const UserSignup = () => {
           </Grid>
           <br />
           <Grid item>
-            {/* <Typography variant='subtitle1'>Address Field</Typography> */}
+            {/*TODO: add other address fields (street, city, state, zip) with corresponding REFS */}
             <TextField
               id='addressField'
               label='Address'

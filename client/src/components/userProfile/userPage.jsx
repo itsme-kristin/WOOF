@@ -9,7 +9,13 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 const UserPage = () => {
+
+  //context for the current user
+  //
+  //
+  //saved dogs is an array (sorted newest to oldest)
   const { currentUser } = useAuth();
+
   if (currentUser) {
     return (
       <div>

@@ -20,6 +20,8 @@ const getAuthToken = () => {
     });
 };
 
+//axios.get(/adopt, {location: "78759", })
+
 const getDogs = filters => {
   // const { location, distance, breed, size, gender, age, coat, good_with_children, good_with_dogs, good_with }
   let queryString = 'type=dog&status=adoptable';
