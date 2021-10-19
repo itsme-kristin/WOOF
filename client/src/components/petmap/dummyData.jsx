@@ -563,6 +563,7 @@ const dogOrganizationsObj = {
 const dogOrgsLatLng = [
   [30.26906, -97.76042],
   [30.24174, -97.78408],
+  [null, null],
   [30.251463, -97.689531],
 ];
 //https://maps.googleapis.com/maps/api/place/textsearch/json?query=pet+grooming&location=30.265020,-97.750153&radius=10&region=us&limit=5&key=
@@ -1523,6 +1524,7 @@ const petGroomersLatLng = [
   [30.26927, -97.75032159999999],
   [30.2777559, -97.75065197010727],
   [30.2560575, -97.72089989999999],
+  [null, null],
 ];
 
 module.exports = { dogOrganizationsObj, dogOrgsLatLng, petGroomersLatLng };
