@@ -1,46 +1,51 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SideBar from '../sidebar/sidebar.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
 
-const dogArray = new Array(12).fill('dog');
+// const dogArray = new Array(12).fill('dog');
+let height = screen.height - 170;
+
 
 const PetSearch = () => {
+  const [dogArray] = useState(new Array(12).fill('dog'));
+
   const getDogs = () => {
-    return dogArray.map((dog)=>{
-      return ( <DogCard type={'heart'} /> )
+    return dogArray.map((dog, index)=>{
+      return ( <DogCard key={index} type={'heart'} /> )
     });
   }
 
   return (
     <Grid
+      id='petSearch'
       container
       direction="row"
-      justifyContent="space-between"
+      justifyContent="start"
       alignItems="center"
       sx={{
-        padding: '0px'
+        height: {height},
+        padding: '0px',
+        width:'1200px',
+        overflow: 'hidden',
       }}
     >
-      {/* TODO: the bgcolor is not filling the entire virticle space */}
-      <Grid item sx={{height: '100%', backgroundColor: '#C6AC8F'}}>
+
+      <Grid item style={{}}sx={{height: {height}, backgroundColor: '#C6AC8F'}}>
         <SideBar style={{}}/>
       </Grid>
 
-      <Grid item sm={8.5}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          sx={{
-            height: '1000px',
-            backgroundColor: 'white',
-            overflow: 'scroll'
-          }}
-        >
-          {getDogs()}
-        </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          overflow: 'scroll',
+          width: '900px'
+        }}
+      >
+        {getDogs()}
       </Grid>
 
     </Grid>

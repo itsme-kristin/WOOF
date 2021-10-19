@@ -22,7 +22,7 @@ const SearchBar = (props) => {
   }, [values]);
 
   return (
-    <FormControl sx={{ m: 1, width: '256px'}}>
+    <FormControl sx={{ m: 1, width: '256px', marginLeft: '0px'}}>
       <InputLabel htmlFor="outlined-adornment-password"> SEARCH </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
