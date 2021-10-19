@@ -16,9 +16,9 @@ const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
 
 const DogCard = (props) => {
-  const image = props.image || './oliver.jpg';
+  const image = props.image || 'https://cdn.discordapp.com/attachments/872115659880935469/884206309858238536/image0.jpg';
   const orientation = props.orientation || 'portrait';
-  const text = props.text || '3 Mths | Labrador Retriever || 8 miles';
+  const text = props.text || '3 Mths | Labrador Retriever | 8 miles';
   const type = props.type || 'none';
   const name = props.name || 'Oliver';
   const [ activeIcon, setActiveIcon ] = useState(false);
@@ -75,13 +75,13 @@ const DogCard = (props) => {
     <Card
       id='dogcard'
       sx={{
+        position: 'relative',
         width: width[orientation],
         height: height[orientation]
       }}
       >
       <div
         style={{
-          // TODO: this absolute position is not allowing scroll
           position: 'absolute',
           width: width[orientation]
         }}
@@ -98,7 +98,7 @@ const DogCard = (props) => {
       </div>
       <CardMedia
         component="img"
-        image="https://cdn.discordapp.com/attachments/872115659880935469/884206309858238536/image0.jpg"
+        image={image}
         alt="Oliver the dog"
         sx={{
           width: '100%',

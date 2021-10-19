@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   savedDogs: Array,
+  savedBreeds: Array
 });
 
 const breedSchema = new mongoose.Schema({

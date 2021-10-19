@@ -5,11 +5,12 @@ import Checkbox from '@mui/material/Checkbox';
 
 const TraitCheckbox = (props) => {
   const text = props.text || 'empty';
+  const textKey = props.textKey;
   const updateFilter = props.updateFilter;
   const [value, setValue] = useState(false);
 
   useEffect(()=>{
-    updateFilter(text, value);
+    updateFilter(textKey, value);
   }, [value]);
 
   const handleClick = () =>{
