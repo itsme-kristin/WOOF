@@ -119,8 +119,9 @@ app.get('/organization', (req, res) => {
 
 //{email: <"email_address">}
 app.get('/userData', function (req, res) {
+  console.log('request email:', req.query);
   user
-    .getUser(req.body.email)
+    .getUser(req.query.email)
     .then(userData => {
       res.send(userData);
     })
@@ -133,8 +134,8 @@ app.get('/userData', function (req, res) {
 app.post('/userData', function (req, res) {
   user
     .addUser(req.body)
-    .then(() => {
-      res.sendStatus(201);
+    .then((userData) => {
+      res.send(userData).status(201);
     })
     .catch(err => {
       res.sendStatus(400);
