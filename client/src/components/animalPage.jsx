@@ -3,14 +3,22 @@ import AnimalPhotoCarousel from './carousel/animalPhotoCarousel.jsx';
 import AnimalOtherPetsCarousel from './carousel/animalOtherPetsCarousel.jsx';
 import {
   Box,
+  Button,
   Card,
   CardContent,
   Grid,
   Typography } from '@mui/material';
-  import CheckIcon from '@mui/icons-material/Check';
-  import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
-  import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
-  import EmailIcon from '@mui/icons-material/Email';
+import CheckIcon from '@mui/icons-material/Check';
+import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import EmailIcon from '@mui/icons-material/Email';
+
+const style =  {
+  button: {
+    margin: 0,
+    width: '400px',
+  }
+}
 
 const AnimalPage = (props) => {
   const animalInfo = {
@@ -67,6 +75,11 @@ const AnimalPage = (props) => {
       <Grid container spacing={3}>
         <Grid item xs={12} align="center" marginTop="4px">
           <Typography variant="h2"> {animalInfo.name}</Typography>
+        </Grid>
+        <Grid item xs={12} align="center">
+          <Button variant="contained" sx={style.button}>
+            Add {animalInfo.name} to your favorite animals
+          </Button>
         </Grid>
         <Grid item xs={12}>
           <AnimalPhotoCarousel photos={animalInfo.photos} numItems={3} />
@@ -132,7 +145,7 @@ const AnimalPage = (props) => {
           </Grid>
         </Grid>
         <Grid item container xs={4} spacing={1}>
-          <Card sx={{height:"100%"}}>
+          <Card sx={{height:"100%", padding:"10px"}}>
             <Typography variant="h4">Organization Name???</Typography>
             <br />
             <Typography variant="body1">
@@ -154,7 +167,7 @@ const AnimalPage = (props) => {
           </Card>
         </Grid>
         <Grid item xs={12} align="center">
-          <Typography variant="h2"> OTHER PETS FROM "LOCATION" </Typography>
+          <Typography variant="h3"> OTHER PETS FROM "LOCATION" </Typography>
         </Grid>
         <Grid item xs={12}>
           <AnimalOtherPetsCarousel orgId={animalInfo.organization_id} numItems={4} />
