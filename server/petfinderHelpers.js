@@ -78,7 +78,19 @@ const getDogsWithOrgNames = async dogs => {
   return result;
 };
 
+const getDogsAtOrg = orgId => {
+  return axios.get(
+    `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}`,
+    {
+      headers: {
+        Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+      }
+    }
+  );
+};
+
 module.exports = {
   getAuthToken,
-  getDogs
+  getDogs,
+  getDogsAtOrg
 };

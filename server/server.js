@@ -106,6 +106,17 @@ app.get('/adopt', (req, res) => {
     });
 });
 
+app.get('/organization', (req, res) => {
+  pf.getDogsAtOrg(req.body.id)
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log('Could not find dogs at org');
+      res.sendStatus(400);
+    });
+});
+
 //{email: <"email_address">}
 app.get('/userData', function (req, res) {
   user
