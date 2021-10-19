@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { response } = require('express');
 const { petfinderConfig } = require('../config');
 
 const tokenInfo = {
@@ -38,19 +39,43 @@ const getDogs = filters => {
     tokenInfo.expiration - new Date().getTime() < 1
   ) {
     return getAuthToken().then(() => {
-      return axios.get(`https://api.petfinder.com/v2/animals?${queryString}`, {
+      return axios
+        .get(`https://api.petfinder.com/v2/animals?${queryString}`, {
+          headers: {
+            Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+          }
+        })
+        .then(({ data }) => {
+          return getDogsWithOrgNames(data.animals);
+        });
+    });
+  } else {
+    return axios
+      .get(`https://api.petfinder.com/v2/animals?${queryString}`, {
         headers: {
           Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
         }
+      })
+      .then(({ data }) => {
+        return getDogsWithOrgNames(data.animals);
       });
-    });
-  } else {
-    return axios.get(`https://api.petfinder.com/v2/animals?${queryString}`, {
-      headers: {
-        Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
-      }
-    });
   }
+};
+
+const getDogsWithOrgNames = async dogs => {
+  const result = [];
+  for (const dog of dogs) {
+    const { data } = await axios.get(
+      `https://api.petfinder.com/v2/organizations/${dog.organization_id}`,
+      {
+        headers: {
+          Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+        }
+      }
+    );
+    result.push({ ...dog, organization_name: data.organization.name });
+  }
+  return result;
 };
 
 module.exports = {

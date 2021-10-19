@@ -97,8 +97,8 @@ app.get('/signin', function (req, res) {
 
 app.get('/adopt', (req, res) => {
   pf.getDogs(req.body)
-    .then(({ data }) => {
-      res.send(data);
+    .then(dogs => {
+      res.send(dogs);
     })
     .catch(err => {
       console.log('Error retrieving available dogs');
