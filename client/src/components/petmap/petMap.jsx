@@ -6,14 +6,57 @@ import {
   Marker,
 } from "react-google-maps";
 import { googleAPI } from "../../../../config.js";
+import {
+  dogOrganizatonsObj,
+  dogOrgsLatLng,
+  petGroomersLatLng,
+} from "./dummyData.jsx";
+
+/* HR Austin TX
+Lat: 30.265020
+Lng: -97.750153
+*/
 
 const googleMap = () => {
   return (
     <GoogleMap
-      defaultZoom={10}
-      defaultCenter={{ lat: 30.542747, lng: -97.550011 }}
+      defaultZoom={12}
+      defaultCenter={{ lat: 30.26502, lng: -97.750153 }}
     >
-      <Marker position={{ lat: 30.542747, lng: -97.550011 }} />
+      <Marker
+        position={{ lat: 30.26502, lng: -97.750153 }}
+        // icon={{
+        //   url: "/paw_print.png",
+
+        //   scaledSize: new window.google.maps.Size(25, 30)
+        // }}
+      />
+      {dogOrgsLatLng.map((organization, key) => {
+        return (
+          <Marker
+            key={key}
+            position={{ lat: organization[0], lng: organization[1] }}
+            icon={{
+              url: "/paw_print.png",
+
+              scaledSize: new window.google.maps.Size(25, 30),
+            }}
+          />
+        );
+      })}
+      {petGroomersLatLng.map((groomers, key) => {
+        return (
+          <Marker
+            key={key}
+            position={{ lat: groomers[0], lng: groomers[1] }}
+            icon={{
+              url: "/groomers.png",
+
+              scaledSize: new window.google.maps.Size(40, 40),
+            }}
+          />
+        );
+      })}
     </GoogleMap>
   );
 };
