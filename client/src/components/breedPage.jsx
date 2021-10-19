@@ -8,41 +8,82 @@ import {
   import OrganizationCard from './card/organizationCard.jsx';
 
 const BreedPage = (props) => {
-  const { breed } = props;
+  //const { breed } = props;
 
   // the breed info object
-  const [breedInfo, setBreedInfo] = useState([]);
+  const breedInfo = {
+    "height": {
+        "imperial": "9 - 11.5",
+        "metric": "23 - 29"
+    },
+    "image": {
+        "height": 1199,
+        "id": "BJa4kxc4X",
+        "url": "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",
+        "width": 1600
+    },
+    "weight": "small",
+    "_id": "6169acbe99bd0491f8a6c7a4",
+    "bred_for": "Small rodent hunting, lapdog",
+    "breed_group": "Toy",
+    "country_code": "",
+    "id": 1,
+    "life_span": "10 - 12 years",
+    "name": "Affenpinscher",
+    "origin": "Germany, France",
+    "reference_image_id": "BJa4kxc4X",
+    "temperament": "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
+    "__v": 0
+  };
 
-  const getBreedInfo = (breed) => {
-    //make a GET request to server to grab name, image, organizations, temperament, etc.
-  }
-
-  useEffect(() => {
-    getBreedInfo
-  }, [breedInfo])
+  const temperament = breedInfo.temperament.split(', ');
 
   return (
-    <Box sx={{width: 1100, backgroundColor: 'primary.dark'}}>
-      <Grid container spacing={3}>
+    <Box sx={{marginTop:"10px"}}>
+      <Grid container spacing={2}>
         <Grid item xs={4}>
-          <img height="315" width="315" src="https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg"></img>
+          <img height="315" width="315" src={breedInfo.image.url}></img>
         </Grid>
-        <Grid item xs={6}>
-         <Card sx={{height:"100%"}}>
-           <Typography variant="h2">Labrador</Typography>
-           <Typography variant="body1">a cute fun loving dog that will make for a great family dog</Typography>
-         </Card>
+        <Grid item container xs={5}>
+          <Grid item xs={12}>
+            <Typography variant="h3">{breedInfo.name}</Typography>
+            <Typography variant="h5">Breed origin: {breedInfo.origin}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1"> there is no description in Dog API? there is no description in Dog API? there is no description in Dog API? there is no description in Dog API? </Typography>
+          </Grid>
+          <Grid item xs={6}>
+          <Typography variant="body2" component="ul" >
+            <li>
+              Height: {breedInfo.height.imperial}{' '}lbs
+            </li>
+            <li>
+              Weight: {breedInfo.weight}{' '}
+            </li>
+            <li>
+              Life Span: {breedInfo.life_span}{' '}
+            </li>
+          </Typography>
+          </Grid>
+          <Grid item xs={6}>
+          <Typography variant="body2" component="ul" >
+            <li>
+              Breed Group: {breedInfo.breed_group}{' '}
+            </li>
+            <li>
+              Bred For: {breedInfo.bred_for}{' '}
+            </li>
+          </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Card sx={{height:"100%", backgroundColor:'#C6AC8F'}}>
-            <CardContent>
-              A list of temperament traits
-              <ul>
-                <li>fun</li>
-                <li>adorable</li>
-                <li>playful</li>
-              </ul>
-            </CardContent>
+            <Typography variant="h5"> Breed Temperament </Typography>
+            <Typography variant="body2" component="ul" >
+                {temperament.map((elem, i) => {
+                  return (<li key={i}>{elem}</li>)
+                })}
+            </Typography>
           </Card>
         </Grid>
         <Grid item xs={8} sx={{height:"100%"}}>
@@ -58,9 +99,5 @@ const BreedPage = (props) => {
       </Grid>
     </Box>
   );
-
 }
 export default BreedPage;
-
-
-
