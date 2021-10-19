@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { response } = require('express');
 const { petfinderConfig } = require('../config');
 
 const tokenInfo = {
@@ -20,6 +21,8 @@ const getAuthToken = () => {
     });
 };
 
+//axios.get(/adopt, {location: "78759", })
+
 const getDogs = filters => {
   // const { location, distance, breed, size, gender, age, coat, good_with_children, good_with_dogs, good_with }
   let queryString = 'type=dog&status=adoptable';
@@ -38,22 +41,58 @@ const getDogs = filters => {
     tokenInfo.expiration - new Date().getTime() < 1
   ) {
     return getAuthToken().then(() => {
-      return axios.get(`https://api.petfinder.com/v2/animals?${queryString}`, {
+      return axios
+        .get(`https://api.petfinder.com/v2/animals?${queryString}`, {
+          headers: {
+            Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+          }
+        })
+        .then(({ data }) => {
+          return getDogsWithOrgNames(data.animals);
+        });
+    });
+  } else {
+    return axios
+      .get(`https://api.petfinder.com/v2/animals?${queryString}`, {
         headers: {
           Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
         }
+      })
+      .then(({ data }) => {
+        return getDogsWithOrgNames(data.animals);
       });
-    });
-  } else {
-    return axios.get(`https://api.petfinder.com/v2/animals?${queryString}`, {
+  }
+};
+
+const getDogsWithOrgNames = async dogs => {
+  const result = [];
+  for (const dog of dogs) {
+    const { data } = await axios.get(
+      `https://api.petfinder.com/v2/organizations/${dog.organization_id}`,
+      {
+        headers: {
+          Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+        }
+      }
+    );
+    result.push({ ...dog, organization_name: data.organization.name });
+  }
+  return result;
+};
+
+const getDogsAtOrg = orgId => {
+  return axios.get(
+    `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}`,
+    {
       headers: {
         Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
       }
-    });
-  }
+    }
+  );
 };
 
 module.exports = {
   getAuthToken,
-  getDogs
+  getDogs,
+  getDogsAtOrg
 };

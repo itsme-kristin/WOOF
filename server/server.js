@@ -97,8 +97,8 @@ app.get('/signin', function (req, res) {
 
 app.get('/adopt', (req, res) => {
   pf.getDogs(req.body)
-    .then(({ data }) => {
-      res.send(data);
+    .then(dogs => {
+      res.send(dogs);
     })
     .catch(err => {
       console.log('Error retrieving available dogs');
@@ -106,10 +106,22 @@ app.get('/adopt', (req, res) => {
     });
 });
 
+app.get('/organization', (req, res) => {
+  pf.getDogsAtOrg(req.body.id)
+    .then(({ data }) => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log('Could not find dogs at org');
+      res.sendStatus(400);
+    });
+});
+
 //{email: <"email_address">}
 app.get('/userData', function (req, res) {
+  console.log('request email:', req.query);
   user
-    .getUser(req.body.email)
+    .getUser(req.query.email)
     .then(userData => {
       res.send(userData);
     })
@@ -122,8 +134,8 @@ app.get('/userData', function (req, res) {
 app.post('/userData', function (req, res) {
   user
     .addUser(req.body)
-    .then(() => {
-      res.sendStatus(201);
+    .then((userData) => {
+      res.send(userData).status(201);
     })
     .catch(err => {
       res.sendStatus(400);

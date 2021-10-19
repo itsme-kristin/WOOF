@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ResearchSidebar from '../sidebar/sidebarReSearch.jsx';
+import ResearchSidebar from '../sidebar/sidebarResearch.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
 
