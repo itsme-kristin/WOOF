@@ -6,38 +6,28 @@ body{
   background-color: #EAE0D5;
 }
 
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 #appContainer {
   font-family: 'Montserrat', sans-serif;
   background-color: white;
   overflow: auto;
-  min-height: 86vh;
+  height: calc(100vh - 140px)
 }
 
 .header {
   background-color: #0A0908;
   color: #EAE0D5;
-  max-height: 100px;
+  /* max-height: 100px; */
 }
 
 .footer {
   background-color: #0A0908;
   color: #EAE0D5;
   height: 50px;
-}
-
-.header a, .footer a {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-.logo {
-  padding: 0;
-  margin: 0;
-}
-
-.nav {
-  text-align: right;
-  color: #EAE0D5;
 }
 
 .debug {
