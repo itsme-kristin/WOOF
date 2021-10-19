@@ -19,8 +19,7 @@ const getDogBreedInformationByName = (dogBreedName) => {
     Description.find({ breedName: dogBreedToLowerCase }),
   ])
     .then((dogObject) => {
-      // console.log(dogObject);
-      return dogObjects;
+      return dogObject;
     })
     .catch((errorGettingDogInformation) => {
       return errorGettingDogInformation;
