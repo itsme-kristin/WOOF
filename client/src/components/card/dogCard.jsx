@@ -12,6 +12,7 @@ import FullStar from '@mui/icons-material/Star';
 import Grid from '@mui/material/Grid';
 // import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 // import Circle from '@mui/icons-material/Circle';
+import { Link } from 'react-router-dom';
 
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
@@ -22,9 +23,14 @@ const DogCard = (props) => {
   const text = props.text || '3 Mths | Labrador Retriever | 8 miles';
   const type = props.type || 'none';
   const name = props.name || 'Oliver';
-  const [ activeIcon, setActiveIcon ] = useState(false);
+  const [ activeIcon, setActiveIcon ] = useState(false); //change initial state to a boolean of if the dog is found in the user's fav list
 
   const handleClick = (event) => {
+    //TODO: IF TYPE = HEART (DOG)
+        //TODO: cases if active => remove favorite (toggle to inactive)
+        //if unactive => add favorite (toggle to active)
+    //IF TYPE = STAR (BREED)
+        //
     setActiveIcon(!activeIcon);
   }
 
@@ -72,32 +78,72 @@ const DogCard = (props) => {
     return(fullElement)
   }
 
+//heart, portrait = dog
+//star, landscape = breed
   const getImage = () => {
-    if (image) {
-      return (
-        <CardMedia
-          component="img"
-          image={image}
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+    if (orientation === 'portrait') {
+      if (image) {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
     } else {
-      return (
-        <CardMedia
-          component="img"
-          // image={image}
-          alt='no image'
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+      if (image) {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
+
     }
   }
 

@@ -17,7 +17,7 @@ const SideBar = () => {
       <Grid item id='userInfo' sm={2}>
         <Typography variant='h3'>Name: {userDataState.name}</Typography>
         <Typography>Email: {userDataState.email}</Typography>
-        <Typography>address here</Typography>
+        <Typography>{console.log(userDataState)}</Typography>
         {/* <Typography>{currentUser.email}</Typography> */}
         <UserMenu />
       </Grid>
