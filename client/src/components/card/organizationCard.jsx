@@ -18,7 +18,7 @@ const OrganizationCard = (props) => {
   const organization = {
     "contact": {
             "email": "adopt@austinpetsalive.org",
-            "phone": 555-555-5555,
+            "phone": "555-555-5555",
             "address": {
                 "address1": "1156 West Cesar Chavez",
                 "address2": null,
