@@ -10,7 +10,7 @@ import ComparisonTable from './comparisonTable.jsx';
 const ComparisonModal = (props) => {
 
   const [open, setOpen] = useState(false);
-  const { breeds } = props;
+  const { breed1, breed2 } = props;
 
   const handleOpen = () => {
     setOpen(true);
@@ -51,7 +51,7 @@ const ComparisonModal = (props) => {
             margin: 5,
             zIndex: 1
           }}>
-            <ComparisonTable />
+            <ComparisonTable breed1={breed1} breed2={breed2}/>
           </div>
         </Fade>
       </Modal>

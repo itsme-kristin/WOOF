@@ -96,7 +96,7 @@ app.get("/signin", function (req, res) {
 });
 
 app.get("/adopt", (req, res) => {
-  pf.getDogs(req.body)
+  pf.getDogs(req.query)
     .then((dogs) => {
       res.send(dogs);
     })
@@ -107,9 +107,9 @@ app.get("/adopt", (req, res) => {
 });
 
 app.get("/organization", (req, res) => {
-  pf.getOrgName(req.body.id)
+  pf.getOrgName(req.query.id)
     .then((orgInfo) => {
-      pf.getDogsAtOrg(req.body.id)
+      pf.getDogsAtOrg(req.query.id)
         .then((otherDogs) => {
           res.send([orgInfo.data.organization.name, otherDogs.data.animals]);
         })
@@ -140,7 +140,6 @@ app.get("/nearbyOrgs", (req, res) => {
 //{email: <"email_address">}
 
 app.get("/userData", function (req, res) {
-  console.log("request email:", req.query);
   user
     .getUser(req.query.email)
     .then((userData) => {

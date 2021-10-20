@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import ResearchSidebar from '../sidebar/sidebarReSearch.jsx';
+import ResearchSidebar from '../sidebar/sidebarResearch.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
 
@@ -25,7 +25,7 @@ const PetRearch = () => {
           if (description) {
             description = description.length > 15 ? description.slice(0,15) : description;
           }
-          return ( <DogCard key={index} orientation={'landscape'} type={'star'} name={dog.name} image={dog.image.url} /> )
+          return ( <DogCard key={index} orientation={'landscape'} type={'star'} name={dog.name} image={dog.image.url} breedObj={dog}/> )
         }
       });
     }
