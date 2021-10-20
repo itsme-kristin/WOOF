@@ -16,10 +16,16 @@ import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 const HomePage = () => {
   const [list, setList] = useState([]);
 
+  const config = {
+    params: {
+      limit: 5,
+    }
+  }
+
   useEffect(() => {
-    axios.get('/adopt')
+    axios.get('/adopt', config)
     .then(({data}) => {
-      console.log({data});
+      console.log(data);
       return data.slice(0, 5);
     })
     .then((top5) => setList(top5))
