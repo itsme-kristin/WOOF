@@ -26,7 +26,9 @@ const AuthProvider = ({ children }) => {
     street_address: '',
     city: '',
     state: '',
-    zip: ''
+    zip: '',
+    savedBreeds: [],
+    savedDogs: [],
   });
 
   const signup = (email, password) => {

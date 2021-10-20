@@ -139,10 +139,6 @@ const UserSignup = ({ history }) => {
           <Button onClick={handleSubmit}>Submit</Button>
         </form>
       </Grid>
-      <Typography variant='body1'>Already have an account? Login
-        {/* <Link>
-        </Link> */}
-      </Typography>
     </div>
   )
 }
