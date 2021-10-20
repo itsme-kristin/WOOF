@@ -14,7 +14,9 @@ const SearchBar = (props) => {
   const [values, setValues] = useState('');
 
   const handleChange = (event) => {
-    setValues(event.target.value);
+    let str = event.target.value;
+    str = str.length > 5 ? str.slice(0,5) : str;
+    setValues(str);
   }
 
   useEffect(()=>{
@@ -23,7 +25,7 @@ const SearchBar = (props) => {
 
   return (
     <FormControl sx={{ m: 1, width: '256px', marginLeft: '0px'}}>
-      <InputLabel htmlFor="outlined-adornment-password"> SEARCH </InputLabel>
+      <InputLabel htmlFor="outlined-adornment-password"> Zip Code </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
         value={values}
@@ -37,7 +39,7 @@ const SearchBar = (props) => {
             </IconButton>
           </InputAdornment>
         }
-        label="Search"
+        label="Zip Code"
       />
     </FormControl>
   )

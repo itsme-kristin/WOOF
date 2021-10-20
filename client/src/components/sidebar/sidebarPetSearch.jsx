@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -9,11 +9,15 @@ import TraitCheckbox from './traitcheckbox.jsx';
 import PetMap from '../petmap/petMap.jsx';
 
 const Sidebar = (props) => {
+  const [breeds, setBreeds] = useState(props.breeds || []);
   const [dropDownFilters] = useState(props.dropdowns);
   const [checkboxTraits] = useState(props.checkboxs);
   const [buttonType] = useState(props.buttonText || 'apply');
-
   const [activeFilters, setActiveFilters] = useState({});
+
+  useEffect(()=>{
+    setBreeds(props.breeds);
+  },[props.breeds])
 
   const updateFilter = (key, value) => {
     if (value) {
@@ -26,7 +30,6 @@ const Sidebar = (props) => {
   const handleSubmit = (event) => {
     console.log(activeFilters);
   }
-
 
   const getFilters = () => {
     if (dropDownFilters) {
@@ -41,15 +44,37 @@ const Sidebar = (props) => {
             key={filter}
           >
             <Dropdown
-            key={index}
-            text={filter}
-            style={{float:'left'}}
-            updateFilter={updateFilter}
-            values={dropDownFilters[filter]}
+              key={index}
+              text={filter}
+              style={{float:'left'}}
+              updateFilter={updateFilter}
+              values={dropDownFilters[filter]}
             />
           </Grid>
         )
       });
+    }
+  }
+
+  const getBreedFilter = () => {
+    if (breeds.length > 0) {
+      return (
+        <Grid
+          item
+          container
+          alignItems="flex-start"
+          id='breeds'
+          key='breeds'
+        >
+          <Dropdown
+            // key={index}
+            text='breeds'
+            style={{float:'left'}}
+            updateFilter={updateFilter}
+            values={breeds}
+          />
+        </Grid>
+      );
     }
   }
 
@@ -107,6 +132,7 @@ const Sidebar = (props) => {
         >
           <br />
           {getFilters()}
+          {getBreedFilter()}
         </Grid>
         <br />
         <br />
