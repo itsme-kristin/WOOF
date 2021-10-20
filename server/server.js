@@ -124,6 +124,17 @@ app.get('/organization', (req, res) => {
     });
 });
 
+app.get('/nearbyOrgs', (req, res) => {
+  pf.getNearbyOrgs(req.body.location, req.body.distance)
+    .then(({ data }) => {
+      res.send(data.organizations);
+    })
+    .catch(err => {
+      console.log('Could not find nearby orgs');
+      res.sendStatus(400);
+    });
+});
+
 //{email: <"email_address">}
 
 app.get('/userData', function (req, res) {
