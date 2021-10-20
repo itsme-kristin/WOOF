@@ -28,51 +28,59 @@ const googleMap = () => {
     organizationsBasedOnDistanceState,
     setOrganizationsBasedOnDistanceState,
   ] = organizationsBasedOnDistance;
-  console.log("org obj", organizationsBasedOnDistanceState);
-  return (
-    <GoogleMap
-      defaultZoom={12}
-      defaultCenter={{
-        lat: Number(userDataState.lat),
-        lng: Number(userDataState.lng),
-      }}
-    >
-      <Marker
-        position={{
+
+  if (organizationsBasedOnDistanceState.length) {
+    return (
+      <GoogleMap
+        defaultZoom={10}
+        defaultCenter={{
+          lat: Number(userDataState.lat),
+          lng: Number(userDataState.lng),
+        }}
+      >
+        <Marker
+          position={{
+            lat: Number(userDataState.lat),
+            lng: Number(userDataState.lng),
+          }}
+        />
+        {organizationsBasedOnDistanceState.map((organization, key) => {
+          console.log(
+            "inner log",
+            typeof organization.latitude,
+            organization.longitude
+          );
+          if (organization.latitude) {
+            return (
+              <Marker
+                key={key}
+                position={{
+                  lat: organization.latitude,
+                  lng: organization.longitude,
+                }}
+                icon={{
+                  url: "/paw_print.png",
+                  scaledSize: new window.google.maps.Size(25, 30),
+                }}
+              />
+            );
+          } else {
+            return "";
+          }
+        })}
+      </GoogleMap>
+    );
+  } else {
+    return (
+      <GoogleMap
+        defaultZoom={10}
+        defaultCenter={{
           lat: Number(userDataState.lat),
           lng: Number(userDataState.lng),
         }}
       />
-      {organizationsBasedOnDistanceState.map((organization, key) => {
-        return (
-          <Marker
-            key={key}
-            position={{
-              lat: organization.latitude,
-              lng: organization.longitude,
-            }}
-            icon={{
-              url: "/paw_print.png",
-              scaledSize: new window.google.maps.Size(25, 30),
-            }}
-          />
-        );
-      })}
-      {petGroomersLatLng.map((groomers, key) => {
-        return (
-          <Marker
-            key={key}
-            position={{ lat: groomers[0], lng: groomers[1] }}
-            icon={{
-              url: "/groomers.png",
-
-              scaledSize: new window.google.maps.Size(40, 40),
-            }}
-          />
-        );
-      })}
-    </GoogleMap>
-  );
+    );
+  }
 };
 
 const WrappedMap = withScriptjs(withGoogleMap(googleMap));

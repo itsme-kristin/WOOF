@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
   });
 
   const [organizationsBasedOnDistance, setOrganizationsBasedOnDistance] =
-    useState([]);
+    useState([{ latitude: 0, longitude: 0 }]);
 
   const fetchNearByOrganizations = () => {
     axios
