@@ -1,25 +1,55 @@
-import React, {useState} from 'react';
-import ResearchSidebar from '../sidebar/sidebarResearch.jsx';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import ResearchSidebar from '../sidebar/sidebarReSearch.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
 
 let height = screen.height;
 
 const dropDownFilters = {
-  'Breed': [1,2,3,4],
-  'Breed Group': [5,10,25,50],
-  'Size': ['small','medium','large','xlarge'],
-  'Tempurment': ['male', 'female'],
+  'Breed Group': ['Toy', 'Terrier', 'Hound', 'Mixed', 'Working', 'Non-Sporting', 'Sporting', 'Herding'],
+  'Weight': ['small','medium','large'],
+  'Tempurment': ['Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
 }
 
-const PetRearch = () => {
-  const [dogArray] = useState(new Array(9).fill('dog'));
 
-  const getDogs = () => {
-    return dogArray.map((dog, index)=>{
-      return ( <DogCard key={index} type={'star'} orientation={'landscape'} image={'https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53309608/1/?bust=1634664953&width=300'}/> )
-    });
+const PetRearch = () => {
+  const [dogArray, setDogArray] = useState( [] );
+  const [breeds, setBreeds] = useState ([]);
+
+  const getBreeds = () => {
+    if (dogArray.length > 0) {
+      return dogArray.map((dog, index)=>{
+        if (dog) {
+          let description = dog.description;
+          if (description) {
+            description = description.length > 15 ? description.slice(0,15) : description;
+          }
+          return ( <DogCard key={index} orientation={'landscape'} type={'star'} name={dog.name} image={dog.image.url} /> )
+        }
+      });
+    }
   }
+
+  const compileBreeds = (breedArr) => {
+    // console.log(breedArr)s;
+    let breedNames = [];
+    breedArr.map((breed)=>{
+      breedNames.push(breed.name)
+    })
+    setBreeds(breedNames);
+  }
+
+  useEffect(()=>{
+    axios.get('/breed-details')
+      .then((data)=> {
+        setDogArray(data.data);
+        compileBreeds(data.data);
+      })
+      .catch((error)=> {
+        console.log(error);
+      })
+  }, []);
 
   return (
     <Grid
@@ -41,12 +71,13 @@ const PetRearch = () => {
         justifyContent="space-around"
         alignItems="center"
         sx={{
+          paddingTop: '20px',
           overflow: 'scroll',
           width: '900px',
-          height: '800px',
+          height: '100%',
         }}
       >
-        {getDogs()}
+        {getBreeds()}
       </Grid>
 
 
@@ -54,6 +85,7 @@ const PetRearch = () => {
         <ResearchSidebar
           buttonText='compare'
           dropdowns={dropDownFilters}
+          breeds={breeds}
         />
       </Grid>
 
