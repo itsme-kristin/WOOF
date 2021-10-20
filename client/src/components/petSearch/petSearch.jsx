@@ -57,7 +57,7 @@ const PetSearch = () => {
   useEffect(()=>{
     axios.get('/adopt')
       .then((data)=> {
-        console.log(data.data);
+        // console.log(data.data);
         setDogArray(data.data);
       })
       .then((data)=>{
