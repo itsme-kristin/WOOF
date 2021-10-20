@@ -87,8 +87,10 @@ const SideBar = () => {
             </li>
           </Typography>
           <Box id="account-form-buttons" component="div" sx={style.form.buttons}>
-            {editMode ? (<Button variant="contained" onClick={toggleEdit}>Save</Button>)
-                      : (<Button variant="contained" onClick={toggleEdit}>Edit</Button>)}
+            <Button variant="contained" onClick={toggleEdit}>
+              {editMode ? 'Save'
+                        : 'Edit'}
+            </Button>
           </Box>
         </Box>
       </Grid>
