@@ -10,6 +10,7 @@ import {
   import OrganizationCard from './card/organizationCard.jsx';
   import EmptyStar from '@mui/icons-material/StarBorder';
   import FullStar from '@mui/icons-material/Star';
+  import PetMap from './petmap/petMap.jsx';
 
 const BreedPage = (props) => {
   //const { breed } = props;
@@ -138,15 +139,34 @@ const BreedPage = (props) => {
             </Typography>
           </Card>
         </Grid>
-        <Grid item xs={8} sx={{height:"100%"}}>
+        <Grid item container spacing={1} xs={8} sx={{height:"100%"}}>
           {/* map over the organizations array and populate this section with organizationCards */}
-          <OrganizationCard />
-          <OrganizationCard />
-          <OrganizationCard />
+          <Grid item>
+            <OrganizationCard />
+          </Grid>
+                    <Grid item>
+            <OrganizationCard />
+          </Grid>
+                              <Grid item>
+            <OrganizationCard />
+          </Grid>
+
         </Grid>
         <Grid height="315" width="315" item xs={4} sx={{height:"100%"}}>
-          {/* Google Maps API integration, maps placeholder for now */}
-          <img src="https://tinyimg.io/i/rir4bHt.png"></img>
+        <Box
+          id="googleMap"
+          sx={{
+            width: 315,
+            height: 315,
+            backgroundColor: 'white',
+            '&:hover': {
+              backgroundColor: 'primary.main',
+              opacity: [0.9, 0.8, 0.7],
+            },
+          }}
+        >
+          <PetMap />
+        </Box>
         </Grid>
       </Grid>
     </Box>
