@@ -97,14 +97,15 @@ app.get('/signin', function (req, res) {
 
 app.get('/adopt', (req, res) => {
   pf.getDogs(req.body)
-    .then(dogs => {
+    .then((dogs) => {
       res.send(dogs);
     })
-    .catch(err => {
-      console.log('Error retrieving available dogs');
+    .catch((err) => {
+      console.log("Error retrieving available dogs");
       res.sendStatus(400);
     });
 });
+
 
 app.get('/organization', (req, res) => {
   pf.getOrgName(req.body.id)
@@ -124,13 +125,24 @@ app.get('/organization', (req, res) => {
     });
 });
 
+app.get('/nearbyOrgs', (req, res) => {
+  pf.getNearbyOrgs(req.body.location, req.body.distance)
+    .then(({ data }) => {
+      res.send(data.organizations);
+    })
+    .catch(err => {
+      console.log('Could not find nearby orgs');
+      res.sendStatus(400);
+    });
+});
+
 //{email: <"email_address">}
 
-app.get('/userData', function (req, res) {
-  console.log('request email:', req.query);
+app.get("/userData", function (req, res) {
+  console.log("request email:", req.query);
   user
     .getUser(req.query.email)
-    .then(userData => {
+    .then((userData) => {
       res.send(userData);
     })
     .catch(err => {
@@ -224,14 +236,28 @@ app.get('/breed-name', (req, res) => {
     });
 });
 
-//'/breed-details?property=property&value=value'
-app.get('/breed-details', (req, res) => {
-  let property = req.query.property;
-  let value = req.query.value;
+
+//breed-details?breed_name=breed+name&breed_group=breed+group&size=size&temperament=temperament
+
+///breed-details?breed_name=Airedale+Terrier&breed_group=Terrier&size=medium&temperament=Friendly
+
+//**filters on Front End need to be case sensitive**
+app.get("/breed-details", (req, res) => {
+  let filterObj = {};
+  if (req.query.breed_group) {
+    filterObj.breed_group = req.query.breed_group;
+  }
+
+  if (req.query.size) {
+    filterObj.size = req.query.size;
+  }
+  if (req.query.temperament) {
+    filterObj.temperament = req.query.temperament;
+  }
   breed
-    .getDogBreedByValue(property, value)
-    .then(filteredDogBreedArr => {
-      res.send(filteredDogBreedArr);
+    .getDogBreedByValue(filterObj)
+    .then((filteredDogBreedsArr) => {
+      res.send(filteredDogBreedsArr);
     })
     .catch(errorGettingDogInformation => {
       res.sendStatus(400).send(errorGettingDogInformation);
