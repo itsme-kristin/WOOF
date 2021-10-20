@@ -17,7 +17,6 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-<<<<<<< HEAD
     axios.get('/adopt', config)
     .then(({data}) => {
       console.log(data);
@@ -27,18 +26,6 @@ const HomePage = () => {
     .then(() => console.log('top5 has been loaded'))
     .catch((e) => console.log(e))
   }, [])
-=======
-    axios
-      .get('/adopt')
-      .then(({ data }) => {
-        console.log({ data });
-        return data.slice(0, 5);
-      })
-      .then(top5 => setList(top5))
-      .then(() => console.log('top5 has been loaded'))
-      .catch(e => console.log(e));
-  }, []);
->>>>>>> 9f28cc0e045efb0205cec8bcd83848324fd93401
 
   const searchBar = () => {
     const homeSearch = {
