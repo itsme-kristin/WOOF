@@ -121,7 +121,6 @@ app.get('/organization', (req, res) => {
 //{email: <"email_address">}
 
 app.get('/userData', function (req, res) {
-  console.log('request email:', req.query);
   user
     .getUser(req.query.email)
     .then(userData => {
@@ -158,6 +157,7 @@ app.put("/userData", function (req, res) {
 
 //{email: <"email_address">, dogObj: {<dogObj>}}
 app.put("/saveDog", function (req, res) {
+  console.log(req.body);
   user
     .addSavedDog(req.body.email, req.body.dogObj)
     .then(() => {
