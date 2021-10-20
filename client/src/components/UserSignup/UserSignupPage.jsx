@@ -17,7 +17,8 @@ const UserSignup = ({ history }) => {
   const cityRef = useRef();
   const stateRef = useRef();
   const zipcodeRef = useRef();
-  const { signup, setUserData } = useAuth();
+  const { signup, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,8 +41,8 @@ const UserSignup = ({ history }) => {
           axios.post('/userData', params)
             .then(response => {
               console.log('response from post: ', params)
-              setUserData(params)
-              history.push('/');
+              setUserDataState(params)
+              history.push('/user');
             })
             .catch(error => {
               console.error(error);
@@ -138,10 +139,6 @@ const UserSignup = ({ history }) => {
           <Button onClick={handleSubmit}>Submit</Button>
         </form>
       </Grid>
-      <Typography variant='body1'>Already have an account? Login
-        {/* <Link>
-        </Link> */}
-      </Typography>
     </div>
   )
 }
