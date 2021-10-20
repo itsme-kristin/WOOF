@@ -5,7 +5,7 @@ import {
   Fade,
   Modal
   } from '@mui/material';
-//import comparison table file
+import ComparisonTable from './comparisonTable.jsx';
 
 // const useStyles = makeStyles((theme) => ({
 //   modal: {
@@ -37,6 +37,7 @@ const ComparisonModal = (props) => {
   return (
     <div>
       <Button variant="contained" color="secondary" onClick={handleOpen}>
+        Compare Breeds
       </Button>
 
       <Modal
@@ -54,7 +55,7 @@ const ComparisonModal = (props) => {
         <Fade in={open}>
           {/* <div className={classes.paper}> */}
           <div>
-            <ComparisonTable favoriteBreeds={favoriteBreeds} />
+            <ComparisonTable />
           </div>
         </Fade>
       </Modal>
