@@ -28,7 +28,7 @@ const PetSearch = () => {
   const [breeds, setBreeds] = useState ([]);
 
   const getDogs = () => {
-    if (dogArray.length > 0) {
+    if (dogArray && dogArray.length > 0) {
       return dogArray.map((dog, index)=>{
         let name = dog.name.slice(0, 15);
         let description = dog.description;
@@ -57,7 +57,8 @@ const PetSearch = () => {
   useEffect(()=>{
     axios.get('/adopt')
       .then((data)=> {
-        setDogArray(data.data.animals);
+        console.log(data.data);
+        setDogArray(data.data);
       })
       .then((data)=>{
         return axios.get('/breed-details')
