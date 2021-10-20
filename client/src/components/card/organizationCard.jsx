@@ -22,7 +22,7 @@ const OrganizationCard = (props) => {
   }, [orgInfo])
 
   return (
-    <Box sx={{backgroundColor:'pink'}}>
+    <Box>
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h2"> Organization Title </Typography>

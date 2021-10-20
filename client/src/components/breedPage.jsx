@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Card,
+  CardActions,
   CardContent,
+  CardMedia,
   Grid,
   Typography } from '@mui/material';
   import OrganizationCard from './card/organizationCard.jsx';
+  import EmptyStar from '@mui/icons-material/StarBorder';
+  import FullStar from '@mui/icons-material/Star';
 
 const BreedPage = (props) => {
   //const { breed } = props;
@@ -37,12 +41,47 @@ const BreedPage = (props) => {
   };
 
   const temperament = breedInfo.temperament.split(', ');
+  const [ activeIcon, setActiveIcon ] = useState(false);
+  const handleClick = (event) => {
+    setActiveIcon(!activeIcon);
+  }
+  const getIcon = () => {
+    let icon = <div />
+      if (activeIcon) {
+        icon = <FullStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+      }  else {
+        icon = <EmptyStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+      }
+    return ( icon );
+  }
 
   return (
     <Box sx={{marginTop:"10px"}}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
-          <img height="315" width="315" src={breedInfo.image.url}></img>
+          <Card>
+        <CardMedia
+          image={breedInfo.image.url}
+          alt="Oliver the dog"
+          sx={{
+            width: '100%',
+            height: '350px',
+            backgroundColor: 'linen'
+          }}
+        >
+        <Grid item container justifyContent="flex-end">
+                    <CardActions
+              onClick={handleClick}
+              sx={{
+                padding: '5px',
+                zIndex:1
+              }}
+            >
+              { getIcon() }
+            </CardActions>
+            </Grid>
+        </CardMedia>
+          </Card>
         </Grid>
         <Grid item container xs={5}>
           <Grid item xs={12}>
