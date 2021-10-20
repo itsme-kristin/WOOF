@@ -12,10 +12,18 @@ const SideBar = () => {
 
   const { userData, currentUser } = useAuth();
   const [userDataState, setUserDataState] = userData;
+  {console.log(userDataState)}
+  {console.log(currentUser)}
+
   return (
     <Grid container spacing={2} direction='column'>
+      <Grid item>
+        <Typography variant="h6" align="center" fullWidth>
+          Account
+        </Typography>
+      </Grid>
       <Grid item id='userInfo' sm={2}>
-        <Typography variant='h3'>Name: {userDataState.name}</Typography>
+        <Typography>Name: {userDataState.name}</Typography>
         <Typography>Email: {userDataState.email}</Typography>
         <Typography>{console.log(userDataState)}</Typography>
         {/* <Typography>{currentUser.email}</Typography> */}
