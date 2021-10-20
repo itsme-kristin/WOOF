@@ -48,7 +48,11 @@ const getDogs = filters => {
           }
         })
         .then(({ data }) => {
-          return getDogsWithOrgNames(data.animals);
+          if (filters.limit && filters.limit <= 3) {
+            return getDogsWithOrgNames(data.animals);
+          } else {
+            return data.animals;
+          }
         });
     });
   } else {
@@ -59,7 +63,11 @@ const getDogs = filters => {
         }
       })
       .then(({ data }) => {
-        return getDogsWithOrgNames(data.animals);
+        if (filters.limit && filters.limit <= 3) {
+          return getDogsWithOrgNames(data.animals);
+        } else {
+          return data.animals;
+        }
       });
   }
 };
@@ -80,19 +88,58 @@ const getDogsWithOrgNames = async dogs => {
   return result;
 };
 
-const getDogsAtOrg = orgId => {
-  return axios.get(
-    `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}`,
-    {
+const getOrgName = orgId => {
+  if (
+    !tokenInfo.expiration ||
+    tokenInfo.expiration - new Date().getTime() < 1
+  ) {
+    return getAuthToken().then(() => {
+      return axios.get(`https://api.petfinder.com/v2/organizations/${orgId}`, {
+        headers: {
+          Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+        }
+      });
+    });
+  } else {
+    return axios.get(`https://api.petfinder.com/v2/organizations/${orgId}`, {
       headers: {
         Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
       }
-    }
-  );
+    });
+  }
+};
+
+const getDogsAtOrg = orgId => {
+  if (
+    !tokenInfo.expiration ||
+    tokenInfo.expiration - new Date().getTime() < 1
+  ) {
+    return getAuthToken().then(() => {
+      return axios.get(
+        `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}&limit=5`,
+        {
+          headers: {
+            Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+          }
+        }
+      );
+    });
+  } else {
+    return axios.get(
+      `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}`,
+      {
+        headers: {
+          Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+        }
+      }
+    );
+  }
 };
 
 module.exports = {
   getAuthToken,
   getDogs,
-  getDogsAtOrg
+  getDogsAtOrg,
+  getOrgName,
+  getDogsWithOrgNames
 };

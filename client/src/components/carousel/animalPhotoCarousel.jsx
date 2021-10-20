@@ -9,7 +9,7 @@ const AnimalPhotoCarousel = (props) => {
       {photos.map((elem, i) => (
         <Carousel.Item key={i}>
           <div style={{ padding: 8 }}>
-            <img src={elem.large}></img>
+            <center><img src={elem.large} height="350px"></img></center>
           </div>
         </Carousel.Item>
       ))}

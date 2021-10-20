@@ -6,10 +6,12 @@ import DogCard from './card/dogCard.jsx';
 import {
   Button,
   Grid,
+  Paper,
   TextField,
   Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 
 const HomePage = () => {
   const [list, setList] = useState([]);
@@ -17,26 +19,13 @@ const HomePage = () => {
   useEffect(() => {
     axios.get('/adopt')
     .then(({data}) => {
-      const top5 = [];
-      let count = 0;
-      while (top5.length < 5 && count + 1 < data.animals.length) {
-        let pet = data.animals[count];
-        if (pet.photos?.length) {
-          top5.push(pet);
-          console.log(top5.length, 'image(s) found.')
-        }
-        count++
-      }
-      return top5;
+      console.log({data});
+      return data.slice(0, 5);
     })
     .then((top5) => setList(top5))
     .then(() => console.log('top5 has been loaded'))
     .catch((e) => console.log(e))
   }, [])
-
-  if (!list.length) {
-    return null;
-  }
 
   const searchBar = () => {
     const homeSearch = {
@@ -63,39 +52,57 @@ const HomePage = () => {
   }
 
   const listTop5 = () => {
-    if (list.length) {
-      return (
-        <Grid container justifyContent="center" spacing={3}>
-          {list.map((pet, i) => {
-            const photos = pet.photos[0];
-            return (
-              <Grid item key={pet.id}>
-                <DogCard
-                  image={photos.medium}
-                  text={`${pet.age} | ${pet.breeds.primary}`}
-                  type='heart'
-                  name={pet.name} />
-              </Grid>
-            )
-          })}
-        </Grid>
-      )
-    } else {
-      const top5 = [];
-      for (var i = 0; i < 5; i++) {
-        top5.push(
-          <Grid item key={i}>
-            <DogCard />
-          </Grid>
-        );
-      }
-      return (
-        <Grid container justifyContent="center" spacing={3}>
-          {top5}
-        </Grid>
-      );
+    const empty = {
+      card: {
+        width: '200px',
+        height: '252px',
+        padding: '5px',
+        backgroundColor: '#EAE0D5',
+      },
     }
 
+    let top5 = [];
+
+    const emptyCard = () => {
+      return (
+        <Grid item key={i}>
+          <Paper sx={empty.card}>
+            <Grid container justifyContent="center" alignItems="center">
+              <Grid item>
+                <ImageNotSupportedIcon sx={{ color: '#5E503F' }}/>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+      );
+    };
+
+    if (!list?.length) {
+      for (var i = 0; i < 5; i++) {
+        top5.push(emptyCard());
+      }
+    } else {
+      top5 = list.map((pet) => {
+        console.log('photo:', pet.photos[0]);
+        const photo = pet.photos[0];
+        return (
+          <Grid item key={pet.id}>
+            <DogCard
+              image={photo?.medium ? photo.medium : undefined}
+              text={`${pet.age} ${pet.breeds.primary}`}
+              type='heart'
+              name={pet.name}
+            />
+          </Grid>
+        );
+      });
+    }
+
+    return (
+      <Grid container justifyContent="center" spacing={3}>
+        {top5}
+      </Grid>
+    );
   }
 
   const researchBreeds = () => {
