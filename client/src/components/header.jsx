@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../styles.css';
-
+import axios from 'axios'
 import { useAuth } from '../contexts/AuthContext.jsx';
 import { Button, Typography, Grid } from '@mui/material';
 import PetsIcon from '@mui/icons-material/Pets';
@@ -36,8 +36,41 @@ const icon = {
 };
 
 const Header = () => {
-  const { currentUser, signout, userData } = useAuth();
+  const { currentUser, signout, userData, breeds, breedNames } = useAuth();
   const [userDataState, setUserDataState] = userData;
+  const [breedData, setBreedData] = breeds;
+  const [breedNameData, setBreedNameData] = breedNames;
+
+  const compileBreeds = (breedArr) => {
+    // console.log(breedArr);
+    let breedNames = [];
+    breedArr.map((breed)=>{
+      breedNames.push(breed.name)
+    })
+    setBreedNameData(breedNames);
+  }
+
+  useEffect(() => {
+    axios.get('/breed-details')
+    .then((data)=> {
+      compileBreeds(data.data);
+      setBreedData(data.data);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+    // console.log(currentUser)
+    // if (currentUser) {
+    //   axios.get(`/userData?email=${currentUser.email}`)
+    //       .then((response) => {
+    //         console.log('get request response', response);
+    //         setUserDataState(response.data)
+    //       })
+    //       .catch(error => {
+    //         console.error(error)
+    //       })
+    // }
+  }, [])
   //header useEffect (when header checks auth (currentUser))
   //get request to DB for user Data => set User data
 

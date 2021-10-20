@@ -10,17 +10,17 @@ import { useAuth } from '../../contexts/AuthContext.jsx';
 
 const SideBar = () => {
 
-  const { userData, currentUser } = useAuth();
+  const { userData, currentUser, breedNames } = useAuth();
   const [userDataState, setUserDataState] = userData;
+  const [breedNameData, setBreedNameData] = breedNames;
+
   return (
     <Grid container spacing={2} direction='column'>
       <Grid item id='userInfo' sm={2}>
-        {console.log(userDataState)}
-        {console.log(currentUser)}
-        <Typography variant='h3'>Name: {userDataState.name}</Typography>
-        <Typography>Email: {userDataState.email}</Typography>
+        {/* <Typography variant='h3'>Name: {userDataState.name}</Typography>
+        <Typography>Email: {userDataState.email}</Typography> */}
         <Typography>address here</Typography>
-        {/* <Typography>{currentUser.email}</Typography> */}
+        {console.log(userData)}
         <UserMenu />
       </Grid>
     </Grid>

@@ -19,29 +19,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Container from '@mui/material/Container';
 
 const App = () => {
-  const { breeds, breedNames } = useAuth();
-  const [breedData, setBreedData] = breeds;
-  const [breedNameData, setBreedNameData] = breedNames;
-
-  const compileBreeds = (breedArr) => {
-    // console.log(breedArr);
-    let breedNames = [];
-    breedArr.map((breed)=>{
-      breedNames.push(breed.name)
-    })
-    setBreedsNames(breedNames);
-  }
-
-  useEffect(() => {
-    axios.get('/breed-details')
-    .then((data)=> {
-      compileBreeds(data.data);
-      setBreedData(data.data);
-    })
-    .catch(err => {
-      console.error(err);
-    })
-  })
 
   return (
     <>
