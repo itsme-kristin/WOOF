@@ -42,7 +42,7 @@ const UserSignup = ({ history }) => {
             .then(response => {
               console.log('response from post: ', params)
               setUserDataState(params)
-              history.push('/');
+              history.push('/user');
             })
             .catch(error => {
               console.error(error);
