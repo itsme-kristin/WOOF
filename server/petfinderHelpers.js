@@ -48,7 +48,8 @@ const getDogs = filters => {
           }
         })
         .then(({ data }) => {
-          return getDogsWithOrgNames(data.animals);
+          // return getDogsWithOrgNames(data.animals);
+          return data;
         });
     });
   } else {
@@ -59,7 +60,8 @@ const getDogs = filters => {
         }
       })
       .then(({ data }) => {
-        return getDogsWithOrgNames(data.animals);
+        // return getDogsWithOrgNames(data.animals);
+        return data;
       });
   }
 };
