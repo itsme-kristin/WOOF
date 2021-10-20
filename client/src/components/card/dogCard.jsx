@@ -63,16 +63,16 @@ const DogCard = (props) => {
     let fullElement;
     if (orientation === 'landscape') {
       fullElement = (
-        <div>
+        <Link to='/breed'>
           {nameElement}
-        </div>
+        </Link>
       )
     } else {
       fullElement = (
-        <div>
+        <Link to='/animal'>
           {nameElement}
           {textElement}
-        </div>
+        </Link>
       )
     }
     return(fullElement)
