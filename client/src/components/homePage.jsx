@@ -89,6 +89,7 @@ const HomePage = () => {
     } else {
       top5 = list.map(pet => {
         console.log('photo:', pet.photos[0]);
+        console.log('pet: ', pet);
         const photo = pet.photos[0];
         return (
           <Grid item key={pet.id}>
@@ -97,6 +98,7 @@ const HomePage = () => {
               text={`${pet.age} ${pet.breeds.primary}`}
               type='heart'
               name={pet.name}
+              dogObj={pet}
             />
           </Grid>
         );
