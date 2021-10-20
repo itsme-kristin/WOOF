@@ -18,7 +18,10 @@ const HomePage = () => {
 
   useEffect(() => {
     axios.get('/adopt')
-    .then(({data}) => data.slice(0, 5))
+    .then(({data}) => {
+      console.log({data});
+      return data.slice(0, 5);
+    })
     .then((top5) => setList(top5))
     .then(() => console.log('top5 has been loaded'))
     .catch((e) => console.log(e))
