@@ -69,8 +69,7 @@ const getUser = (email) => {
 
 const updateUser = (
   email,
-  { name, street_address, city, state, zip, password }
-) => {
+  { name, street_address, city, state, zip, password }) => {
   return getCoordinates({ street_address, city, state, zip })
     .then(({ latitudeStr, longitudeStr }) => {
       let update = {
@@ -83,15 +82,22 @@ const updateUser = (
         lng: longitudeStr,
         password: password,
       };
-      return User.updateOne({ email: email }, update)
-        .then((result) => {
-          console.info("User updated.");
+      return User.findOneAndUpdate({ email: email }, update)
+        .then((user) => {
+          if (user === null) {
+            throw new Error('No user found with this email');
+          } else {
+            return user;
+          }
         })
-        .catch((err) => console.error("Error updating user."));
+        .catch((err) => {
+          console.error("Error updating user", err);
+          return err;
     })
     .catch((err) => {
       console.info("There was an error adding a user.");
     });
+  });
 };
 
 const addSavedDog = (email, dogObj) => {
@@ -135,9 +141,6 @@ const deleteDogBreed = (email, breedId) => {
   })
 }
 
-// addUser({name: 'Kristin', street_address: '1901 Ashberry Trl', city: 'Georgetown', state: 'TX', zip: '78626', email: 'awesome.com', password: 'password'});
-
-deleteDogBreed('awesome.com', 264);
 module.exports = {
   addUser,
   getUser,
