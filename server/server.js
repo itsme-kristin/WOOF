@@ -224,15 +224,17 @@ app.get("/breed-name", (req, res) => {
 
 //**filters on Front End need to be case sensitive**
 app.get("/breed-details", (req, res) => {
-  let breed_group = req.query.breed_group;
-  let size = req.query.size;
-  let temperament = req.query.temperament;
-  const filterObj = {
-    breed_name: breed_name,
-    breed_group: breed_group,
-    size: size,
-    temperament: temperament,
-  };
+  let filterObj = {};
+  if (req.query.breed_group) {
+    filterObj.breed_group = req.query.breed_group;
+  }
+
+  if (req.query.size) {
+    filterObj.size = req.query.size;
+  }
+  if (req.query.temperament) {
+    filterObj.temperament = req.query.temperament;
+  }
 
   breed
     .getDogBreedByValue(filterObj)
