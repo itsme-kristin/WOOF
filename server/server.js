@@ -97,7 +97,7 @@ app.get("/signin", function (req, res) {
 
 app.get("/adopt", (req, res) => {
   pf.getDogs(req.body)
-    .then(dogs => {
+    .then((dogs) => {
       res.send(dogs);
     })
     .catch(err => {
