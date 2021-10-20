@@ -15,8 +15,6 @@ const SideBar = () => {
   return (
     <Grid container spacing={2} direction='column'>
       <Grid item id='userInfo' sm={2}>
-        {console.log(userDataState)}
-        {console.log(currentUser)}
         <Typography variant='h3'>Name: {userDataState.name}</Typography>
         <Typography>Email: {userDataState.email}</Typography>
         <Typography>address here</Typography>

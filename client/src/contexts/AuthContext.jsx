@@ -14,9 +14,22 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
+
+
+
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    street_address: '',
+    city: '',
+    state: '',
+    zip: '',
+    savedBreeds: [],
+    savedDogs: [],
+  });
 
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -29,6 +42,19 @@ const AuthProvider = ({ children }) => {
   const signout = () => {
     return signOut(auth);
   };
+
+  useEffect(() => {
+    const data = (window.localStorage.getItem('userData'))
+    if (data) {
+      setUserData(JSON.parse(data));
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem('userData', JSON.stringify(userData));
+  }, [userData])
+
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
