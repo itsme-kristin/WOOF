@@ -25,6 +25,7 @@ const DogCard = (props) => {
   const type = props.type || 'none';
   const name = props.name || 'Oliver';
   const dogObj = props.dogObj;
+  const breedObj = props.breedObj;
   const { currentUser, signout, userData } = useAuth();
   const [userDataState, setUserDataState] = userData;
   const [ activeIcon, setActiveIcon ] = useState(false);
@@ -39,7 +40,7 @@ const DogCard = (props) => {
       }
     } else if (orientation === 'landscape') {
       for (let j = 0; j < userDataState.savedBreeds.length; j++) {
-        if (userDataState.savedBreeds[i].id === props.breedObj.id) {
+        if (userDataState.savedBreeds[i].id === breedObj.id) {
           setActiveIcon(true);
         }
       }
@@ -47,26 +48,46 @@ const DogCard = (props) => {
   });
 
   const handleIconClick = (event) => {
-    console.log('email:', userDataState.email);
-    console.log('dogObj: ', dogObj);
-    if (activeIcon) {
-      setActiveIcon(false);
-      axios.put('/deleteDog', {email: userDataState.email, dogObj: dogObj})
-      .then(response => {
-        console.info('Dog deleted');
-      })
-      .catch(err => {
-        console.error(err);
-      })
+    if (orientation === 'portrait') {
+      if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteDog', {email: userDataState.email, id: dogObj.id})
+        .then(response => {
+          console.info('Dog deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
+        .then(response => {
+          console.info('Dog saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
     } else {
-      setActiveIcon(true);
-      axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
-      .then(response => {
-        console.info('Dog saved!');
-      })
-      .catch(err => {
-        console.error(err);
-      })
+      if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteBreed', {email: userDataState.email, id: breedObj.id})
+        .then(response => {
+          console.info('Breed deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveBreed', {email: userDataState.email, breedObj: breedObj})
+        .then(response => {
+          console.info('Breed saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
     }
   };
 
