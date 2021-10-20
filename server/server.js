@@ -224,7 +224,6 @@ app.get("/breed-name", (req, res) => {
 
 //**filters on Front End need to be case sensitive**
 app.get("/breed-details", (req, res) => {
-  let breed_name = req.query.breed_name;
   let breed_group = req.query.breed_group;
   let size = req.query.size;
   let temperament = req.query.temperament;

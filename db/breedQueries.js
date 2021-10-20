@@ -1,12 +1,7 @@
 const { Breed } = require("./index.js");
 const { Description } = require("./index.js");
 
-const getDogBreedByValue = async ({
-  breed_name,
-  breed_group,
-  size,
-  temperament,
-}) => {
+const getDogBreedByValue = async ({ breed_group, size, temperament }) => {
   return Breed.find()
     .and([
       { breed_name: breed_name },
