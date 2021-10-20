@@ -10,13 +10,14 @@ import FullHeart from '@mui/icons-material/Favorite';
 import EmptyStar from '@mui/icons-material/StarBorder';
 import FullStar from '@mui/icons-material/Star';
 import Grid from '@mui/material/Grid';
+// import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 // import Circle from '@mui/icons-material/Circle';
 
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
 
 const DogCard = (props) => {
-  const image = props.image || 'https://cdn.discordapp.com/attachments/872115659880935469/884206309858238536/image0.jpg';
+  const image = props.image;
   const orientation = props.orientation || 'portrait';
   const text = props.text || '3 Mths | Labrador Retriever | 8 miles';
   const type = props.type || 'none';
@@ -71,6 +72,35 @@ const DogCard = (props) => {
     return(fullElement)
   }
 
+  const getImage = () => {
+    if (image) {
+      return (
+        <CardMedia
+          component="img"
+          image={image}
+          sx={{
+            width: '100%',
+            height: '150px',
+            backgroundColor: 'linen'
+          }}
+        />
+      )
+    } else {
+      return (
+        <CardMedia
+          component="img"
+          // image={image}
+          alt='no image'
+          sx={{
+            width: '100%',
+            height: '150px',
+            backgroundColor: 'linen'
+          }}
+        />
+      )
+    }
+  }
+
   return (
     <Card
       id='dogcard'
@@ -96,16 +126,7 @@ const DogCard = (props) => {
           { getIcon() }
         </CardActions>
       </div>
-      <CardMedia
-        component="img"
-        image={image}
-        alt="Oliver the dog"
-        sx={{
-          width: '100%',
-          height: '150px',
-          backgroundColor: 'linen'
-        }}
-      />
+      {getImage()}
       <CardContent
       sx={{
         px: '4px',
