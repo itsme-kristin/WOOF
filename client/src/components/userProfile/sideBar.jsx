@@ -42,7 +42,7 @@ const SideBar = () => {
   return (
     <Grid container spacing={2} direction='column'>
       <Grid item>
-        <Typography variant="h6" align="center" fullWidth>
+        <Typography variant="h6" align="center">
           Account
         </Typography>
       </Grid>
