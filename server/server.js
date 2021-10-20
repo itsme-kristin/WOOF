@@ -150,12 +150,12 @@ app.post('/userData', function (req, res) {
     });
 });
 
-//{email: <"email_address>", {name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, password: <"password">}}
+//{email: <"email_address>", name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, password: <"password">}
 app.put('/userData', function (req, res) {
   user
     .updateUser(req.body.email, req.body)
-    .then(() => {
-      res.sendStatus(204);
+    .then(userData => {
+      res.send(userData).status(204);
     })
     .catch(err => {
       res.sendStatus(400);
