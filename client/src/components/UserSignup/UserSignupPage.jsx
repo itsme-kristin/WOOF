@@ -1,44 +1,67 @@
 import React, { useState, useRef } from 'react';
-
+import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext.jsx';
-import { Typography, TextField, Grid, Button, Card } from '@mui/material/';
+import { Typography,
+  TextField,
+  Grid,
+  Button,
+  Card } from '@mui/material/';
+
 
 const UserSignup = ({ history }) => {
-  const usernameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfRef = useRef();
-  const addressRef = useRef();
-  const { signup } = useAuth();
+  const usernameRef = useRef()
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const passwordConfRef = useRef()
+  const streetRef = useRef();
+  const cityRef = useRef();
+  const stateRef = useRef();
+  const zipcodeRef = useRef();
+  const { signup, setUserData } = useAuth();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+
 
     if (passwordRef.current.value === passwordConfRef.current.value) {
       signup(emailRef.current.value, passwordRef.current.value)
         .then(userCredential => {
           const user = userCredential.user;
-          history.push('/user');
+          //request to /userData post email n password (address)  POST
+          const params = {
+            name: usernameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+            street_address: streetRef.current.value,
+            city: cityRef.current.value,
+            state: stateRef.current.value,
+            zip: zipcodeRef.current.value
+          }
+          axios.post('/userData', params)
+            .then(response => {
+              console.log('response from post: ', params)
+              setUserData(params)
+              history.push('/');
+            })
+            .catch(error => {
+              console.error(error);
+            })
+          //set context for current user.email location (passed to homepage, and adopt), password, savedDog, savedBreed
         })
         .catch(error => {
           console.error(error);
-        });
+        })
     } else {
       //error with matching passwords
-      console.log('passwords dont match');
+      console.log('passwords dont match')
     }
-  };
+  }
+
 
   return (
     <div>
       <br />
-      <Grid
-        container
-        spacing={3}
-        alignItems='center'
-        justifyContent='center'
-        direction='column'
-      >
+      <Grid container spacing={3} alignItems='center' justifyContent='center' direction='column'>
         <Grid item>
           <Typography variant='h3'>Sign Up</Typography>
         </Grid>
@@ -50,8 +73,7 @@ const UserSignup = ({ history }) => {
               label='Username'
               variant='outlined'
               inputRef={usernameRef}
-              required
-            />
+              required/>
           </Grid>
           <br />
           <Grid item>
@@ -60,8 +82,7 @@ const UserSignup = ({ history }) => {
               label='Password'
               variant='outlined'
               inputRef={passwordRef}
-              required
-            />
+              required/>
           </Grid>
           <br />
           <Grid item>
@@ -70,8 +91,7 @@ const UserSignup = ({ history }) => {
               label='Password Confirmation'
               variant='outlined'
               inputRef={passwordConfRef}
-              required
-            />
+              required/>
           </Grid>
           <br />
           <Grid item>
@@ -80,30 +100,51 @@ const UserSignup = ({ history }) => {
               label='Email'
               variant='outlined'
               inputRef={emailRef}
-              required
-            />
+              required/>
           </Grid>
           <br />
           <Grid item>
-            {/* <Typography variant='subtitle1'>Address Field</Typography> */}
+            {/*TODO: add other address fields (street, city, state, zip) with corresponding REFS */}
             <TextField
-              id='addressField'
-              label='Address'
+              id='streetField'
+              label='Street Address'
               variant='outlined'
-              inputRef={addressRef}
-              required
-            />
+              inputRef={streetRef}
+              required/>
+            <Grid item>
+            <TextField
+              id='cityField'
+              label='City'
+              variant='outlined'
+              inputRef={cityRef}
+              required/>
+          </Grid><Grid item>
+            <TextField
+              id='stateField'
+              label='State'
+              variant='outlined'
+              inputRef={stateRef}
+              required/>
+          </Grid>
+          <Grid item>
+            <TextField
+              id='zipcodeField'
+              label='Zipcode'
+              variant='outlined'
+              inputRef={zipcodeRef}
+              required/>
+          </Grid>
           </Grid>
           <Button onClick={handleSubmit}>Submit</Button>
         </form>
       </Grid>
-      <Typography variant='body1'>
-        Already have an account? Login
+      <Typography variant='body1'>Already have an account? Login
         {/* <Link>
         </Link> */}
       </Typography>
     </div>
-  );
-};
+  )
+}
+
 
 export default UserSignup;

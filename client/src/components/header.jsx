@@ -36,7 +36,10 @@ const icon = {
 };
 
 const Header = () => {
-  const { currentUser, signout } = useAuth();
+  const { currentUser, signout, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
+  //header useEffect (when header checks auth (currentUser))
+  //get request to DB for user Data => set User data
 
   return (
     <>
@@ -106,7 +109,11 @@ const Header = () => {
                       variant='text'
                       color='inherit'
                       startIcon={<LogoutIcon sx={icon} />}
-                      onClick={() => signout()}
+                      onClick={() => {
+                        signout()
+                        setUserDataState()
+                      }
+                      }
                     >
                       Logout
                     </Button>
