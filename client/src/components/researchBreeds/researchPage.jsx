@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import ResearchSidebar from '../sidebar/sidebarReSearch.jsx';
+import ResearchSidebar from '../sidebar/sidebarResearch.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
 
