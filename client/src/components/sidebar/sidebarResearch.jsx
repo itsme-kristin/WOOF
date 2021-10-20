@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -7,6 +7,7 @@ import Dropdown from './dropdown.jsx';
 
 const ResearchSidebar = (props) => {
   const [dropDownFilters] = useState(props.dropdowns);
+  const [breeds, setBreeds] = useState(props.breeds || []);
 
   const [activeFilters, setActiveFilters] = useState({});
 
@@ -17,6 +18,10 @@ const ResearchSidebar = (props) => {
       delete activeFilters[key];
     }
   }
+
+  useEffect(()=>{
+    setBreeds(props.breeds);
+  },[props.breeds])
 
   const handleSubmit = (event) => {
     console.log(activeFilters);
@@ -48,6 +53,29 @@ const ResearchSidebar = (props) => {
     }
   }
 
+  const getBreedFilter = () => {
+    // console.log('breeds gotten');
+    if (breeds.length > 0) {
+      return (
+        <Grid
+          item
+          container
+          alignItems="flex-start"
+          id='breeds'
+          key='breeds'
+        >
+          <Dropdown
+            // key={index}
+            text='breeds'
+            style={{float:'left'}}
+            updateFilter={updateFilter}
+            values={breeds}
+          />
+        </Grid>
+      );
+    }
+  }
+
   return (
     <div>
       <Grid
@@ -74,7 +102,10 @@ const ResearchSidebar = (props) => {
           rowSpacing={3}
         >
           <br />
+
           {getFilters()}
+          {getBreedFilter()}
+
         </Grid>
         <br />
         <br />
