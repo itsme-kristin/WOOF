@@ -11,6 +11,7 @@ import {
   dogOrgsLatLng,
   petGroomersLatLng,
 } from "./dummyData.jsx";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 /* HR Austin TX
 Lat: 30.265020
@@ -18,18 +19,22 @@ Lng: -97.750153
 */
 
 const googleMap = () => {
+  const { currentUser, signout, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
+  console.log("google maps", userDataState);
   return (
     <GoogleMap
       defaultZoom={12}
-      defaultCenter={{ lat: 30.26502, lng: -97.750153 }}
+      defaultCenter={{
+        lat: Number(userDataState.lat),
+        lng: Number(userDataState.lng),
+      }}
     >
       <Marker
-        position={{ lat: 30.26502, lng: -97.750153 }}
-        // icon={{
-        //   url: "/paw_print.png",
-
-        //   scaledSize: new window.google.maps.Size(25, 30)
-        // }}
+        position={{
+          lat: Number(userDataState.lat),
+          lng: Number(userDataState.lng),
+        }}
       />
       {dogOrgsLatLng.map((organization, key) => {
         return (
