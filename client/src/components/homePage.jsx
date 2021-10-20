@@ -10,17 +10,22 @@ import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 const HomePage = () => {
   const [list, setList] = useState([]);
 
+  const config = {
+    params: {
+      limit: 5,
+    }
+  }
+
   useEffect(() => {
-    axios
-      .get('/adopt')
-      .then(({ data }) => {
-        console.log({ data });
-        return data.slice(0, 5);
-      })
-      .then(top5 => setList(top5))
-      .then(() => console.log('top5 has been loaded'))
-      .catch(e => console.log(e));
-  }, []);
+    axios.get('/adopt', config)
+    .then(({data}) => {
+      console.log(data);
+      return data.slice(0, 5);
+    })
+    .then((top5) => setList(top5))
+    .then(() => console.log('top5 has been loaded'))
+    .catch((e) => console.log(e))
+  }, [])
 
   const searchBar = () => {
     const homeSearch = {
