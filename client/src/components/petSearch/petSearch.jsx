@@ -46,7 +46,7 @@ const PetSearch = () => {
   }
 
   const compileBreeds = (breedArr) => {
-    console.log(breedArr);
+    // console.log(breedArr);
     let breedNames = [];
     breedArr.map((breed)=>{
       breedNames.push(breed.name)
