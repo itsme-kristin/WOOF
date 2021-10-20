@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../styles.css';
 
@@ -40,6 +40,12 @@ const Header = () => {
   const [userDataState, setUserDataState] = userData;
   //header useEffect (when header checks auth (currentUser))
   //get request to DB for user Data => set User data
+  // useEffect(() => {
+  //   if (JSON.parse(window.localStorage.getItem('userData')) !== undefined) {
+  //     // setUserData(JSON.parse(window.localStorage.getItem('userData')));
+  //     console.log(JSON.parse(window.localStorage.getItem('userData')))
+  //   }
+  // }, [])
 
   return (
     <>
