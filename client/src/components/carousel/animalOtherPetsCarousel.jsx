@@ -15,6 +15,7 @@ const AnimalOtherPetsCarousel = (props) => {
               text={`${elem.age} ${elem.breeds.primary}`}
               type='heart'
               name={elem.name}
+              dogObj={elem}
             />
           </div>
         </Carousel.Item>
