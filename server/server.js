@@ -238,7 +238,6 @@ app.get("/breed-details", (req, res) => {
   breed
     .getDogBreedByValue(filterObj)
     .then((filteredDogBreedsArr) => {
-      console.log("server", filteredDogBreedsArr);
       res.send(filteredDogBreedsArr);
     })
     .catch((errorGettingDogInformation) => {
