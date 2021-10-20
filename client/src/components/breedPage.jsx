@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Box,
   Card,
@@ -56,6 +57,18 @@ const BreedPage = (props) => {
 
   const temperament = breedInfo[0][0].temperament.split(', ');
   const [ activeIcon, setActiveIcon ] = useState(false);
+  const [ organizations, setOrganizations ] = useState([]);
+
+  useEffect(()=> {
+    axios.get('/adopt', { params: { "breed": breedInfo[0][0].name , "limit": 3 }})
+    .then((response) => {
+      setOrganizations(response.data);
+    })
+    .catch((err)=> {
+      console.log('error in retrieving organizations');
+    })
+  },[]);
+
   const handleClick = (event) => {
     setActiveIcon(!activeIcon);
   }
@@ -141,16 +154,13 @@ const BreedPage = (props) => {
         </Grid>
         <Grid item container spacing={1} xs={8} sx={{height:"100%"}}>
           {/* map over the organizations array and populate this section with organizationCards */}
-          <Grid item>
-            <OrganizationCard />
-          </Grid>
-                    <Grid item>
-            <OrganizationCard />
-          </Grid>
-                              <Grid item>
-            <OrganizationCard />
-          </Grid>
-
+          {organizations.map((elem, i) => {
+            return (
+              <Grid item key={i}>
+                <OrganizationCard organization={elem} />
+              </Grid>
+            )
+          })}
         </Grid>
         <Grid height="315" width="315" item xs={4} sx={{height:"100%"}}>
         <Box
