@@ -16,7 +16,7 @@ import EmailIcon from '@mui/icons-material/Email';
 const style =  {
   button: {
     margin: 0,
-    width: '400px',
+    width: '350px',
   }
 }
 
@@ -127,12 +127,8 @@ const AnimalPage = (props) => {
     <Box>
       <Grid container spacing={3}>
         <Grid item xs={12} align="center" marginTop="4px">
-          <Typography variant="h2"> {animalInfo.name}</Typography>
-        </Grid>
-        <Grid item xs={12} align="center">
-          <Button variant="contained" sx={style.button}>
-            Add {animalInfo.name} to your favorite animals
-          </Button>
+          <Typography variant="h3"> {animalInfo.name}</Typography>
+          <Typography variant="h5"> {animalInfo.breeds.primary}</Typography>
         </Grid>
         <Grid item xs={12}>
           <AnimalPhotoCarousel photos={animalInfo.photos} numItems={3} />
@@ -198,8 +194,14 @@ const AnimalPage = (props) => {
           </Grid>
         </Grid>
         <Grid item container xs={4} spacing={1}>
+          <Grid item xs={12} align="center">
+          <Button variant="contained" sx={style.button}>
+            Add {animalInfo.name} to your favorite animals list
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
           <Card sx={{height:"100%", padding:"10px"}}>
-            <Typography variant="h4">Organization Name???</Typography>
+            <Typography variant="h5">{animalInfo.organization_name}</Typography>
             <br />
             <Typography variant="body1">
               {animalInfo.contact.address.address1}
@@ -219,8 +221,9 @@ const AnimalPage = (props) => {
             </Typography>
           </Card>
         </Grid>
+        </Grid>
         <Grid item xs={12} align="center">
-          <Typography variant="h3"> OTHER PETS FROM "LOCATION" </Typography>
+          <Typography variant="h4"> View other pets at {animalInfo.organization_name} </Typography>
         </Grid>
         <Grid item xs={12}>
           <AnimalOtherPetsCarousel orgId={animalInfo.organization_id} numItems={4} />
