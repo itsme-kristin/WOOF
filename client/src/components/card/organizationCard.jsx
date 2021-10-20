@@ -13,23 +13,23 @@ import EmailIcon from '@mui/icons-material/Email';
 import { borders } from '@mui/system';
 
 const OrganizationCard = (props) => {
-  //const { organization } = props;
+  const { organization } = props;
 
-  const organization = {
-    "contact": {
-            "email": "adopt@austinpetsalive.org",
-            "phone": "555-555-5555",
-            "address": {
-                "address1": "1156 West Cesar Chavez",
-                "address2": null,
-                "city": "Austin",
-                "state": "TX",
-                "postcode": "78704",
-                "country": "US"
-            }
-        },
-        "organization_name": "Austin Pets Alive!"
-    }
+  // const organization = {
+  //   "contact": {
+  //           "email": "adopt@austinpetsalive.org",
+  //           "phone": "555-555-5555",
+  //           "address": {
+  //               "address1": "1156 West Cesar Chavez",
+  //               "address2": null,
+  //               "city": "Austin",
+  //               "state": "TX",
+  //               "postcode": "78704",
+  //               "country": "US"
+  //           }
+  //       },
+  //       "organization_name": "Austin Pets Alive!"
+  //   }
 
   return (
     <Box sx={{border:0.5, borderRadius: 2, padding:"5px 15px"}}>
