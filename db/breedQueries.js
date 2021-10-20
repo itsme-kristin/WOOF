@@ -1,11 +1,21 @@
 const { Breed } = require("./index.js");
 const { Description } = require("./index.js");
 
-const getDogBreedByValue = (property, value) => {
-  const queryObj = { property: value };
-  return Breed.find(queryObj)
-    .then((filteredDogBreed) => {
-      return filteredDogBreed;
+const getDogBreedByValue = async ({
+  breed_name,
+  breed_group,
+  size,
+  temperament,
+}) => {
+  return Breed.find()
+    .and([
+      { breed_name: breed_name },
+      { breed_group: breed_group },
+      { size: size },
+      { temperament: { $regex: temperament, $options: "i" } },
+    ])
+    .then((fileterdDogBreeds) => {
+      return fileterdDogBreeds;
     })
     .catch((errorFilteringDogs) => {
       return errorFilteringDogs;
