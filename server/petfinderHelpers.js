@@ -116,7 +116,7 @@ const getDogsAtOrg = orgId => {
   ) {
     return getAuthToken().then(() => {
       return axios.get(
-        `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}`,
+        `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}&limit=5`,
         {
           headers: {
             Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
