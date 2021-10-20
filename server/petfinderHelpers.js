@@ -48,8 +48,11 @@ const getDogs = filters => {
           }
         })
         .then(({ data }) => {
-          // return getDogsWithOrgNames(data.animals);
-          return data;
+          if (filters.limit && filters.limit <= 3) {
+            return getDogsWithOrgNames(data.animals);
+          } else {
+            return data.animals;
+          }
         });
     });
   } else {
@@ -60,8 +63,11 @@ const getDogs = filters => {
         }
       })
       .then(({ data }) => {
-        // return getDogsWithOrgNames(data.animals);
-        return data;
+        if (filters.limit && filters.limit <= 3) {
+          return getDogsWithOrgNames(data.animals);
+        } else {
+          return data.animals;
+        }
       });
   }
 };
@@ -134,5 +140,6 @@ module.exports = {
   getAuthToken,
   getDogs,
   getDogsAtOrg,
-  getOrgName
+  getOrgName,
+  getDogsWithOrgNames
 };
