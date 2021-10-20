@@ -82,6 +82,27 @@ const getDogsWithOrgNames = async dogs => {
   return result;
 };
 
+const getOrgName = orgId => {
+  if (
+    !tokenInfo.expiration ||
+    tokenInfo.expiration - new Date().getTime() < 1
+  ) {
+    return getAuthToken().then(() => {
+      return axios.get(`https://api.petfinder.com/v2/organizations/${orgId}`, {
+        headers: {
+          Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+        }
+      });
+    });
+  } else {
+    return axios.get(`https://api.petfinder.com/v2/organizations/${orgId}`, {
+      headers: {
+        Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+      }
+    });
+  }
+};
+
 const getDogsAtOrg = orgId => {
   if (
     !tokenInfo.expiration ||
@@ -112,5 +133,6 @@ const getDogsAtOrg = orgId => {
 module.exports = {
   getAuthToken,
   getDogs,
-  getDogsAtOrg
+  getDogsAtOrg,
+  getOrgName
 };
