@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import SearchBar from './searchbar.jsx';
 import Dropdown from './dropdown.jsx';
+import ComparisonModal from '../comparisonModal/comparisonModal.jsx';
 
 const ResearchSidebar = (props) => {
   const [dropDownFilters] = useState(props.dropdowns);
@@ -122,6 +123,16 @@ const ResearchSidebar = (props) => {
             >
               Compare
         </Button>
+          </Grid>
+            <br />
+            <br />
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <ComparisonModal />
           </Grid>
       </Grid>
     </div>
