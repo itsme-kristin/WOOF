@@ -10,16 +10,8 @@ import {
   Typography } from '@mui/material';
 
 const OrganizationCard = (props) => {
-  const { organization } = props;
-  const [orgInfo, setOrgInfo] = useState([]);
+  //const { organization } = props;
 
-  const getOrgInfo = () => {
-    // GET request to server for org info;
-  }
-
-  useEffect(() => {
-    getOrgInfo
-  }, [orgInfo])
 
   return (
     <Box>
