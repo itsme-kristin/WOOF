@@ -49,7 +49,7 @@ const getDogs = filters => {
         })
         .then(({ data }) => {
           // return getDogsWithOrgNames(data.animals);
-          return data;
+          return data.animals;
         });
     });
   } else {
@@ -61,7 +61,7 @@ const getDogs = filters => {
       })
       .then(({ data }) => {
         // return getDogsWithOrgNames(data.animals);
-        return data;
+        return data.animals;
       });
   }
 };
