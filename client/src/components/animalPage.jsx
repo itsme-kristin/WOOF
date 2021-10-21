@@ -71,11 +71,11 @@ const AnimalPage = (props) => {
           <Typography variant='h3'> {dogOverviewState.name}</Typography>
           <Typography variant='h5'> {dogOverviewState.breeds.primary}</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ backgroundColor: '#C6AC8F' }}>
           <AnimalPhotoCarousel photos={dogOverviewState.photos} numItems={3} />
         </Grid>
         <Grid container item xs={8} spacing={2}>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ marginLeft: '15px'}}>
             <Typography variant='body1'>{dogOverviewState.description}</Typography>
           </Grid>
           <Grid item xs={6}>
@@ -173,7 +173,7 @@ const AnimalPage = (props) => {
             Add {dogOverviewState.name} to your favorite animals list
           </Button>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{marginRight: '15px'}}>
           <Card sx={{height:"100%", padding:"10px"}}>
             <Typography variant="h5">{dogOverviewState.organization_name}</Typography>
             <br />
