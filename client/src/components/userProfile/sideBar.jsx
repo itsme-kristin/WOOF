@@ -41,6 +41,11 @@ const SideBar = () => {
   const [userDataState, setUserDataState] = userData;
 
   const toggleEdit = () => {
+    if (editMode) {
+      // get the state of the form fields
+      // put the updated data to the server
+      // update the userDataState
+    }
     setEditMode(!editMode);
   };
 
