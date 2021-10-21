@@ -36,7 +36,7 @@ const UserPage = () => {
   //
   //saved dogs is an array (sorted newest to oldest)
   const { currentUser, userData } = useAuth();
-
+  const [userDataState, setUserDataState] = userData;
   //    sidebar:
   //settings => edit button => turns typography into textfields => button turns into save button => updates userData in DB (http put) sidenote: initial values are prepopulated =>
   //successful update => button back to 'edit' / textfields => typography

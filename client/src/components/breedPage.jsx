@@ -21,7 +21,6 @@ const BreedPage = (props) => {
   const [ activeIcon, setActiveIcon ] = useState(false);
   const [ organizations, setOrganizations ] = useState([]);
 
-  const temperament = breedOverviewState.temperament.split(', ');
 
   useEffect(()=> {
     axios.get('/adopt', { params: { "breed": breedOverviewState.name , "limit": 3 }})
@@ -31,7 +30,9 @@ const BreedPage = (props) => {
     .catch((err)=> {
       console.log('error in retrieving organizations');
     })
-  },[]);
+  }, []);
+
+  const temperament = breedOverviewState.temperament.split(', ');
 
   const handleClick = (event) => {
     setActiveIcon(!activeIcon);
