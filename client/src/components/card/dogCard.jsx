@@ -27,8 +27,10 @@ const DogCard = (props) => {
   const name = props.name || 'Oliver';
   const dogObj = props.dogObj;
   const breedObj = props.breedObj;
-  const { currentUser, signout, userData } = useAuth();
+  const { currentUser, signout, userData, dogOverview, breedOverview } = useAuth();
   const [userDataState, setUserDataState] = userData;
+  const [dogOverviewState, setDogOverviewState] = dogOverview;
+  const [breedOverviewState, setBreedOverviewState] = breedOverview;
   const [ activeIcon, setActiveIcon ] = useState(false);
 
 
@@ -139,6 +141,15 @@ const DogCard = (props) => {
     return(fullElement)
   }
 
+  const handleDogClick = () => {
+    setDogOverviewState(dogObj);
+    console.log('dog state changed');
+  }
+
+  const handleBreedClick = () => {
+    setBreedOverviewState(breedObj);
+    console.log('breed state changed', breedObj);
+  }
 //heart, portrait = dog
 //star, landscape = breed
   const getImage = () => {
@@ -147,6 +158,7 @@ const DogCard = (props) => {
         return (
           <Link to='/animal'>
             <CardMedia
+              onClick={handleDogClick}
               component="img"
               image={image}
               sx={{
@@ -161,6 +173,7 @@ const DogCard = (props) => {
         return (
           <Link to='/animal'>
             <CardMedia
+              onClick={handleDogClick}
               component="img"
               // image={image}
               alt='no image'
@@ -178,6 +191,7 @@ const DogCard = (props) => {
         return (
           <Link to='/breed'>
             <CardMedia
+              onClick={handleBreedClick}
               component="img"
               image={image}
               sx={{
@@ -192,6 +206,7 @@ const DogCard = (props) => {
         return (
           <Link to='/breed'>
             <CardMedia
+              onClick={handleBreedClick}
               component="img"
               // image={image}
               alt='no image'
@@ -246,6 +261,7 @@ const DogCard = (props) => {
           justifyContent="center"
           alignItems="center"
           height={height[orientation] - 150}
+          onClick={handleDogClick}
         >
           {getText()}
         </Grid>
