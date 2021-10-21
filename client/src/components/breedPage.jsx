@@ -12,9 +12,10 @@ import {
   import EmptyStar from '@mui/icons-material/StarBorder';
   import FullStar from '@mui/icons-material/Star';
   import PetMap from './petmap/petMap.jsx';
+  import { useAuth } from '../contexts/AuthContext.jsx';
 
 const BreedPage = (props) => {
-  //const { breed } = props;
+  //const { breedInfo } = props;
 
   // the breed info object
   const breedInfo =
@@ -56,6 +57,8 @@ const BreedPage = (props) => {
 ]
 
   const temperament = breedInfo[0][0].temperament.split(', ');
+  const { currentUser, signout, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
   const [ activeIcon, setActiveIcon ] = useState(false);
   const [ organizations, setOrganizations ] = useState([]);
 
@@ -82,6 +85,28 @@ const BreedPage = (props) => {
     return ( icon );
   }
 
+  const handleIconClick = (event) => {
+    if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteBreed', {email: userDataState.email, id: breedInfo[0][0].id})
+        .then(response => {
+          console.info('Breed deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveBreed', {email: userDataState.email, breedObj: breedInfo[0][0]})
+        .then(response => {
+          console.info('Breed saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+  }
+
   return (
     <Box sx={{marginTop:"10px"}}>
       <Grid container spacing={2}>
@@ -97,8 +122,8 @@ const BreedPage = (props) => {
           }}
         >
         <Grid item container justifyContent="flex-end">
-                    <CardActions
-              onClick={handleClick}
+          <CardActions
+              onClick={handleIconClick}
               sx={{
                 padding: '5px',
                 zIndex:1

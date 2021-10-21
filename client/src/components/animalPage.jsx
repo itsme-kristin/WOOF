@@ -13,6 +13,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import EmailIcon from '@mui/icons-material/Email';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 const style =  {
   button: {
@@ -124,7 +125,32 @@ const AnimalPage = (props) => {
         "organization_name": "Janeen's Catahoula Leopard Dog Rescue Inc"
     }
 
+  const { currentUser, signout, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
+  const [ activeButton, setActiveButton ] = useState(false);
   const [ otherPets, setOtherPets ] = useState([]);
+
+  const handleButtonClick = (event) => {
+      if (activeButton) {
+        setActiveButton(false);
+        axios.put('/deleteDog', {email: userDataState.email, id: animalInfo.id})
+        .then(response => {
+          console.info('Dog deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveButton(true);
+        axios.put('/saveDog', {email: userDataState.email, dogObj: animalInfo})
+        .then(response => {
+          console.info('Dog saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+    };
 
   useEffect(()=> {
     axios.get('/organization', { params: { "id": animalInfo.organization_id}})
@@ -209,7 +235,7 @@ const AnimalPage = (props) => {
         </Grid>
         <Grid item container xs={4} spacing={1}>
           <Grid item xs={12} align="center">
-          <Button variant="contained" sx={style.button}>
+          <Button variant="contained" sx={style.button} onClick={handleButtonClick}>
             Add {animalInfo.name} to your favorite animals list
           </Button>
         </Grid>
