@@ -274,7 +274,6 @@ const AnimalPage = props => {
           </Grid>
         </Grid>
         <Grid item container xs={4} spacing={1}>
-<<<<<<< HEAD
           <Grid item xs={12} align="center">
           <Button variant="contained" sx={style.button} onClick={handleButtonClick}>
             Add {animalInfo.name} to your favorite animals list
@@ -302,41 +301,6 @@ const AnimalPage = props => {
             </Typography>
           </Card>
         </Grid>
-=======
-          <Grid item xs={12} align='center'>
-            <Button variant='contained' sx={style.button}>
-              Add {animalInfo.name} to your favorite animals list
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Card sx={{ height: '100%', padding: '10px' }}>
-              <Typography variant='h5'>
-                {animalInfo.organization_name}
-              </Typography>
-              <br />
-              <Typography variant='body1'>
-                {animalInfo.contact.address.address1}
-              </Typography>
-              <Typography>{animalInfo.contact.address.address2}</Typography>
-              <Typography>
-                {animalInfo.contact.address.city}
-                {', '}
-                {animalInfo.contact.address.state}{' '}
-                {animalInfo.contact.address.postcode}
-              </Typography>
-              <br />
-              <Typography variant='body1'>
-                {<EmailIcon />}{' '}
-                <Link href={`mailto:${animalInfo.contact.email}`}>
-                  {animalInfo.contact.email}
-                </Link>
-              </Typography>
-              <Typography variant='body1'>
-                {<PhoneIphoneIcon />} {animalInfo.contact.phone}
-              </Typography>
-            </Card>
-          </Grid>
->>>>>>> 05a561ea97e2c673be320fb4f403bf31b2bbbabd
         </Grid>
         <Grid item xs={12} align='center'>
           <Typography variant='h4'>
