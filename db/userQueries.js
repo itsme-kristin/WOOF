@@ -1,26 +1,5 @@
 const { User } = require("./index.js");
-const { iptv } = require("../config.js");
 const axios = require("axios");
-
-// const getCoordinates = ({ street_address, city, state, zip }) => {
-//   let latitudeStr = "";
-//   let longitudeStr = "";
-//   const pieces = street_address.split(" ");
-//   const specialJoin = pieces.join("%");
-//   return axios
-//     .get(
-//       `https://api.myptv.com/geocoding/v1/locations/by-text?searchText=${specialJoin}%${city}%${state}%${zip}&apiKey=${iptv}`
-//     )
-//     .then(({ data }) => {
-//       const latitudeInt = data.locations[0].referencePosition.latitude;
-//       latitudeStr = latitudeInt.toString();
-//       const longitudeInt = data.locations[0].referencePosition.longitude;
-//       longitudeStr = longitudeInt.toString();
-
-//       return { latitudeStr, longitudeStr };
-//     })
-//     .catch((err) => console.error("There was an error updating the user."));
-// };
 
 const addUser = ({
   name,

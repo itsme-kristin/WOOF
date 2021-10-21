@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import axios from "axios";
-import { iptv, googleAPI } from "../../../config.js";
+import { googleAPI } from "../../../config.js";
 import Geocode from "react-geocode";
 const AuthContext = createContext();
 Geocode.setApiKey(googleAPI);
