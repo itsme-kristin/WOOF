@@ -32,16 +32,18 @@ const DogCard = (props) => {
 
 
   useEffect(() => {
-    if (orientation === 'portrait') {
-      for (let i = 0; i < userDataState.savedDogs.length; i++) {
-        if (userDataState.savedDogs[i].id === dogObj.id) {
-          setActiveIcon(true);
+    if (userDataState.length > 0){
+      if (orientation === 'portrait') {
+        for (let i = 0; i < userDataState.savedDogs.length; i++) {
+          if (userDataState.savedDogs[i].id === dogObj.id) {
+            setActiveIcon(true);
+          }
         }
-      }
-    } else if (orientation === 'landscape') {
-      for (let j = 0; j < userDataState.savedBreeds.length; j++) {
-        if (userDataState.savedBreeds[i].id === breedObj.id) {
-          setActiveIcon(true);
+      } else if (orientation === 'landscape') {
+        for (let j = 0; j < userDataState.savedBreeds.length; j++) {
+          if (userDataState.savedBreeds[i].id === breedObj.id) {
+            setActiveIcon(true);
+          }
         }
       }
     }
