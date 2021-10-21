@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import axios from 'axios';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -23,16 +25,75 @@ const DogCard = (props) => {
   const text = props.text || '3 Mths | Labrador Retriever | 8 miles';
   const type = props.type || 'none';
   const name = props.name || 'Oliver';
-  const [ activeIcon, setActiveIcon ] = useState(false); //change initial state to a boolean of if the dog is found in the user's fav list
+  const dogObj = props.dogObj;
+  const breedObj = props.breedObj;
+  const { currentUser, signout, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
+  const [ activeIcon, setActiveIcon ] = useState(false);
 
-  const handleClick = (event) => {
-    //TODO: IF TYPE = HEART (DOG)
-        //TODO: cases if active => remove favorite (toggle to inactive)
-        //if unactive => add favorite (toggle to active)
-    //IF TYPE = STAR (BREED)
-        //
-    setActiveIcon(!activeIcon);
-  }
+
+  useEffect(() => {
+    if (userDataState.length > 0){
+      if (orientation === 'portrait') {
+        for (let i = 0; i < userDataState.savedDogs.length; i++) {
+          if (userDataState.savedDogs[i].id === dogObj.id) {
+            setActiveIcon(true);
+          }
+        }
+      } else if (orientation === 'landscape') {
+        for (let j = 0; j < userDataState.savedBreeds.length; j++) {
+          if (userDataState.savedBreeds[i].id === breedObj.id) {
+            setActiveIcon(true);
+          }
+        }
+      }
+    }
+  });
+
+  const handleIconClick = (event) => {
+    if (orientation === 'portrait') {
+      if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteDog', {email: userDataState.email, id: dogObj.id})
+        .then(response => {
+          console.info('Dog deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
+        .then(response => {
+          console.info('Dog saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+    } else {
+      if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteBreed', {email: userDataState.email, id: breedObj.id})
+        .then(response => {
+          console.info('Breed deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveBreed', {email: userDataState.email, breedObj: breedObj})
+        .then(response => {
+          console.info('Breed saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+    }
+  };
+
 
   const getIcon = () => {
     let icon = <div />
@@ -163,7 +224,7 @@ const DogCard = (props) => {
         }}
       >
         <CardActions
-          onClick={handleClick}
+          onClick={handleIconClick}
           style={{ float: 'right'}}
           sx={{
             padding: '5px',

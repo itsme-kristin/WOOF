@@ -126,7 +126,34 @@ const getDogsAtOrg = orgId => {
     });
   } else {
     return axios.get(
-      `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}`,
+      `https://api.petfinder.com/v2/animals?type=dog&status=adoptable&organization=${orgId}&limit=5`,
+      {
+        headers: {
+          Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+        }
+      }
+    );
+  }
+};
+
+const getNearbyOrgs = (location, distance) => {
+  if (
+    !tokenInfo.expiration ||
+    tokenInfo.expiration - new Date().getTime() < 1
+  ) {
+    return getAuthToken().then(() => {
+      return axios.get(
+        `https://api.petfinder.com/v2/organizations?limit=3&location=${location}&distance=${distance}`,
+        {
+          headers: {
+            Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
+          }
+        }
+      );
+    });
+  } else {
+    return axios.get(
+      `https://api.petfinder.com/v2/organizations?limit=3&location=${location}&distance=${distance}`,
       {
         headers: {
           Authorization: `${tokenInfo.tokenType} ${tokenInfo.token}`
@@ -141,5 +168,6 @@ module.exports = {
   getDogs,
   getDogsAtOrg,
   getOrgName,
-  getDogsWithOrgNames
+  getDogsWithOrgNames,
+  getNearbyOrgs
 };

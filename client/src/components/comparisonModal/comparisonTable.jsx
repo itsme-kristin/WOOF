@@ -12,7 +12,9 @@ import {
   } from '@mui/material';
   import CheckIcon from '@mui/icons-material/Check';
 
-export default function ComparisonTable() {
+const ComparisonTable = (props) => {
+  // const { breed1, breed2 } = props;
+
   const breed1 = [
     [
         {
@@ -143,3 +145,5 @@ export default function ComparisonTable() {
     </Paper>
   );
 }
+
+export default ComparisonTable;
