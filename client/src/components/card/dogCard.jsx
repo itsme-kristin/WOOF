@@ -19,6 +19,16 @@ import { Link } from 'react-router-dom';
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
 
+
+const noimgstyle = {
+  width: '100%',
+  height: '150px',
+  backgroundColor: '#EAE0D5',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
 const DogCard = (props) => {
   const image = props.image;
   const orientation = props.orientation || 'portrait';
@@ -160,16 +170,9 @@ const DogCard = (props) => {
       } else {
         return (
           <Link to='/animal'>
-            <CardMedia
-              component="img"
-              // image={image}
-              alt='no image'
-              sx={{
-                width: '100%',
-                height: '150px',
-                backgroundColor: 'linen'
-              }}
-            />
+            <CardMedia component="div" alt='no image' sx={noimgstyle}>
+              No Image Provided
+            </CardMedia>
           </Link>
         )
       }
