@@ -65,7 +65,11 @@ const HomePage = () => {
 
     if (!list?.length) {
       for (var i = 0; i < 5; i++) {
-        top5.push(<EmptyCard key={i}/>);
+        top5.push(
+          <Grid item key={i}>
+            <EmptyCard />
+          </Grid>
+        );
       }
     } else {
       top5 = list.map(pet => {

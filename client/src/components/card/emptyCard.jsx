@@ -23,13 +23,34 @@ const empty = {
   },
 };
 
-const EmptyCard = (key) => {
+const EmptyCard = ({ orientation = 'portrait'}) => {
+  const cardWidth = orientation === 'landscape' ? '252px' : '200px';
+  const cardHeight = orientation === 'landscape' ? '200px' : '252px';
+
+  const empty = {
+    card: {
+      width: cardWidth,
+      height: cardHeight,
+      padding: '5px',
+      backgroundColor: '#EAE0D5',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
+    icon: {
+      color: '#5E503F',
+      fontSize: '60px',
+    },
+  };
+
+
   return (
-    <Grid item key={key}>
+    < >
       <Paper sx={empty.card}>
             <ImageNotSupportedIcon sx={empty.icon} />
       </Paper>
-    </Grid>
+    </>
   );
 };
 
