@@ -117,7 +117,16 @@ const Header = () => {
                       startIcon={<LogoutIcon sx={icon} />}
                       onClick={() => {
                         signout()
-                        setUserDataState()
+                        setUserDataState({
+                          name: '',
+                          email: '',
+                          password: '',
+                          street_address: '',
+                          city: '',
+                          state: '',
+                          zip: '',
+                          savedBreeds: [],
+                          savedDogs: [],})
                       }
                       }
                     >
