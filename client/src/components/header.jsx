@@ -38,14 +38,6 @@ const icon = {
 const Header = () => {
   const { currentUser, signout, userData } = useAuth();
   const [userDataState, setUserDataState] = userData;
-  //header useEffect (when header checks auth (currentUser))
-  //get request to DB for user Data => set User data
-  // useEffect(() => {
-  //   if (JSON.parse(window.localStorage.getItem('userData')) !== undefined) {
-  //     // setUserData(JSON.parse(window.localStorage.getItem('userData')));
-  //     console.log(JSON.parse(window.localStorage.getItem('userData')))
-  //   }
-  // }, [])
 
   return (
     <>

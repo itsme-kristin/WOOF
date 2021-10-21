@@ -11,6 +11,7 @@ const AnimalOtherPetsCarousel = (props) => {
         <Carousel.Item key={i}>
           <div style={{ padding: 8 }}>
             <DogCard
+              dogObj={elem}
               image={elem.photo?.medium ? photo.medium : undefined}
               text={`${elem.age} ${elem.breeds.primary}`}
               type='heart'

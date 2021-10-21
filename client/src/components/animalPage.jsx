@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AnimalPhotoCarousel from './carousel/animalPhotoCarousel.jsx';
 import AnimalOtherPetsCarousel from './carousel/animalOtherPetsCarousel.jsx';
@@ -7,130 +7,57 @@ import {
   Button,
   Card,
   CardContent,
+  Link,
   Grid,
-  Typography } from '@mui/material';
+  Typography
+} from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import EmailIcon from '@mui/icons-material/Email';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
-const style =  {
+const style = {
   button: {
     margin: 0,
-    width: '350px',
+    width: '350px'
   }
-}
+};
 
 const AnimalPage = (props) => {
-  const animalInfo =
-      {
-        "id": 53317583,
-        "organization_id": "MT59",
-        "url": "https://www.petfinder.com/dog/josie-jj-covington-la-53317583/mt/roundup/janeens-catahoula-leopard-dog-rescue-inc-mt59/?referrer_id=e7aeebdb-543c-448c-973a-89723cb8f73b",
-        "type": "Dog",
-        "species": "Dog",
-        "breeds": {
-            "primary": "Catahoula Leopard Dog",
-            "secondary": null,
-            "mixed": false,
-            "unknown": false
-        },
-        "colors": {
-            "primary": "Golden",
-            "secondary": "White / Cream",
-            "tertiary": null
-        },
-        "age": "Young",
-        "gender": "Female",
-        "size": "Large",
-        "coat": null,
-        "attributes": {
-            "spayed_neutered": true,
-            "house_trained": false,
-            "declawed": null,
-            "special_needs": false,
-            "shots_current": true
-        },
-        "environment": {
-            "children": true,
-            "dogs": true,
-            "cats": null
-        },
-        "tags": [
-            "Friendly",
-            "Affectionate",
-            "Loyal",
-            "Playful",
-            "Smart",
-            "Funny"
-        ],
-        "name": "JOSIE-JJ (COVINGTON, LA)",
-        "description": "If  this pretty pup tugs on your heart please go to our website www.jcldr.com and fill out an online application....",
-        "organization_animal_id": "KL CLA",
-        "photos": [
-            {
-                "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365&width=100",
-                "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365&width=300",
-                "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365&width=600",
-                "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365"
-            },
-            {
-                "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/2/?bust=1634719366&width=100",
-                "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/2/?bust=1634719366&width=300",
-                "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/2/?bust=1634719366&width=600",
-                "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/2/?bust=1634719366"
-            },
-            {
-                "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/3/?bust=1634719367&width=100",
-                "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/3/?bust=1634719367&width=300",
-                "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/3/?bust=1634719367&width=600",
-                "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/3/?bust=1634719367"
-            }
-        ],
-        "primary_photo_cropped": {
-            "small": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365&width=300",
-            "medium": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365&width=450",
-            "large": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365&width=600",
-            "full": "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/53317583/1/?bust=1634719365"
-        },
-        "videos": [],
-        "status": "adoptable",
-        "status_changed_at": "2021-10-20T08:42:48+0000",
-        "published_at": "2021-10-20T08:42:48+0000",
-        "distance": null,
-        "contact": {
-            "email": "jj4@midrivers.com",
-            "phone": "406 323 3519",
-            "address": {
-                "address1": null,
-                "address2": null,
-                "city": "Roundup",
-                "state": "MT",
-                "postcode": "59072",
-                "country": "US"
-            }
-        },
-        "_links": {
-            "self": {
-                "href": "/v2/animals/53317583"
-            },
-            "type": {
-                "href": "/v2/types/dog"
-            },
-            "organization": {
-                "href": "/v2/organizations/mt59"
-            }
-        },
-        "organization_name": "Janeen's Catahoula Leopard Dog Rescue Inc"
-    }
-
+  const { currentUser, signout, userData, dogOverview } = useAuth();
+  const [userDataState, setUserDataState] = userData;
+  const [dogOverviewState, setDogOverviewState] = dogOverview;
+  const [ activeButton, setActiveButton ] = useState(false);
   const [ otherPets, setOtherPets ] = useState([]);
 
+  const handleButtonClick = (event) => {
+      if (activeButton) {
+        setActiveButton(false);
+        axios.put('/deleteDog', {email: userDataState.email, id: dogOverviewState.id})
+        .then(response => {
+          console.info('Dog deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveButton(true);
+        axios.put('/saveDog', {email: userDataState.email, dogObj: dogOverviewState})
+        .then(response => {
+          console.info('Dog saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+    };
+
   useEffect(()=> {
-    axios.get('/organization', { params: { "id": animalInfo.organization_id}})
+    axios.get(`/organization?id=${dogOverviewState.organization_id}`)
     .then((response) => {
-      setOtherPets(response.data[1]);
-      console.log(response.data[1]);
+      console.log(response);
+      setOtherPets(response.data[2]);
     })
     .catch((err)=> {
       console.log('error in retrieving other pets from this organization');
@@ -140,111 +67,147 @@ const AnimalPage = (props) => {
   return (
     <Box>
       <Grid container spacing={3}>
-        <Grid item xs={12} align="center" marginTop="4px">
-          <Typography variant="h3"> {animalInfo.name}</Typography>
-          <Typography variant="h5"> {animalInfo.breeds.primary}</Typography>
+        <Grid item xs={12} align='center' marginTop='4px'>
+          <Typography variant='h3'> {dogOverviewState.name}</Typography>
+          <Typography variant='h5'> {dogOverviewState.breeds.primary}</Typography>
         </Grid>
         <Grid item xs={12}>
-          <AnimalPhotoCarousel photos={animalInfo.photos} numItems={3} />
+          <AnimalPhotoCarousel photos={dogOverviewState.photos} numItems={3} />
         </Grid>
         <Grid container item xs={8} spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="body1">
-              {animalInfo.description}
+            <Typography variant='body1'>{dogOverviewState.description}</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant='body2' component='ul'>
+              <li>Age: {dogOverviewState.age} </li>
+              <li>Gender: {dogOverviewState.gender} </li>
             </Typography>
           </Grid>
           <Grid item xs={6}>
-          <Typography variant="body2" component="ul" >
-            <li>
-              Age: {animalInfo.age}{' '}
-            </li>
-            <li>
-              Gender: {animalInfo.gender}{' '}
-            </li>
-          </Typography>
+            <Typography variant='body2' component='ul'>
+              <li>Size: {dogOverviewState.size} </li>
+              <li>
+                Coat:{' '}
+                {dogOverviewState.coat !== null ? dogOverviewState.coat : 'not available'}{' '}
+              </li>
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-          <Typography variant="body2" component="ul" >
-            <li>
-              Size: {animalInfo.size}{' '}
-            </li>
-            <li>
-              Coat: {animalInfo.coat !== null ? animalInfo.coat : 'not available'}{' '}
-            </li>
-          </Typography>
+            <Typography variant='body2' component='ul'>
+              <li>
+                {dogOverviewState.attributes.spayed_neutered === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Spayed/Neutered
+              </li>
+              <li>
+                {dogOverviewState.attributes.house_trained === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                House Trained
+              </li>
+              <li>
+                {dogOverviewState.attributes.declawed === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Declawed
+              </li>
+              <li>
+                {dogOverviewState.attributes.special_needs === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Special Needs
+              </li>
+              <li>
+                {dogOverviewState.attributes.shots_current === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Shots Current
+              </li>
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-          <Typography variant="body2" component="ul" >
+            <Typography variant='body2' component='ul'>
+              Good with:
               <li>
-             {(animalInfo.attributes.spayed_neutered === true) ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Spayed/Neutered
-             </li>
+                {dogOverviewState.environment.children === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Children
+              </li>
               <li>
-             {(animalInfo.attributes.house_trained === true) ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}House Trained
-             </li>
+                {dogOverviewState.environment.dogs === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Dogs
+              </li>
               <li>
-             {animalInfo.attributes.declawed === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Declawed
-             </li>
-              <li>
-             {animalInfo.attributes.special_needs === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Special Needs
-             </li>
-              <li>
-             {animalInfo.attributes.shots_current === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Shots Current
-             </li>
-           </Typography>
-          </Grid>
-          <Grid item xs={6}>
-           <Typography variant="body2" component="ul" >
-           Good with:
-              <li>
-             {animalInfo.environment.children === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Children
-             </li>
-              <li>
-             {animalInfo.environment.dogs === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Dogs
-             </li>
-              <li>
-             {animalInfo.environment.cats === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Cats
-             </li>
-             </Typography>
+                {dogOverviewState.environment.cats === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Cats
+              </li>
+            </Typography>
           </Grid>
         </Grid>
         <Grid item container xs={4} spacing={1}>
           <Grid item xs={12} align="center">
-          <Button variant="contained" sx={style.button}>
-            Add {animalInfo.name} to your favorite animals list
+          <Button variant="contained" sx={style.button} onClick={handleButtonClick}>
+            Add {dogOverviewState.name} to your favorite animals list
           </Button>
         </Grid>
         <Grid item xs={12}>
           <Card sx={{height:"100%", padding:"10px"}}>
-            <Typography variant="h5">{animalInfo.organization_name}</Typography>
+            <Typography variant="h5">{dogOverviewState.organization_name}</Typography>
             <br />
             <Typography variant="body1">
-              {animalInfo.contact.address.address1}
+              {dogOverviewState.contact.address.address1}
             </Typography>
             <Typography>
-              {animalInfo.contact.address.address2}
+              {dogOverviewState.contact.address.address2}
             </Typography>
             <Typography>
-              {animalInfo.contact.address.city}{', '}{animalInfo.contact.address.state}{' '}{animalInfo.contact.address.postcode}
+              {dogOverviewState.contact.address.city}{', '}{dogOverviewState.contact.address.state}{' '}{dogOverviewState.contact.address.postcode}
             </Typography>
             <br />
             <Typography variant="body1">
-              {(<EmailIcon />)}{' '}{animalInfo.contact.email}
+              {(<EmailIcon />)}{' '}{dogOverviewState.contact.email}
             </Typography>
             <Typography variant="body1">
-              {(<PhoneIphoneIcon />)}{' '}{animalInfo.contact.phone}
+              {(<PhoneIphoneIcon />)}{' '}{dogOverviewState.contact.phone}
             </Typography>
           </Card>
         </Grid>
         </Grid>
-        <Grid item xs={12} align="center">
-          <Typography variant="h4"> View other pets at {animalInfo.organization_name} </Typography>
+        <Grid item xs={12} align='center'>
+          <Typography variant='h4'>
+            {' '}
+            View other pets at {dogOverviewState.organization_name}{' '}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <AnimalOtherPetsCarousel otherPets={otherPets} numItems={5} />
         </Grid>
       </Grid>
     </Box>
-  )
-}
+  );
+};
 
 export default AnimalPage;

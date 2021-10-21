@@ -14,6 +14,7 @@ import FullStar from '@mui/icons-material/Star';
 import Grid from '@mui/material/Grid';
 // import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 // import Circle from '@mui/icons-material/Circle';
+import { Link } from 'react-router-dom';
 
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
@@ -26,8 +27,10 @@ const DogCard = (props) => {
   const name = props.name || 'Oliver';
   const dogObj = props.dogObj;
   const breedObj = props.breedObj;
-  const { currentUser, signout, userData } = useAuth();
+  const { currentUser, signout, userData, dogOverview, breedOverview } = useAuth();
   const [userDataState, setUserDataState] = userData;
+  const [dogOverviewState, setDogOverviewState] = dogOverview;
+  const [breedOverviewState, setBreedOverviewState] = breedOverview;
   const [ activeIcon, setActiveIcon ] = useState(false);
 
 
@@ -123,47 +126,101 @@ const DogCard = (props) => {
     let fullElement;
     if (orientation === 'landscape') {
       fullElement = (
-        <div>
+        <Link to='/breed'>
           {nameElement}
-        </div>
+        </Link>
       )
     } else {
       fullElement = (
-        <div>
+        <Link to='/animal'>
           {nameElement}
           {textElement}
-        </div>
+        </Link>
       )
     }
     return(fullElement)
   }
 
-  const getImage = () => {
-    if (image) {
-      return (
-        <CardMedia
-          component="img"
-          image={image}
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+  const handleClick = () => {
+    if (orientation === 'portrait') {
+      setDogOverviewState(dogObj);
+      console.log('dog object state changed');
     } else {
-      return (
-        <CardMedia
-          component="img"
-          // image={image}
-          alt='no image'
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+      setBreedOverviewState(breedObj);
+      console.log('breed object state changed');
+    }
+  }
+
+//heart, portrait = dog
+//star, landscape = breed
+  const getImage = () => {
+    if (orientation === 'portrait') {
+      if (image) {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              onClick={handleClick}
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              onClick={handleClick}
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
+    } else {
+      if (image) {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              onClick={handleClick}
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              onClick={handleClick}
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
+
     }
   }
 
@@ -205,6 +262,7 @@ const DogCard = (props) => {
           justifyContent="center"
           alignItems="center"
           height={height[orientation] - 150}
+          onClick={handleClick}
         >
           {getText()}
         </Grid>

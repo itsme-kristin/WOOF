@@ -127,7 +127,11 @@ app.get("/organization", (req, res) => {
     .then((orgInfo) => {
       pf.getDogsAtOrg(req.query.id)
         .then((otherDogs) => {
-          res.send([orgInfo.data.organization.name, otherDogs.data.animals]);
+          res.send([
+            orgInfo.data.organization.name,
+            orgInfo.data.organization.website,
+            otherDogs.data.animals,
+          ]);
         })
         .catch((err) => {
           console.log("Could not find dogs at org");

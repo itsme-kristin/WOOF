@@ -12,55 +12,19 @@ import {
   import EmptyStar from '@mui/icons-material/StarBorder';
   import FullStar from '@mui/icons-material/Star';
   import PetMap from './petmap/petMap.jsx';
+  import { useAuth } from '../contexts/AuthContext.jsx';
 
 const BreedPage = (props) => {
-  //const { breed } = props;
-
-  // the breed info object
-  const breedInfo =
-  [
-    [
-        {
-            "height": {
-                "imperial": "9 - 11.5",
-                "metric": "23 - 29"
-            },
-            "image": {
-                "height": 1199,
-                "id": "BJa4kxc4X",
-                "url": "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",
-                "width": 1600
-            },
-            "weight": "small",
-            "_id": "6169acbe99bd0491f8a6c7a4",
-            "bred_for": "Small rodent hunting, lapdog",
-            "breed_group": "Toy",
-            "country_code": "",
-            "id": 1,
-            "life_span": "10 - 12 years",
-            "name": "Affenpinscher",
-            "origin": "Germany, France",
-            "reference_image_id": "BJa4kxc4X",
-            "temperament": "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
-            "__v": 0
-        }
-    ],
-    [
-        {
-            "_id": "616af8ffac0f80f68ad2c499",
-            "breedName": "affenpinscher",
-            "description": "Canines in the Affenpinscher dog breed were originally created to be ratters in homes, stables, and shops. Bred down in size, they moved up in the world, becoming ladies’ companions. Today, they are happy, mischievous companion dogs.",
-            "__v": 0
-        }
-    ]
-]
-
-  const temperament = breedInfo[0][0].temperament.split(', ');
+  const { currentUser, signout, userData, breedOverview } = useAuth();
+  const [ userDataState, setUserDataState ] = userData;
+  const [ breedOverviewState, setbreedOverviewState ] = breedOverview;
   const [ activeIcon, setActiveIcon ] = useState(false);
   const [ organizations, setOrganizations ] = useState([]);
 
+  const temperament = breedOverviewState.temperament.split(', ');
+
   useEffect(()=> {
-    axios.get('/adopt', { params: { "breed": breedInfo[0][0].name , "limit": 3 }})
+    axios.get('/adopt', { params: { "breed": breedOverviewState.name , "limit": 3 }})
     .then((response) => {
       setOrganizations(response.data);
     })
@@ -82,13 +46,35 @@ const BreedPage = (props) => {
     return ( icon );
   }
 
+  const handleIconClick = (event) => {
+    if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteBreed', {email: userDataState.email, id: breedOverviewState.id})
+        .then(response => {
+          console.info('Breed deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveBreed', {email: userDataState.email, breedObj: breedOverviewState})
+        .then(response => {
+          console.info('Breed saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+  }
+
   return (
-    <Box sx={{marginTop:"10px"}}>
+    <Box sx={{marginTop:"10px", padding:25}}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <Card>
         <CardMedia
-          image={breedInfo[0][0].image.url}
+          image={breedOverviewState.image.url}
           alt="Oliver the dog"
           sx={{
             width: '100%',
@@ -97,8 +83,8 @@ const BreedPage = (props) => {
           }}
         >
         <Grid item container justifyContent="flex-end">
-                    <CardActions
-              onClick={handleClick}
+          <CardActions
+              onClick={handleIconClick}
               sx={{
                 padding: '5px',
                 zIndex:1
@@ -112,32 +98,32 @@ const BreedPage = (props) => {
         </Grid>
         <Grid item container xs={5}>
           <Grid item xs={12}>
-            <Typography variant="h3">{breedInfo[0][0].name}</Typography>
-            <Typography variant="h5">Breed origin: {breedInfo[0][0].origin}</Typography>
+            <Typography variant="h3">{breedOverviewState.name}</Typography>
+            <Typography variant="h5">Breed origin: {breedOverviewState.origin}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1"> {breedInfo[1][0].description} </Typography>
+            <Typography variant="body1"> "null" </Typography>
           </Grid>
           <Grid item xs={6}>
           <Typography variant="body2" component="ul" >
             <li>
-              Height: {breedInfo[0][0].height.imperial}{' '}lbs
+              Height: {breedOverviewState.height.imperial}{' '}lbs
             </li>
             <li>
-              Weight: {breedInfo[0][0].weight}{' '}
+              Weight: {breedOverviewState.weight}{' '}
             </li>
             <li>
-              Life Span: {breedInfo[0][0].life_span}{' '}
+              Life Span: {breedOverviewState.life_span}{' '}
             </li>
           </Typography>
           </Grid>
           <Grid item xs={6}>
           <Typography variant="body2" component="ul" >
             <li>
-              Breed Group: {breedInfo[0][0].breed_group}{' '}
+              Breed Group: {breedOverviewState.breed_group}{' '}
             </li>
             <li>
-              Bred For: {breedInfo[0][0].bred_for}{' '}
+              Bred For: {breedOverviewState.bred_for}{' '}
             </li>
           </Typography>
           </Grid>
