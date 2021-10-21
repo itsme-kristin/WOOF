@@ -6,6 +6,7 @@ const user = require("../db/userQueries.js");
 const breed = require("../db/breedQueries.js");
 const app = express();
 const port = 3030;
+const { googleAPI } = require("../config.js");
 
 app.use(express.static("client/dist"));
 app.use(express.json());
@@ -16,6 +17,21 @@ app.listen(port, (e) => {
       ? `Unable to start Express server: ${e}`
       : `Server Listening at http://localhost:${port}`
   );
+});
+
+app.get("/groomers", (req, res) => {
+  let location = req.query.location;
+  let distance = req.query.distance;
+  axios
+    .get(
+      `https://maps.googleapis.com/maps/api/place/textsearch/json?query=pet+grooming&location=${location}&radius=${distance}&region=us&key=${googleAPI}`
+    )
+    .then((nearbyGroomers) => {
+      res.send(nearbyGroomers.data.results.slice(0, 5));
+    })
+    .catch((errorGettingNearbyGroomers) => {
+      res.sendStatus(400).send(errorGettingNearbyGroomers);
+    });
 });
 
 app.get("/user", function (req, res) {
@@ -150,7 +166,7 @@ app.get("/userData", function (req, res) {
     });
 });
 
-//{name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, email: <"email_address">, password: <"password">}
+//{name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, email: <"email_address">, lat: <lat>, lng: <lng>}
 app.post("/userData", function (req, res) {
   user
     .addUser(req.body)
@@ -162,7 +178,7 @@ app.post("/userData", function (req, res) {
     });
 });
 
-//{email: <"email_address>", name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, password: <"password">}
+//{email: <"email_address>", name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, lat: <lat>, lng: <lng>}
 app.put("/userData", function (req, res) {
   user
     .updateUser(req.body.email, req.body)
