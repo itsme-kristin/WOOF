@@ -1,15 +1,32 @@
 import React from 'react';
 import DogCard from '../card/dogCard.jsx';
-
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import Carousel from 'react-grid-carousel';
 
 const FavoriteDogs = () => {
+  const { userData } = useAuth()
+  const [userDataState, setUserDataState] = userData;
+
   return (
-    <div>
-      {/* map the dataset of dogs */}
-      <ul>
-        <DogCard orientation='portrait' />
-      </ul>
-    </div>
+    <Carousel cols={3} rows={1} loop>
+      {console.log(userDataState.savedBreeds)}
+      {userDataState.savedBreeds.map(breed => {
+        if (breed) {
+          console.log(breed)
+          return (
+            <Carousel.Item>
+              <DogCard
+                orientation='landscape'
+                type='star'
+                breedObj={breed}
+                image={breed.image.url}
+                name={breed.name}
+                />
+            </Carousel.Item>
+          )
+        }
+      })}
+    </Carousel>
   )
 }
 

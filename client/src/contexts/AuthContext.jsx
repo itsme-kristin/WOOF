@@ -259,20 +259,31 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const data = window.localStorage.getItem("userData");
 
-    if (data) {
+    setBreedOverview(JSON.parse(window.localStorage.getItem('breedOverview')))
+    const data = (window.localStorage.getItem('userData'))
+    if (JSON.parse(data).name.length > 0) {
       setUserData(JSON.parse(data));
     }
-  }, []);
+    setDogOverview(JSON.parse(window.localStorage.getItem('dogOverview')))
+  }, [])
 
   useEffect(() => {
-    window.localStorage.setItem("userData", JSON.stringify(userData));
+    window.localStorage.setItem('userData', JSON.stringify(userData));
     if (userData.lat) {
       fetchNearByOrganizations();
       fetchNearByGroomers();
     }
-  }, [userData]);
+  }, [userData])
+
+  useEffect(() => {
+    window.localStorage.setItem('dogOverview', JSON.stringify(dogOverview))
+  }, [dogOverview])
+
+  useEffect(() => {
+    window.localStorage.setItem('breedOverview', JSON.stringify(breedOverview))
+  }, [breedOverview])
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
