@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Backdrop,
@@ -7,24 +7,10 @@ import {
   } from '@mui/material';
 import ComparisonTable from './comparisonTable.jsx';
 
-// const useStyles = makeStyles((theme) => ({
-//   modal: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   paper: {
-//     backgroundColor: 'lightcoral',
-//     border: '1px solid #000',
-//     boxShadow: theme.shadows[5],
-//     padding: theme.spacing(2, 4, 3),
-//   },
-// }));
-
 const ComparisonModal = (props) => {
 
-  const [open, setOpen] = usetState(false);
-  const { favoriteBreeds } = props;
+  const [open, setOpen] = useState(false);
+  const { breed1, breed2 } = props;
 
   const handleOpen = () => {
     setOpen(true);
@@ -43,7 +29,11 @@ const ComparisonModal = (props) => {
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        // className={classes.modal}
+        sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -53,9 +43,15 @@ const ComparisonModal = (props) => {
         }}
       >
         <Fade in={open}>
-          {/* <div className={classes.paper}> */}
-          <div>
-            <ComparisonTable />
+          <div sx={{
+            backgroundColor: 'lightcoral',
+            border: '1px solid #000',
+            boxShadow: 5,
+            padding: 2,
+            margin: 5,
+            zIndex: 1
+          }}>
+            <ComparisonTable breed1={breed1} breed2={breed2}/>
           </div>
         </Fade>
       </Modal>

@@ -30,12 +30,14 @@ const PetSearch = () => {
   const getDogs = () => {
     if (dogArray && dogArray.length > 0) {
       return dogArray.map((dog, index)=>{
+        console.log('dog: ', dog);
         let name = dog.name.slice(0, 15);
         let description = `${dog.age} ${dog.breeds.primary}`;
         if (description) {
           description = description.length > 15 ? description.slice(0,15) : description;
         }
         if (dog.photos.length > 0) {
+<<<<<<< HEAD
           return (
             <DogCard
               key={index}
@@ -54,6 +56,9 @@ const PetSearch = () => {
               text={description}
             />
           )
+=======
+          return ( <DogCard key={index} type={'heart'} dogObj={dog} name={name} image={dog.photos[0]['medium']} text={description} /> )
+>>>>>>> main
         }
       });
     }

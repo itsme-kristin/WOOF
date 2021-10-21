@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../styles.css';
 
@@ -38,8 +38,6 @@ const icon = {
 const Header = () => {
   const { currentUser, signout, userData } = useAuth();
   const [userDataState, setUserDataState] = userData;
-  //header useEffect (when header checks auth (currentUser))
-  //get request to DB for user Data => set User data
 
   return (
     <>
@@ -111,7 +109,16 @@ const Header = () => {
                       startIcon={<LogoutIcon sx={icon} />}
                       onClick={() => {
                         signout()
-                        setUserDataState()
+                        setUserDataState({
+                          name: '',
+                          email: '',
+                          password: '',
+                          street_address: '',
+                          city: '',
+                          state: '',
+                          zip: '',
+                          savedBreeds: [],
+                          savedDogs: [],})
                       }
                       }
                     >

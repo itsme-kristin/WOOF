@@ -1,16 +1,16 @@
-const path = require("path");
-const express = require("express");
-const axios = require("axios");
-const pf = require("./petfinderHelpers");
-const user = require("../db/userQueries.js");
-const breed = require("../db/breedQueries.js");
+const path = require('path');
+const express = require('express');
+const axios = require('axios');
+const pf = require('./petfinderHelpers');
+const user = require('../db/userQueries.js');
+const breed = require('../db/breedQueries.js');
 const app = express();
 const port = 3030;
 
-app.use(express.static("client/dist"));
+app.use(express.static('client/dist'));
 app.use(express.json());
 
-app.listen(port, (e) => {
+app.listen(port, e => {
   console.log(
     e
       ? `Unable to start Express server: ${e}`
@@ -18,9 +18,9 @@ app.listen(port, (e) => {
   );
 });
 
-app.get("/user", function (req, res) {
+app.get('/user', function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/dist/index.html"),
+    path.join(__dirname, '../client/dist/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
@@ -29,9 +29,9 @@ app.get("/user", function (req, res) {
   );
 });
 
-app.get("/research", function (req, res) {
+app.get('/research', function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/dist/index.html"),
+    path.join(__dirname, '../client/dist/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
@@ -40,9 +40,9 @@ app.get("/research", function (req, res) {
   );
 });
 
-app.get("/search", function (req, res) {
+app.get('/search', function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/dist/index.html"),
+    path.join(__dirname, '../client/dist/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
@@ -51,9 +51,9 @@ app.get("/search", function (req, res) {
   );
 });
 
-app.get("/animal", function (req, res) {
+app.get('/animal', function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/dist/index.html"),
+    path.join(__dirname, '../client/dist/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
@@ -62,9 +62,9 @@ app.get("/animal", function (req, res) {
   );
 });
 
-app.get("/breed", function (req, res) {
+app.get('/breed', function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/dist/index.html"),
+    path.join(__dirname, '../client/dist/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
@@ -73,9 +73,9 @@ app.get("/breed", function (req, res) {
   );
 });
 
-app.get("/signup", function (req, res) {
+app.get('/signup', function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/dist/index.html"),
+    path.join(__dirname, '../client/dist/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
@@ -84,9 +84,9 @@ app.get("/signup", function (req, res) {
   );
 });
 
-app.get("/signin", function (req, res) {
+app.get('/signin', function (req, res) {
   res.sendFile(
-    path.join(__dirname, "../client/dist/index.html"),
+    path.join(__dirname, '../client/dist/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
@@ -95,9 +95,9 @@ app.get("/signin", function (req, res) {
   );
 });
 
-app.get("/adopt", (req, res) => {
-  pf.getDogs(req.body)
-    .then((dogs) => {
+app.get('/adopt', (req, res) => {
+  pf.getDogs(req.query)
+    .then(dogs => {
       res.send(dogs);
     })
     .catch(err => {
@@ -107,13 +107,34 @@ app.get("/adopt", (req, res) => {
 });
 
 app.get('/organization', (req, res) => {
-  pf.getDogsAtOrg(req.body.id)
-    .then(({ data }) => {
-      res.send(data);
+  pf.getOrgName(req.query.id)
+    .then(orgInfo => {
+      pf.getDogsAtOrg(req.query.id)
+        .then(otherDogs => {
+          res.send([
+            orgInfo.data.organization.name,
+            orgInfo.data.organization.website,
+            otherDogs.data.animals
+          ]);
+        })
+        .catch(err => {
+          console.log('Could not find dogs at org');
+          res.sendStatus(400);
+        });
     })
-
     .catch(err => {
-      console.log('Could not find dogs at org');
+      console.log('Could not get org name');
+      res.sendStatus(400);
+    });
+});
+
+app.get('/nearbyOrgs', (req, res) => {
+  pf.getNearbyOrgs(req.query.location, req.query.distance)
+    .then(({ data }) => {
+      res.send(data.organizations);
+    })
+    .catch(err => {
+      console.log('Could not find nearby orgs');
       res.sendStatus(400);
     });
 });
@@ -121,113 +142,125 @@ app.get('/organization', (req, res) => {
 //{email: <"email_address">}
 
 app.get('/userData', function (req, res) {
-  console.log('request email:', req.query);
   user
     .getUser(req.query.email)
     .then(userData => {
       res.send(userData);
     })
-    .catch((err) => {
+    .catch(err => {
       res.sendStatus(400);
     });
 });
 
 //{name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, email: <"email_address">, password: <"password">}
-app.post("/userData", function (req, res) {
+app.post('/userData', function (req, res) {
   user
     .addUser(req.body)
-    .then((userData) => {
+    .then(userData => {
       res.send(userData).status(201);
     })
-    .catch((err) => {
+    .catch(err => {
       res.sendStatus(400);
     });
 });
 
-//{email: <"email_address>", {name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, password: <"password">}}
-app.put("/userData", function (req, res) {
+//{email: <"email_address>", name: <"name">, street_address: <"street_address">, city:<"city">, state: <"state"> zip: <"zip">, password: <"password">}
+app.put('/userData', function (req, res) {
   user
     .updateUser(req.body.email, req.body)
-    .then(() => {
-      res.sendStatus(204);
+    .then(userData => {
+      res.send(userData).status(204);
     })
-    .catch((err) => {
+    .catch(err => {
       res.sendStatus(400);
     });
 });
 
 //{email: <"email_address">, dogObj: {<dogObj>}}
-app.put("/saveDog", function (req, res) {
+app.put('/saveDog', function (req, res) {
   user
     .addSavedDog(req.body.email, req.body.dogObj)
     .then(() => {
       res.sendStatus(204);
     })
-    .catch((err) => {
+    .catch(err => {
       res.sendStatus(400);
     });
 });
 
 //{email: <"email_address">, id: <dog_id>}
-app.put("/deleteDog", function (req, res) {
+app.put('/deleteDog', function (req, res) {
   user
     .deleteSavedDog(req.body.email, req.body.id)
     .then(() => {
       res.sendStatus(204);
     })
-    .catch((err) => {
+    .catch(err => {
       res.sendStatus(400);
     });
 });
 
 //{email: <"email_address">, breedObj: {<breedObj>}}
-app.put("/saveBreed", function (req, res) {
+app.put('/saveBreed', function (req, res) {
   user
     .addDogBreed(req.body.email, req.body.breedObj)
     .then(() => {
       res.sendStatus(204);
     })
-    .catch((err) => {
+    .catch(err => {
       res.sendStatus(400);
     });
 });
 
 //{email: <"email_address">, id: <breed_id>}
-app.put("/deleteBreed", function (req, res) {
+app.put('/deleteBreed', function (req, res) {
   user
     .deleteDogBreed(req.body.email, req.body.id)
     .then(() => {
       res.sendStatus(204);
     })
-    .catch((err) => {
+    .catch(err => {
       res.sendStatus(400);
     });
 });
 
 //{name: "dog breed"}}
-app.get("/breed-name", (req, res) => {
+app.get('/breed-name', (req, res) => {
   const dogBreedName = req.body.name;
 
   breed
     .getDogBreedInformationByName(dogBreedName)
-    .then((dogBreedInformation) => {
+    .then(dogBreedInformation => {
       res.send(dogBreedInformation);
     })
-    .catch((errorGettingDogInformation) => {
+    .catch(errorGettingDogInformation => {
       res.sendStatus(400);
     });
 });
 
-//'/breed-details?property=property&value=value'
-app.get("/breed-details", (req, res) => {
-  let property = req.query.property;
-  let value = req.query.value;
+//breed-details?breed_name=breed+name&breed_group=breed+group&size=size&temperament=temperament
+
+///breed-details?breed_name=Airedale+Terrier&breed_group=Terrier&size=medium&temperament=Friendly
+
+//**filters on Front End need to be case sensitive**
+app.get('/breed-details', (req, res) => {
+  let filterObj = {};
+  if (req.query.breed_group) {
+    filterObj.breed_group = req.query.breed_group;
+  }
+
+  if (req.query.size) {
+    filterObj.size = req.query.size;
+  }
+  if (req.query.temperament) {
+    filterObj.temperament = req.query.temperament;
+  }
   breed
-    .getDogBreedByValue(property, value)
-    .then((filteredDogBreedArr) => {
-      res.send(filteredDogBreedArr);
+    .getDogBreedByValue(filterObj)
+    .then(filteredDogBreedsArr => {
+      res.send(filteredDogBreedsArr);
     })
-    .catch((errorGettingDogInformation) => {
+    .catch(errorGettingDogInformation => {
       res.sendStatus(400).send(errorGettingDogInformation);
     });
 });

@@ -1,15 +1,64 @@
 const { Breed } = require("./index.js");
 const { Description } = require("./index.js");
 
-const getDogBreedByValue = (property, value) => {
-  const queryObj = { property: value };
-  return Breed.find(queryObj)
-    .then((filteredDogBreed) => {
-      return filteredDogBreed;
-    })
-    .catch((errorFilteringDogs) => {
-      return errorFilteringDogs;
-    });
+const getDogBreedByValue = async ({
+  breed_group = null,
+  size = null,
+  temperament = null,
+}) => {
+  if (breed_group === null && size === null && temperament === null) {
+    return Breed.find()
+      .then((allBreeds) => {
+        return allBreeds
+      })
+  }
+  let queryArray = returnQueryObject(breed_group, size, temperament);
+
+  if (queryArray.length === 1) {
+    return Breed.find(queryArray[0])
+      .then((filteredDogBreedsArr) => {
+        return filteredDogBreedsArr;
+      })
+      .catch((errorFilteringDogs) => {
+        return errorFilteringDogs;
+      });
+  } else {
+    return Breed.find()
+      .and(queryArray)
+      .then((fileterdDogBreeds) => {
+        return fileterdDogBreeds;
+      })
+      .catch((errorFilteringDogs) => {
+        return errorFilteringDogs;
+      });
+  }
+};
+// ==== Helper Function ====
+const returnQueryObject = (breed_group, size, temperament) => {
+  let queryArray = [];
+  if (breed_group) {
+    let groupObj = {
+      breed_group: breed_group,
+    };
+    queryArray.push(groupObj);
+  }
+
+  if (size) {
+    let sizeObj = {
+      weight: size,
+    };
+    queryArray.push(sizeObj);
+  }
+
+  if (temperament) {
+    let temperamentObj = {
+      temperament: { $regex: temperament, $options: "i" },
+    };
+
+    queryArray.push(temperamentObj);
+  }
+
+  return queryArray;
 };
 
 const getDogBreedInformationByName = (dogBreedName) => {

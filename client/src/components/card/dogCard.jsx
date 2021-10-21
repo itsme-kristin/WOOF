@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext.jsx';
+import axios from 'axios';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -12,6 +14,7 @@ import FullStar from '@mui/icons-material/Star';
 import Grid from '@mui/material/Grid';
 // import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 // import Circle from '@mui/icons-material/Circle';
+import { Link } from 'react-router-dom';
 
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
@@ -22,11 +25,75 @@ const DogCard = (props) => {
   const text = props.text || '3 Mths | Labrador Retriever | 8 miles';
   const type = props.type || 'none';
   const name = props.name || 'Oliver';
+  const dogObj = props.dogObj;
+  const breedObj = props.breedObj;
+  const { currentUser, signout, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
   const [ activeIcon, setActiveIcon ] = useState(false);
 
-  const handleClick = (event) => {
-    setActiveIcon(!activeIcon);
-  }
+
+  useEffect(() => {
+    if (userDataState.length > 0){
+      if (orientation === 'portrait') {
+        for (let i = 0; i < userDataState.savedDogs.length; i++) {
+          if (userDataState.savedDogs[i].id === dogObj.id) {
+            setActiveIcon(true);
+          }
+        }
+      } else if (orientation === 'landscape') {
+        for (let j = 0; j < userDataState.savedBreeds.length; j++) {
+          if (userDataState.savedBreeds[i].id === breedObj.id) {
+            setActiveIcon(true);
+          }
+        }
+      }
+    }
+  });
+
+  const handleIconClick = (event) => {
+    if (orientation === 'portrait') {
+      if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteDog', {email: userDataState.email, id: dogObj.id})
+        .then(response => {
+          console.info('Dog deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
+        .then(response => {
+          console.info('Dog saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+    } else {
+      if (activeIcon) {
+        setActiveIcon(false);
+        axios.put('/deleteBreed', {email: userDataState.email, id: breedObj.id})
+        .then(response => {
+          console.info('Breed deleted');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      } else {
+        setActiveIcon(true);
+        axios.put('/saveBreed', {email: userDataState.email, breedObj: breedObj})
+        .then(response => {
+          console.info('Breed saved!');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+      }
+    }
+  };
+
 
   const getIcon = () => {
     let icon = <div />
@@ -57,47 +124,87 @@ const DogCard = (props) => {
     let fullElement;
     if (orientation === 'landscape') {
       fullElement = (
-        <div>
+        <Link to='/breed'>
           {nameElement}
-        </div>
+        </Link>
       )
     } else {
       fullElement = (
-        <div>
+        <Link to='/animal'>
           {nameElement}
           {textElement}
-        </div>
+        </Link>
       )
     }
     return(fullElement)
   }
 
+//heart, portrait = dog
+//star, landscape = breed
   const getImage = () => {
-    if (image) {
-      return (
-        <CardMedia
-          component="img"
-          image={image}
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+    if (orientation === 'portrait') {
+      if (image) {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
     } else {
-      return (
-        <CardMedia
-          component="img"
-          // image={image}
-          alt='no image'
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+      if (image) {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
+
     }
   }
 
@@ -117,7 +224,7 @@ const DogCard = (props) => {
         }}
       >
         <CardActions
-          onClick={handleClick}
+          onClick={handleIconClick}
           style={{ float: 'right'}}
           sx={{
             padding: '5px',
