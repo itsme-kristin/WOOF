@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DogCard from './card/dogCard.jsx';
+import EmptyCard from './card/emptyCard.jsx';
 
 import { Button, Grid, Paper, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,12 +19,9 @@ const HomePage = () => {
 
   useEffect(() => {
     axios.get('/adopt', config)
-    .then(({data}) => {
-      console.log(data);
-      return data.slice(0, 5);
-    })
+    .then(({data}) => data.slice(0, 5))
     .then((top5) => setList(top5))
-    .then(() => console.log('top5 has been loaded'))
+    .then(() => console.log('Top 5 adoptions loaded successfully'))
     .catch((e) => console.log(e))
   }, [])
 
@@ -62,39 +60,15 @@ const HomePage = () => {
   };
 
   const listTop5 = () => {
-    const empty = {
-      card: {
-        width: '200px',
-        height: '252px',
-        padding: '5px',
-        backgroundColor: '#EAE0D5'
-      }
-    };
 
     let top5 = [];
 
-    const emptyCard = () => {
-      return (
-        <Grid item key={i}>
-          <Paper sx={empty.card}>
-            <Grid container justifyContent='center' alignItems='center'>
-              <Grid item>
-                <ImageNotSupportedIcon sx={{ color: '#5E503F' }} />
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
-      );
-    };
-
     if (!list?.length) {
       for (var i = 0; i < 5; i++) {
-        top5.push(emptyCard());
+        top5.push(<EmptyCard key={i}/>);
       }
     } else {
       top5 = list.map(pet => {
-        console.log('photo:', pet.photos[0]);
-        console.log('pet: ', pet);
         const photo = pet.photos[0];
         return (
           <Grid item key={pet.id}>
