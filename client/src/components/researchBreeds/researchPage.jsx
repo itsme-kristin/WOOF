@@ -25,6 +25,7 @@ const PetRearch = () => {
           if (description) {
             description = description.length > 15 ? description.slice(0,15) : description;
           }
+          // console.log(dog)
           return ( <DogCard key={index} orientation={'landscape'} type={'star'} name={dog.name} image={dog.image.url} breedObj={dog}/> )
         }
       });

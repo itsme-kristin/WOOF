@@ -246,6 +246,7 @@ app.put("/deleteBreed", function (req, res) {
 app.get("/breed-name", (req, res) => {
   const dogBreedName = req.body.name;
 
+  console.log('breed name', req.body);
   breed
     .getDogBreedInformationByName(dogBreedName)
     .then((dogBreedInformation) => {

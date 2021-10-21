@@ -20,9 +20,21 @@ const BreedPage = (props) => {
   const [ breedOverviewState, setbreedOverviewState ] = breedOverview;
   const [ activeIcon, setActiveIcon ] = useState(false);
   const [ organizations, setOrganizations ] = useState([]);
-
+  const [ description, setDescription ] = useState('');
+  //breedOverviewState[0] = gen Info
+  //breedOverviewState[1] = description
 
   useEffect(()=> {
+    console.log(breedOverviewState.name)
+    axios.get('/breed-name', {name: breedOverviewState.name})
+      .then((response) => {
+        console.log(response.data[1][0].description)
+        // setDescription(response.data[1][0].description)
+      })
+      .catch((err) => {
+        console.error(err)
+        console.log('error in retrieving breed description')
+      })
     axios.get('/adopt', { params: { "breed": breedOverviewState.name , "limit": 3 }})
     .then((response) => {
       setOrganizations(response.data);
@@ -71,6 +83,7 @@ const BreedPage = (props) => {
 
   return (
     <Box sx={{marginTop:"10px", padding:25}}>
+      {console.log}
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <Card>
@@ -103,7 +116,8 @@ const BreedPage = (props) => {
             <Typography variant="h5">Breed origin: {breedOverviewState.origin}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1"> "null" </Typography>
+            {/* breed description here */}
+            <Typography variant="body1"> {description} </Typography>
           </Grid>
           <Grid item xs={6}>
           <Typography variant="body2" component="ul" >

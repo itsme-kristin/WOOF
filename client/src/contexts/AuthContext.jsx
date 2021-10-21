@@ -207,45 +207,71 @@ const AuthProvider = ({ children }) => {
     organization_name: "Janeen's Catahoula Leopard Dog Rescue Inc",
   });
 
-  const [breedOverview, setBreedOverview] = useState([
-    [
-      {
-        height: {
-          imperial: "9 - 11.5",
-          metric: "23 - 29",
-        },
-        image: {
-          height: 1199,
-          id: "BJa4kxc4X",
-          url: "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",
-          width: 1600,
-        },
-        weight: "small",
-        _id: "6169acbe99bd0491f8a6c7a4",
-        bred_for: "Small rodent hunting, lapdog",
-        breed_group: "Toy",
-        country_code: "",
-        id: 1,
-        life_span: "10 - 12 years",
-        name: "Affenpinscher",
-        origin: "Germany, France",
-        reference_image_id: "BJa4kxc4X",
-        temperament:
-          "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
-        __v: 0,
-      },
-    ],
-    [
-      {
-        _id: "616af8ffac0f80f68ad2c499",
-        breedName: "affenpinscher",
-        description:
-          "Canines in the Affenpinscher dog breed were originally created to be ratters in homes, stables, and shops. Bred down in size, they moved up in the world, becoming ladies’ companions. Today, they are happy, mischievous companion dogs.",
-        __v: 0,
-      },
-    ],
-  ]);
 
+  //breed-name
+  const [breedOverview, setBreedOverview] = useState({
+    height: {
+      imperial: "9 - 11.5",
+      metric: "23 - 29",
+    },
+    image: {
+      height: 1199,
+      id: "BJa4kxc4X",
+      url: "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",
+      width: 1600,
+    },
+    weight: "small",
+    _id: "6169acbe99bd0491f8a6c7a4",
+    bred_for: "Small rodent hunting, lapdog",
+    breed_group: "Toy",
+    country_code: "",
+    id: 1,
+    life_span: "10 - 12 years",
+    name: "Affenpinscher",
+    origin: "Germany, France",
+    reference_image_id: "BJa4kxc4X",
+    temperament:
+      "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
+    __v: 0,
+  });
+  // [
+  //   [
+      // {
+      //   height: {
+      //     imperial: "9 - 11.5",
+      //     metric: "23 - 29",
+      //   },
+      //   image: {
+      //     height: 1199,
+      //     id: "BJa4kxc4X",
+      //     url: "https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg",
+      //     width: 1600,
+      //   },
+      //   weight: "small",
+      //   _id: "6169acbe99bd0491f8a6c7a4",
+      //   bred_for: "Small rodent hunting, lapdog",
+      //   breed_group: "Toy",
+      //   country_code: "",
+      //   id: 1,
+      //   life_span: "10 - 12 years",
+      //   name: "Affenpinscher",
+      //   origin: "Germany, France",
+      //   reference_image_id: "BJa4kxc4X",
+      //   temperament:
+      //     "Stubborn, Curious, Playful, Adventurous, Active, Fun-loving",
+      //   __v: 0,
+      // },
+  //   ],
+  //   [
+  //     {
+  //       _id: "616af8ffac0f80f68ad2c499",
+  //       breedName: "affenpinscher",
+  //       description:
+  //         "Canines in the Affenpinscher dog breed were originally created to be ratters in homes, stables, and shops. Bred down in size, they moved up in the world, becoming ladies’ companions. Today, they are happy, mischievous companion dogs.",
+  //       __v: 0,
+  //     },
+  //   ],
+  // ]
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
