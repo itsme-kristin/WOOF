@@ -21,7 +21,11 @@ const style = {
       fontWeight: 600,
     },
     label: 'caption',
-    list: {
+    editList: {
+      listStyleType: 'none',
+      paddingLeft: 0,
+    },
+    readList: {
       listStyleType: 'none',
       paddingLeft: '10px',
     },
@@ -50,63 +54,63 @@ const SideBar = () => {
   };
 
   const statesArray = [
-    (<MenuItem value="AL">Alabama</MenuItem>),
-    (<MenuItem value="AK">Alaska</MenuItem>),
-    (<MenuItem value="AS">American Samoa</MenuItem>),
-    (<MenuItem value="AZ">Arizona</MenuItem>),
-    (<MenuItem value="AR">Arkansas</MenuItem>),
-    (<MenuItem value="CA">California</MenuItem>),
-    (<MenuItem value="CO">Colorado</MenuItem>),
-    (<MenuItem value="CT">Connecticut</MenuItem>),
-    (<MenuItem value="DE">Delaware</MenuItem>),
-    (<MenuItem value="DC">Dist of Columbia</MenuItem>),
-    (<MenuItem value="FL">Florida</MenuItem>),
-    (<MenuItem value="GA">Georgia</MenuItem>),
-    (<MenuItem value="GU">Guam</MenuItem>),
-    (<MenuItem value="HI">Hawaii</MenuItem>),
-    (<MenuItem value="ID">Idaho</MenuItem>),
-    (<MenuItem value="IL">Illinois</MenuItem>),
-    (<MenuItem value="IN">Indiana</MenuItem>),
-    (<MenuItem value="IA">Iowa</MenuItem>),
-    (<MenuItem value="KS">Kansas</MenuItem>),
-    (<MenuItem value="KY">Kentucky</MenuItem>),
-    (<MenuItem value="LA">Louisiana</MenuItem>),
-    (<MenuItem value="ME">Maine</MenuItem>),
-    (<MenuItem value="MD">Maryland</MenuItem>),
-    (<MenuItem value="MA">Massachusetts</MenuItem>),
-    (<MenuItem value="MI">Michigan</MenuItem>),
-    (<MenuItem value="MN">Minnesota</MenuItem>),
-    (<MenuItem value="UM">Minor Outlying Islands</MenuItem>),
-    (<MenuItem value="MS">Mississippi</MenuItem>),
-    (<MenuItem value="MO">Missouri</MenuItem>),
-    (<MenuItem value="MT">Montana</MenuItem>),
-    (<MenuItem value="NE">Nebraska</MenuItem>),
-    (<MenuItem value="NV">Nevada</MenuItem>),
-    (<MenuItem value="NH">New Hampshire</MenuItem>),
-    (<MenuItem value="NJ">New Jersey</MenuItem>),
-    (<MenuItem value="NM">New Mexico</MenuItem>),
-    (<MenuItem value="NY">New York</MenuItem>),
-    (<MenuItem value="NC">North Carolina</MenuItem>),
-    (<MenuItem value="ND">North Dakota</MenuItem>),
-    (<MenuItem value="MP">Northern Mariana Islands</MenuItem>),
-    (<MenuItem value="OH">Ohio</MenuItem>),
-    (<MenuItem value="OK">Oklahoma</MenuItem>),
-    (<MenuItem value="OR">Oregon</MenuItem>),
-    (<MenuItem value="PA">Pennsylvania</MenuItem>),
-    (<MenuItem value="PR">Puerto Rico</MenuItem>),
-    (<MenuItem value="RI">Rhode Island</MenuItem>),
-    (<MenuItem value="SC">South Carolina</MenuItem>),
-    (<MenuItem value="SD">South Dakota</MenuItem>),
-    (<MenuItem value="TN">Tennessee</MenuItem>),
-    (<MenuItem value="TX">Texas</MenuItem>),
-    (<MenuItem value="UT">Utah</MenuItem>),
-    (<MenuItem value="VT">Vermont</MenuItem>),
-    (<MenuItem value="VA">Virginia</MenuItem>),
-    (<MenuItem value="VI">U.S. Virgin Islands</MenuItem>),
-    (<MenuItem value="WA">Washington</MenuItem>),
-    (<MenuItem value="WV">West Virginia</MenuItem>),
-    (<MenuItem value="WI">Wisconsin</MenuItem>),
-    (<MenuItem value="WY">Wyoming</MenuItem>)
+    (<MenuItem key="al" value="AL">Alabama</MenuItem>),
+    (<MenuItem key="ak" value="AK">Alaska</MenuItem>),
+    (<MenuItem key="as" value="AS">American Samoa</MenuItem>),
+    (<MenuItem key="az" value="AZ">Arizona</MenuItem>),
+    (<MenuItem key="ar" value="AR">Arkansas</MenuItem>),
+    (<MenuItem key="ca" value="CA">California</MenuItem>),
+    (<MenuItem key="co" value="CO">Colorado</MenuItem>),
+    (<MenuItem key="ct" value="CT">Connecticut</MenuItem>),
+    (<MenuItem key="de" value="DE">Delaware</MenuItem>),
+    (<MenuItem key="dc" value="DC">Dist of Columbia</MenuItem>),
+    (<MenuItem key="fl" value="FL">Florida</MenuItem>),
+    (<MenuItem key="ga" value="GA">Georgia</MenuItem>),
+    (<MenuItem key="gu" value="GU">Guam</MenuItem>),
+    (<MenuItem key="hi" value="HI">Hawaii</MenuItem>),
+    (<MenuItem key="id" value="ID">Idaho</MenuItem>),
+    (<MenuItem key="il" value="IL">Illinois</MenuItem>),
+    (<MenuItem key="in" value="IN">Indiana</MenuItem>),
+    (<MenuItem key="ia" value="IA">Iowa</MenuItem>),
+    (<MenuItem key="ks" value="KS">Kansas</MenuItem>),
+    (<MenuItem key="ky" value="KY">Kentucky</MenuItem>),
+    (<MenuItem key="la" value="LA">Louisiana</MenuItem>),
+    (<MenuItem key="me" value="ME">Maine</MenuItem>),
+    (<MenuItem key="md" value="MD">Maryland</MenuItem>),
+    (<MenuItem key="ma" value="MA">Massachusetts</MenuItem>),
+    (<MenuItem key="mi" value="MI">Michigan</MenuItem>),
+    (<MenuItem key="mn" value="MN">Minnesota</MenuItem>),
+    (<MenuItem key="um" value="UM">Minor Outlying Islands</MenuItem>),
+    (<MenuItem key="ms" value="MS">Mississippi</MenuItem>),
+    (<MenuItem key="mo" value="MO">Missouri</MenuItem>),
+    (<MenuItem key="mt" value="MT">Montana</MenuItem>),
+    (<MenuItem key="ne" value="NE">Nebraska</MenuItem>),
+    (<MenuItem key="nv" value="NV">Nevada</MenuItem>),
+    (<MenuItem key="nh" value="NH">New Hampshire</MenuItem>),
+    (<MenuItem key="nj" value="NJ">New Jersey</MenuItem>),
+    (<MenuItem key="nm" value="NM">New Mexico</MenuItem>),
+    (<MenuItem key="ny" value="NY">New York</MenuItem>),
+    (<MenuItem key="nc" value="NC">North Carolina</MenuItem>),
+    (<MenuItem key="nd" value="ND">North Dakota</MenuItem>),
+    (<MenuItem key="mp" value="MP">Northern Mariana Islands</MenuItem>),
+    (<MenuItem key="oh" value="OH">Ohio</MenuItem>),
+    (<MenuItem key="ok" value="OK">Oklahoma</MenuItem>),
+    (<MenuItem key="or" value="OR">Oregon</MenuItem>),
+    (<MenuItem key="pa" value="PA">Pennsylvania</MenuItem>),
+    (<MenuItem key="pr" value="PR">Puerto Rico</MenuItem>),
+    (<MenuItem key="ri" value="RI">Rhode Island</MenuItem>),
+    (<MenuItem key="sc" value="SC">South Carolina</MenuItem>),
+    (<MenuItem key="sd" value="SD">South Dakota</MenuItem>),
+    (<MenuItem key="tn" value="TN">Tennessee</MenuItem>),
+    (<MenuItem key="tx" value="TX">Texas</MenuItem>),
+    (<MenuItem key="ut" value="UT">Utah</MenuItem>),
+    (<MenuItem key="vt" value="VT">Vermont</MenuItem>),
+    (<MenuItem key="va" value="VA">Virginia</MenuItem>),
+    (<MenuItem key="vi" value="VI">U.S. Virgin Islands</MenuItem>),
+    (<MenuItem key="wa" value="WA">Washington</MenuItem>),
+    (<MenuItem key="wv" value="WV">West Virginia</MenuItem>),
+    (<MenuItem key="wi" value="WI">Wisconsin</MenuItem>),
+    (<MenuItem key="wy" value="WY">Wyoming</MenuItem>)
   ]
 
   const editForm = () => (
@@ -115,7 +119,7 @@ const SideBar = () => {
         <Typography sx={style.form.title}>
           Location:
         </Typography>
-        <Typography sx={style.form.list} component='ul' gutterBottom>
+        <Typography sx={style.form.editList} component='ul' gutterBottom>
           <li style={style.form.listItem}>
             <TextField label="Name:" id="name" size='small' defaultValue={userDataState.name} fullWidth />
           </li>
@@ -156,7 +160,7 @@ const SideBar = () => {
         <Typography sx={style.form.title}>
           Location:
         </Typography>
-        <Typography sx={style.form.list} component='ul' gutterBottom>
+        <Typography sx={style.form.readList} component='ul' gutterBottom>
           <li>
             <Typography variant={style.form.label} component="div">Name:</Typography>
             {userDataState.name}
