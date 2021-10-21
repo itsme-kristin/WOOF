@@ -26,7 +26,6 @@ const BreedPage = (props) => {
   useEffect(()=> {
     axios.get('/adopt', { params: { "breed": breedOverviewState.name , "limit": 3 }})
     .then((response) => {
-      console.log(response);
       setOrganizations(response.data);
     })
     .catch((err)=> {
