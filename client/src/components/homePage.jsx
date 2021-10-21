@@ -10,17 +10,22 @@ import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 const HomePage = () => {
   const [list, setList] = useState([]);
 
+  const config = {
+    params: {
+      limit: 5,
+    }
+  }
+
   useEffect(() => {
-    axios
-      .get('/adopt')
-      .then(({ data }) => {
-        console.log({ data });
-        return data.slice(0, 5);
-      })
-      .then(top5 => setList(top5))
-      .then(() => console.log('top5 has been loaded'))
-      .catch(e => console.log(e));
-  }, []);
+    axios.get('/adopt', config)
+    .then(({data}) => {
+      console.log(data);
+      return data.slice(0, 5);
+    })
+    .then((top5) => setList(top5))
+    .then(() => console.log('top5 has been loaded'))
+    .catch((e) => console.log(e))
+  }, [])
 
   const searchBar = () => {
     const homeSearch = {
@@ -89,6 +94,7 @@ const HomePage = () => {
     } else {
       top5 = list.map(pet => {
         console.log('photo:', pet.photos[0]);
+        console.log('pet: ', pet);
         const photo = pet.photos[0];
         return (
           <Grid item key={pet.id}>
@@ -97,6 +103,7 @@ const HomePage = () => {
               text={`${pet.age} ${pet.breeds.primary}`}
               type='heart'
               name={pet.name}
+              dogObj={pet}
             />
           </Grid>
         );

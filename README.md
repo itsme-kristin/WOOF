@@ -14,9 +14,24 @@ npm install
 ```
 3. Create a `config.js` file in the root directory:
 ```
-module.exports = {
-  mongoURI: <<Your Mongo DB link>>,
-};
+  mongoURI: "{{ Your MongoDB Cluster URL here }}",
+
+  petfinderConfig: {
+    "grant_type": "client_credentials",
+    "client_id": "{{ Petfinder client_id }}",
+    "client_secret": "{{ Petfinder client_secret"
+  },
+
+  iptv: '{{ iptv geolocation auth key }}',
+
+  googleAPI: "{{ google API key }}",
+
+  FIREBASE_API_KEY: '{{ Firebase API Key }}',
+  FIREBASE_AUTH_DOMAIN: '{{ Firebase Auth Domain URL }}',
+  FIREBASE_PROJECT_ID: '{{ Firebase Project ID }}',
+  FIREBASE_STORAGE_BUCKET: '{{ Firebase Storage URL }}',
+  FIREBASE_MESSAGING_SENDER_ID: '{{ Firebase Messaging Sender ID }}',
+  FIREBASE_APP_ID: '{{ Firebase App ID }}',
 ```
 * Note, this file is ignored in .gitignore but can be used for any API(s) that require authentication.
 

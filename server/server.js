@@ -138,7 +138,6 @@ app.get('/nearbyOrgs', (req, res) => {
 //{email: <"email_address">}
 
 app.get('/userData', function (req, res) {
-  console.log('request email:', req.query);
   user
     .getUser(req.query.email)
     .then(userData => {

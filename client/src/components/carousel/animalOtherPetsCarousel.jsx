@@ -3,18 +3,19 @@ import Carousel from 'react-grid-carousel';
 import DogCard from '../card/dogCard.jsx';
 
 const AnimalOtherPetsCarousel = (props) => {
-  const { orgId , numItems } = props;
-
-  const pets = [1,2,3,4,5,6];
-
-  //get organization pets endpoint
+  const { otherPets , numItems } = props;
 
   return (
     <Carousel cols={numItems} rows={1} gap={2} showDots>
-      {pets.map((elem, i) => (
+      {otherPets.map((elem, i) => (
         <Carousel.Item key={i}>
           <div style={{ padding: 8 }}>
-            <DogCard otherPets={true} />
+            <DogCard
+              image={elem.photo?.medium ? photo.medium : undefined}
+              text={`${elem.age} ${elem.breeds.primary}`}
+              type='heart'
+              name={elem.name}
+            />
           </div>
         </Carousel.Item>
       ))}

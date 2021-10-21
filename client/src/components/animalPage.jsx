@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import AnimalPhotoCarousel from './carousel/animalPhotoCarousel.jsx';
 import AnimalOtherPetsCarousel from './carousel/animalOtherPetsCarousel.jsx';
 import {
@@ -129,6 +130,20 @@ const AnimalPage = props => {
     },
     organization_name: "Janeen's Catahoula Leopard Dog Rescue Inc"
   };
+
+  const [otherPets, setOtherPets] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('/organization', { params: { id: animalInfo.organization_id } })
+      .then(response => {
+        setOtherPets(response.data[1]);
+        console.log(response.data[1]);
+      })
+      .catch(err => {
+        console.log('error in retrieving other pets from this organization');
+      });
+  }, []);
 
   return (
     <Box>
@@ -275,10 +290,7 @@ const AnimalPage = props => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <AnimalOtherPetsCarousel
-            orgId={animalInfo.organization_id}
-            numItems={4}
-          />
+          <AnimalOtherPetsCarousel otherPets={otherPets} numItems={5} />
         </Grid>
       </Grid>
     </Box>

@@ -6,6 +6,12 @@ const getDogBreedByValue = async ({
   size = null,
   temperament = null,
 }) => {
+  if (breed_group === null && size === null && temperament === null) {
+    return Breed.find()
+      .then((allBreeds) => {
+        return allBreeds
+      })
+  }
   let queryArray = returnQueryObject(breed_group, size, temperament);
 
   if (queryArray.length === 1) {
