@@ -14,6 +14,7 @@ import FullStar from '@mui/icons-material/Star';
 import Grid from '@mui/material/Grid';
 // import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 // import Circle from '@mui/icons-material/Circle';
+import { Link } from 'react-router-dom';
 
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
@@ -123,47 +124,87 @@ const DogCard = (props) => {
     let fullElement;
     if (orientation === 'landscape') {
       fullElement = (
-        <div>
+        <Link to='/breed'>
           {nameElement}
-        </div>
+        </Link>
       )
     } else {
       fullElement = (
-        <div>
+        <Link to='/animal'>
           {nameElement}
           {textElement}
-        </div>
+        </Link>
       )
     }
     return(fullElement)
   }
 
+//heart, portrait = dog
+//star, landscape = breed
   const getImage = () => {
-    if (image) {
-      return (
-        <CardMedia
-          component="img"
-          image={image}
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+    if (orientation === 'portrait') {
+      if (image) {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/animal'>
+            <CardMedia
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
     } else {
-      return (
-        <CardMedia
-          component="img"
-          // image={image}
-          alt='no image'
-          sx={{
-            width: '100%',
-            height: '150px',
-            backgroundColor: 'linen'
-          }}
-        />
-      )
+      if (image) {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              component="img"
+              image={image}
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      } else {
+        return (
+          <Link to='/breed'>
+            <CardMedia
+              component="img"
+              // image={image}
+              alt='no image'
+              sx={{
+                width: '100%',
+                height: '150px',
+                backgroundColor: 'linen'
+              }}
+            />
+          </Link>
+        )
+      }
+
     }
   }
 
