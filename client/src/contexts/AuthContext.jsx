@@ -34,52 +34,54 @@ const AuthProvider = ({ children }) => {
     useState([{ latitude: 0, longitude: 0 }]);
 
   const fetchNearByOrganizations = () => {
-    axios
-      .get(
-        `/nearbyOrgs?lat=${userData.lat}&lng=${userData.lng}&distance=${100}`
-      )
-      .then((nearbyOrganizations) => {
-        nearbyOrganizations.data.forEach((org) => {
-          let address = org.address.address1;
-          let city = org.address.city;
-          let state = org.address.state;
-          let postcode = org.address.postcode;
+    if (userData.lat) {
+      axios
+        .get(
+          `/nearbyOrgs?lat=${userData.lat}&lng=${userData.lng}&distance=${100}`
+        )
+        .then((nearbyOrganizations) => {
+          nearbyOrganizations.data.forEach((org) => {
+            let address = org.address.address1;
+            let city = org.address.city;
+            let state = org.address.state;
+            let postcode = org.address.postcode;
 
-          if (address && address.includes(".")) {
-            let removedPeriod = address.split(".").join("");
-            address = removedPeriod;
-          }
-          if (address) {
-            let queryAddress = address.split(" ").join("+");
-            axios
-              .get(
-                `https://api.myptv.com/geocoding/v1/locations/by-text?searchText=${queryAddress}+${city}+${state}+${postcode}&apiKey=${iptv}`
-              )
-              .then((geoCodedCoordinates) => {
-                console.log(
-                  "geoObj",
-                  geoCodedCoordinates.data.locations[0].referencePosition
-                    .latitude,
-                  geoCodedCoordinates.data.locations[0].referencePosition
-                    .longitude
-                );
-                org.latitude =
-                  geoCodedCoordinates.data.locations[0].referencePosition.latitude;
-                org.longitude =
-                  geoCodedCoordinates.data.locations[0].referencePosition.longitude;
-                // console.log(org.latitude, org.longitude);
-              })
-              .catch((errGetingCoordinates) => {
-                console.log(errGetingCoordinates);
-              });
-          }
+            if (address && address.includes(".")) {
+              let removedPeriod = address.split(".").join("");
+              address = removedPeriod;
+            }
+            if (address) {
+              let queryAddress = address.split(" ").join("+");
+              axios
+                .get(
+                  `https://api.myptv.com/geocoding/v1/locations/by-text?searchText=${queryAddress}+${city}+${state}+${postcode}&apiKey=${iptv}`
+                )
+                .then((geoCodedCoordinates) => {
+                  console.log(
+                    "geoObj",
+                    geoCodedCoordinates.data.locations[0].referencePosition
+                      .latitude,
+                    geoCodedCoordinates.data.locations[0].referencePosition
+                      .longitude
+                  );
+                  org.latitude =
+                    geoCodedCoordinates.data.locations[0].referencePosition.latitude;
+                  org.longitude =
+                    geoCodedCoordinates.data.locations[0].referencePosition.longitude;
+                  // console.log(org.latitude, org.longitude);
+                })
+                .catch((errGetingCoordinates) => {
+                  console.log(errGetingCoordinates);
+                });
+            }
+          });
+          setOrganizationsBasedOnDistance(nearbyOrganizations.data);
+          // console.log("after", nearbyOrganizations.data);
+        })
+        .catch((errorGettingOrganizations) => {
+          console.log("err", errorGettingOrganizations);
         });
-        setOrganizationsBasedOnDistance(nearbyOrganizations.data);
-        // console.log("after", nearbyOrganizations.data);
-      })
-      .catch((errorGettingOrganizations) => {
-        console.log("err", errorGettingOrganizations);
-      });
+    }
   };
 
   const signup = (email, password) => {
