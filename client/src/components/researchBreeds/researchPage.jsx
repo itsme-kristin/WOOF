@@ -61,8 +61,7 @@ const PetRearch = () => {
       sx={{
         height: '100%',
         padding: '0px',
-        width:'1200px',
-        overflow: 'hidden',
+        width:'100%',
       }}
     >
       <Grid
@@ -73,7 +72,7 @@ const PetRearch = () => {
         sx={{
           paddingTop: '20px',
           overflow: 'scroll',
-          width: '900px',
+          width: '77%',
           height: '100%',
         }}
       >
@@ -81,9 +80,9 @@ const PetRearch = () => {
       </Grid>
 
 
-      <Grid item style={{}}sx={{height: '100%', backgroundColor: '#C6AC8F', overflow:'scroll'}}>
+      <Grid item style={{}}sx={{ height: '100%', width:'23%', backgroundColor: '#C6AC8F', overflow: 'scroll'}}>
         <ResearchSidebar
-          buttonText='compare'
+          buttonText='Apply'
           dropdowns={dropDownFilters}
           breeds={breeds}
         />

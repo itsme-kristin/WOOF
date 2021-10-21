@@ -85,7 +85,8 @@ const ResearchSidebar = (props) => {
         alignItems="flex-start"
         sx={{
           width: '300px',
-          px: '5px'
+          px: '5px',
+          overflow: 'scroll'
         }}
       >
         <br />

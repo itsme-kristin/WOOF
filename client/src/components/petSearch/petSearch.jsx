@@ -31,16 +31,30 @@ const PetSearch = () => {
     if (dogArray && dogArray.length > 0) {
       return dogArray.map((dog, index)=>{
         let name = dog.name.slice(0, 15);
-        let description = dog.description;
+        let description = `${dog.age} ${dog.breeds.primary}`;
         if (description) {
           description = description.length > 15 ? description.slice(0,15) : description;
         }
         if (dog.photos.length > 0) {
-          return ( <DogCard key={index} type={'heart'} name={name} image={dog.photos[0]['medium']} text={description} /> )
+          return (
+            <DogCard
+              key={index}
+              type={'heart'}
+              name={name}
+              image={dog.photos[0]['medium']}
+              text={description}
+            />
+          )
+        } else {
+          return (
+            <DogCard
+              key={index}
+              type={'heart'}
+              name={name}
+              text={description}
+            />
+          )
         }
-        // else {
-        //   return ( <DogCard key={index} type={'heart'} name={name} text={description} /> )
-        // }
       });
     }
   }
@@ -80,13 +94,20 @@ const PetSearch = () => {
       alignItems="center"
       sx={{
         height: '100%',
-        margin: '0px',
         width:'1200px',
-        overflow: 'hidden'
       }}
     >
 
-      <Grid item style={{}}sx={{height: '100%', backgroundColor: '#C6AC8F'}}>
+      <Grid
+        item
+        sx={{
+          height: '100%',
+          backgroundColor: '#C6AC8F',
+          overflow: 'scroll',
+          paddingBottom: '50px',
+          width: '23%',
+        }}
+      >
         <SideBar
           dropdowns={dropDownFilters}
           breeds={breeds}
@@ -102,7 +123,7 @@ const PetSearch = () => {
         alignItems="center"
         sx={{
           overflow: 'scroll',
-          width: '900px',
+          width: '77%',
           height: '100%',
           paddingTop: '20px',
         }}
