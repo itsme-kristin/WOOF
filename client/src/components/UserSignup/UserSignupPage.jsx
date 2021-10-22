@@ -48,7 +48,7 @@ const UserSignup = ({ history }) => {
           axios
             .post("/userData", params)
             .then((response) => {
-              console.log("response from post: ", params);
+              console.log("response from post: ", response.data);
               setUserDataState(response.data);
               history.push("/user");
             })

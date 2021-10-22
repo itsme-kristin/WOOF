@@ -9,12 +9,10 @@ const FavoriteDogs = () => {
 
   return (
     <Carousel cols={3} rows={1} loop>
-      {console.log(userDataState.savedBreeds)}
-      {userDataState.savedBreeds.map(breed => {
+      {userDataState.savedBreeds.map((breed, index) => {
         if (breed) {
-          console.log(breed)
           return (
-            <Carousel.Item>
+            <Carousel.Item key={index}>
               <DogCard
                 orientation='landscape'
                 type='star'
