@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import DogCard from "./card/dogCard.jsx";
 import EmptyCard from "./card/emptyCard.jsx";
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -10,6 +11,9 @@ import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
 
 const HomePage = () => {
   const [list, setList] = useState([]);
+  const { zipSearch } = useAuth();
+  const [ zipSearchData, setZipSearchData ] = zipSearch;
+  const [ searchField, setSearchField ] = useState('');
 
   const config = {
     params: {
@@ -24,6 +28,10 @@ const HomePage = () => {
       .then(() => console.log("Top 5 adoptions loaded successfully"))
       .catch((e) => console.log(e));
   }, []);
+
+  const beginSearch = () => {
+    setZipSearchData(searchField)
+  }
 
   const searchBar = () => {
     const homeSearch = {
@@ -42,18 +50,24 @@ const HomePage = () => {
             label="Enter your Zip Code"
             variant="outlined"
             fullWidth
+            onChange={(e) => {
+              setSearchField(e.target.value)
+            }}
             sx={{ minWidth: "164px" }}
           />
         </Grid>
         <Grid item xs="auto">
+          <Link to='/search'>
           <Button
             variant="contained"
             size="large"
             endIcon={<SearchIcon />}
             sx={dogButton}
+            onClick={beginSearch}
           >
             Find a Dog
           </Button>
+          </Link>
         </Grid>
       </Grid>
     );
