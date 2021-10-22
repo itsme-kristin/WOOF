@@ -145,9 +145,9 @@ app.get("/organization", (req, res) => {
 });
 
 app.get("/nearbyOrgs", (req, res) => {
-  console.log(req.query.lat, req.query.lng);
-  let location = [req.query.lat, ",+", req.query.lng].join("");
-  pf.getNearbyOrgs(location, req.query.distance)
+  console.log(req.query.location);
+  // let location = [req.query.lat, ",+", req.query.lng].join("");
+  pf.getNearbyOrgs(req.query.location, req.query.distance)
     .then(({ data }) => {
       res.send(data.organizations);
     })

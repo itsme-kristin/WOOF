@@ -41,26 +41,26 @@ const AuthProvider = ({ children }) => {
   ]);
 
   const convertAddressToLatLng = (strAddress) => {
-    return Geocode.fromAddress(strAddress).then(
-      (response) => {
+    return Geocode.fromAddress(strAddress)
+      .then((response) => {
         const { lat, lng } = response.results[0].geometry.location;
         let latLngArray = [lat, lng];
 
         return latLngArray;
-      },
-      (error) => {
+      })
+      .catch((error) => {
         console.error(error);
-      }
-    );
+      });
   };
 
   const fetchNearByOrganizations = () => {
     if (userData.lat) {
       axios
         .get(
-          `/nearbyOrgs?lat=${userData.lat}&lng=${userData.lng}&distance=${10}`
+          `/nearbyOrgs?location=${userData.lat},${userData.lng}&distance=${10}`
         )
         .then((nearbyOrganizations) => {
+          // console.log(nearbyOrganizations.data);
           nearbyOrganizations.data.forEach((org) => {
             let address = org.address.address1;
             let city = org.address.city;
@@ -68,16 +68,16 @@ const AuthProvider = ({ children }) => {
             let postcode = org.address.postcode;
             let latLngQueryString = address + city + state + postcode;
 
-            Geocode.fromAddress(latLngQueryString).then(
-              (response) => {
+            Geocode.fromAddress(latLngQueryString)
+              .then((response) => {
+                // console.log(response.results);
                 const { lat, lng } = response.results[0].geometry.location;
                 org.latitude = lat;
                 org.longitude = lng;
-              },
-              (error) => {
-                console.error(error);
-              }
-            );
+              })
+              .catch((error) => {
+                console.log('used to be an error here! but we defeated it!!');
+              });
           });
           setOrganizationsBasedOnDistance(nearbyOrganizations.data);
         })
@@ -291,7 +291,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // window.localStorage.setItem('userData', JSON.stringify(userData));
-    console.log(userData);
+    // console.log(userData);
     if (userData.lat) {
       fetchNearByOrganizations();
       fetchNearByGroomers();

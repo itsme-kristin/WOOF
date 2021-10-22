@@ -36,25 +36,6 @@ const DogCard = (props) => {
 
 
   useEffect(() => {
-    // console.log(userDataState)
-    // if (userDataState.email.length > 0){
-    //   if (orientation === 'portrait') {
-    //     for (let i = 0; i < userDataState.savedDogs.length; i++) {
-    //       if (userDataState.savedDogs[i].id === dogObj.id) {
-    //         setActiveIcon(true);
-    //       }
-    //     }
-    //   } else if (orientation === 'landscape') {
-    //     for (let j = 0; j < userDataState.savedBreeds.length; j++) {
-    //       if (userDataState.savedBreeds[i].id === breedObj.id) {
-    //         setActiveIcon(true);
-    //       }
-    //     }
-    //   }
-    // }
-  }, []);
-
-  useEffect(() => {
     if (userDataState.email !== '') {
       if (orientation === 'portrait') {
         for (let i = 0; i < userDataState.savedDogs.length; i++) {
@@ -64,7 +45,6 @@ const DogCard = (props) => {
         }
       } else if (orientation === 'landscape') {
         for (let j = 0; j < userDataState.savedBreeds.length; j++) {
-          // console.log(userDataState.savedBreeds[j]);
           if (userDataState.savedBreeds[j].id === breedObj.id) {
             setActiveIcon(true);
           }
@@ -81,6 +61,15 @@ const DogCard = (props) => {
         .then(response => {
           console.info('Dog deleted');
           //remove from the userData array
+          const oldState = userDataState
+          for (let i = 0; i < oldState.savedDogs.length; i++) {
+            let currentDog = oldState.savedDogs[i]
+            if (currentDog.id === dogObj.id) {
+              oldState.savedDogs.splice(i, 1);
+              break;
+            }
+          }
+          setUserDataState(oldState)
         })
         .catch(err => {
           console.error(err);
@@ -90,8 +79,10 @@ const DogCard = (props) => {
         axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
         .then(response => {
           console.info('Dog saved!');
-          //add to the userData array
-
+          //add to the userData array\
+          const oldState = userDataState
+          oldState.savedDogs.unshift(dogObj)
+          setUserDataState(oldState)
         })
         .catch(err => {
           console.error(err);
@@ -103,6 +94,15 @@ const DogCard = (props) => {
         axios.put('/deleteBreed', {email: userDataState.email, id: breedObj.id})
         .then(response => {
           console.info('Breed deleted');
+          const oldState = userDataState
+          for (let i = 0; i < oldState.savedBreeds.length; i++) {
+            let currentBreed = oldState.savedBreeds[i]
+            if (currentBreed.id === dogObj.id) {
+              oldState.savedBreeds.splice(i, 1);
+              break;
+            }
+          }
+          setUserDataState(oldState)
         })
         .catch(err => {
           console.error(err);
@@ -112,6 +112,9 @@ const DogCard = (props) => {
         axios.put('/saveBreed', {email: userDataState.email, breedObj: breedObj})
         .then(response => {
           console.info('Breed saved!');
+          const oldState = userDataState
+          oldState.savedBreeds.unshift(dogObj)
+          setUserDataState(oldState)
         })
         .catch(err => {
           console.error(err);
