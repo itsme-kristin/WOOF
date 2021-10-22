@@ -155,8 +155,8 @@ const googleMap = () => {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant="caption" component="ul" sx={{ paddingLeft: '5px' }}>
-                    {selectedGroomer.formatted_address}
+                  <Typography variant="caption" component="ul" sx={{ paddingLeft: '5px', listStyleType: 'none' }}>
+                    <li>{selectedGroomer.formatted_address}</li>
                   </Typography>
                 </Grid>
               </Grid>
