@@ -56,7 +56,6 @@ const AnimalPage = (props) => {
   useEffect(()=> {
     axios.get(`/organization?id=${dogOverviewState.organization_id}`)
     .then((response) => {
-      console.log(response);
       setOtherPets(response.data[2]);
     })
     .catch((err)=> {
