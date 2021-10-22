@@ -41,7 +41,7 @@ const PetSearch = () => {
         if (dog.photos.length > 0) {
           return (
 
-            <div style={{marginBottom: '20px'}}>
+            <div style={{marginBottom: '20px'}} key={index}>
               <DogCard
                 key={index}
                 type={'heart'}
@@ -54,7 +54,7 @@ const PetSearch = () => {
           )
         } else {
           return (
-            <div style={{marginBottom: '20px'}}>
+            <div style={{marginBottom: '20px'}} key={index}>
               <DogCard
                 key={index}
                 type={'heart'}
