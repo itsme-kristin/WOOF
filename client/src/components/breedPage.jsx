@@ -38,7 +38,6 @@ const BreedPage = props => {
     axios
       .get('/adopt', { params: { breed: breedOverviewState.name, limit: 3 } })
       .then(response => {
-        console.log(response.data);
         setOrganizations(response.data);
       })
       .catch(err => {

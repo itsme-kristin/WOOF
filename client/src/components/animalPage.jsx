@@ -187,7 +187,10 @@ const AnimalPage = (props) => {
             </Typography>
             <br />
             <Typography variant="body1">
-              {(<EmailIcon />)}{' '}{dogOverviewState.contact.email}
+              {(<EmailIcon />)}{' '}
+              <Link href={`mailto:${dogOverviewState.contact.email}`}>
+                {dogOverviewState.contact.email}
+              </Link>
             </Typography>
             <Typography variant="body1">
               {(<PhoneIphoneIcon />)}{' '}{dogOverviewState.contact.phone}
