@@ -9,8 +9,15 @@ let height = screen.height;
 
 const dropDownFilters = {
   'Breed Group': ['None','Toy', 'Terrier', 'Hound', 'Mixed', 'Working', 'Non-Sporting', 'Sporting', 'Herding'],
-  'Weight': ['None','small','medium','large'],
-  'Tempurment': ['None','Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
+  'Size': ['None','small','medium','large'],
+  'Temperament': ['None','Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
+}
+
+const filterConversion = {
+  'Temperament': 'temperament',
+  'Breed Group': 'breed_group',
+  'Sporting' : 'sporting',
+  'Size' : 'size',
 }
 
 
@@ -27,7 +34,7 @@ const PetRearch = () => {
             description = description.length > 15 ? description.slice(0,15) : description;
           }
           return (
-            <div style={{marginBottom: '20px'}} key={index}>
+            <div style={{marginBottom: '20px'}}>
               <DogCard
                 key={index}
                 orientation={'landscape'}
@@ -40,6 +47,12 @@ const PetRearch = () => {
           )
         }
       });
+    } else {
+      return (
+        <Typography variant="subtitle1" gutterBottom component="div" sx={{width:'168px', margin: '0 auto'}}>
+            No Matching Breeds
+          </Typography>
+      )
     }
   }
 
@@ -53,8 +66,21 @@ const PetRearch = () => {
   }
 
 
-  const getBreeds = () => {
-    axios.get('/breed-details')
+  const getBreeds = (filters) => {
+    let url = '/breed-details'
+
+    if (filters) {
+      url += '?';
+      for (const filter in filters) {
+        let key = filterConversion[filter];
+        let value = filters[filter];
+        url += `${key}=${value}`;
+        url += '&';
+      }
+      url = url.slice(0, length - 1) ;
+    }
+
+    axios.get(url)
     .then((data)=> {
       setDogArray(data.data);
       compileBreeds(data.data);
@@ -122,6 +148,7 @@ const PetRearch = () => {
         <ResearchSidebar
           dropdowns={dropDownFilters}
           breeds={breeds}
+          getBreeds={getBreeds}
         />
       </Grid>
 

@@ -8,6 +8,7 @@ import Dropdown from './dropdown.jsx';
 import ComparisonModal from '../comparisonModal/comparisonModal.jsx';
 
 const ResearchSidebar = (props) => {
+  const getBreeds = props.getBreeds;
   const [dropDownFilters] = useState(props.dropdowns);
   const [breeds, setBreeds] = useState(props.breeds || []);
 
@@ -16,7 +17,7 @@ const ResearchSidebar = (props) => {
   const [breed2, setBreed2] = useState('Affenpinscher');
 
   const updateFilter = (key, value) => {
-    if (value) {
+    if (value && value !== 'None') {
       setActiveFilters({ ...activeFilters, [key]: value });
     } else {
       delete activeFilters[key];
@@ -50,6 +51,7 @@ const ResearchSidebar = (props) => {
 
   const handleSubmit = (event) => {
     console.log(activeFilters);
+    getBreeds(activeFilters);
   }
 
 

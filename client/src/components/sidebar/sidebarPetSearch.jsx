@@ -21,7 +21,7 @@ const Sidebar = (props) => {
 
   const updateFilter = (key, value) => {
     // console.log(`${key}, ${value}`);
-    if (value) {
+    if (value && value !== 'None') {
       setActiveFilters({ ...activeFilters, [key]: value });
     } else {
       delete activeFilters[key];
