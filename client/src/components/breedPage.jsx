@@ -24,7 +24,6 @@ const BreedPage = props => {
   const [description, setDescription] = useState([]);
 
   useEffect(() => {
-    console.log('userDataState: ', userDataState);
     if (userDataState.email !== '') {
       for (let i = 0; i < userDataState.savedBreeds.length; i++) {
         if (userDataState.savedBreeds[i].id === breedOverviewState.id) {
