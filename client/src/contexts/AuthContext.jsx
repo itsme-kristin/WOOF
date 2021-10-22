@@ -262,9 +262,9 @@ const AuthProvider = ({ children }) => {
 
     setBreedOverview(JSON.parse(window.localStorage.getItem('breedOverview')))
     const data = (window.localStorage.getItem('userData'))
-    if (JSON.parse(data).name.length > 0) {
+    // if (JSON.parse(data).name.length > 0) {
       setUserData(JSON.parse(data));
-    }
+    // }
     setDogOverview(JSON.parse(window.localStorage.getItem('dogOverview')))
   }, [])
 
