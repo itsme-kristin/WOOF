@@ -93,7 +93,7 @@ const ResearchSidebar = (props) => {
             // key={index}
             text='breeds'
             style={{float:'left'}}
-            updateFilter={updateFilter}
+            // updateFilter={updateFilter}
             values={breeds}
           />
         </Grid>
