@@ -9,6 +9,13 @@ import {
 import { googleAPI } from "../../../../config.js";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 
+import {
+  Grid,
+  Typography,
+} from '@mui/material';
+import PetsIcon from '@mui/icons-material/Pets';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
 const googleMap = () => {
   // === Context
   const { userData, organizationsBasedOnDistance, groomersBasedOnDistance } =
@@ -26,6 +33,47 @@ const googleMap = () => {
   const [selectedOrganization, setSelectedOrganization] = useState(null);
 
   const [selectedGroomer, setSelectedGroomer] = useState(null);
+
+  const infoDisplay = (info) => {
+
+    const style = {
+      list: {
+        paddingLeft: '5px',
+        listStyleType: 'none',
+      },
+    }
+
+    const results = {}
+    const { email, phone, address, hours, url } = info
+
+    if (address) {
+      const { address1, address2, city, state, postcode, country } = address
+
+      results.address = (
+        <Typography variant="caption" component="ul" sx={style.list} gutterBottom>
+          {!address1 ? '' : (<li>{address1}</li>)}
+          {!address2 ? '' : (<li>{address2}</li>)}
+          <li>
+            {!city ? '' : city + ', '}
+            {!state ? '' : state + ' '}
+            {!postcode ? '' : postcode}
+          </li>
+        </Typography>
+      );
+    }
+
+    !email ? null : results.email = (<li>Email: {email}</li>)
+    !phone ? null : results.phone = (<li>Phone: {phone}</li>)
+
+    results.contact = (
+      <Typography variant="caption" component="ul" sx={style.list}>
+        {results.email}
+        {results.phone}
+      </Typography>
+    );
+
+    return [results.address, results.contact];
+  }
 
   return (
     <GoogleMap
@@ -95,10 +143,25 @@ const googleMap = () => {
             setSelectedGroomer(null);
           }}
         >
-          <div>
-            <h3>{selectedGroomer.name}</h3>
-            <h5>{selectedGroomer.formatted_address}</h5>
-          </div>
+          <Grid container spacing={1}>
+            <Grid item>
+              <AutoAwesomeIcon sx={{ color: '#22333B', fontSize: '24px'}}/>
+            </Grid>
+            <Grid item>
+              <Grid container direction="column">
+                <Grid item>
+                  <Typography variant="body1" sx={{fontWeight: 'bold'}}>
+                    {selectedGroomer.name}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="caption" component="ul" sx={{ paddingLeft: '5px', listStyleType: 'none' }}>
+                    <li>{selectedGroomer.formatted_address}</li>
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </InfoWindow>
       )}
 
@@ -112,20 +175,23 @@ const googleMap = () => {
             setSelectedOrganization(null);
           }}
         >
-          <div>
-            <h3>{selectedOrganization.name}</h3>
-            <h4>
-              {selectedOrganization.address.city +
-                ", " +
-                selectedOrganization.address.state +
-                " " +
-                selectedOrganization.address.postcode}
-            </h4>
-            <h5>Distance: {selectedOrganization.distance}</h5>
-            <h5>Email: {selectedOrganization.email}</h5>
-            <h5>Phone: {selectedOrganization.phone}</h5>
-            <h5>Url: {selectedOrganization.url}</h5>
-          </div>
+          <Grid container spacing={1}>
+            <Grid item>
+              <PetsIcon sx={{ color: '#22333B', fontSize: '24px'}}/>
+            </Grid>
+            <Grid item>
+              <Grid container direction="column">
+                <Grid item>
+                  <Typography variant="body1" sx={{fontWeight: 'bold'}}>
+                    {selectedOrganization.name}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  {infoDisplay(selectedOrganization)}
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </InfoWindow>
       )}
     </GoogleMap>
