@@ -17,7 +17,6 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 
 const BreedPage = (props) => {
   const { currentUser, signout, userData, breedOverview } = useAuth();
-<<<<<<< HEAD
   const [ userDataState, setUserDataState ] = userData;
   const [ breedOverviewState, setbreedOverviewState ] = breedOverview;
   const [ activeIcon, setActiveIcon ] = useState(false);
