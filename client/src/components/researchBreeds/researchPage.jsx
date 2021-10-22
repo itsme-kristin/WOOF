@@ -3,13 +3,14 @@ import axios from 'axios';
 import ResearchSidebar from '../sidebar/sidebarResearch.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 let height = screen.height;
 
 const dropDownFilters = {
-  'Breed Group': ['Toy', 'Terrier', 'Hound', 'Mixed', 'Working', 'Non-Sporting', 'Sporting', 'Herding'],
-  'Weight': ['small','medium','large'],
-  'Tempurment': ['Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
+  'Breed Group': ['None','Toy', 'Terrier', 'Hound', 'Mixed', 'Working', 'Non-Sporting', 'Sporting', 'Herding'],
+  'Weight': ['None','small','medium','large'],
+  'Tempurment': ['None','Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
 }
 
 
@@ -17,7 +18,7 @@ const PetRearch = () => {
   const [dogArray, setDogArray] = useState( [] );
   const [breeds, setBreeds] = useState ([]);
 
-  const getBreeds = () => {
+  const renderBreeds = () => {
     if (dogArray.length > 0) {
       return dogArray.map((dog, index)=>{
         if (dog) {
@@ -25,7 +26,18 @@ const PetRearch = () => {
           if (description) {
             description = description.length > 15 ? description.slice(0,15) : description;
           }
-          return ( <DogCard key={index} orientation={'landscape'} type={'star'} name={dog.name} image={dog.image.url} breedObj={dog}/> )
+          return (
+            <div style={{marginBottom: '20px'}}>
+              <DogCard
+                key={index}
+                orientation={'landscape'}
+                type={'star'}
+                name={dog.name}
+                image={dog.image.url}
+                breedObj={dog}
+              />
+            </div>
+          )
         }
       });
     }
@@ -40,15 +52,20 @@ const PetRearch = () => {
     setBreeds(breedNames);
   }
 
-  useEffect(()=>{
+
+  const getBreeds = () => {
     axios.get('/breed-details')
-      .then((data)=> {
-        setDogArray(data.data);
-        compileBreeds(data.data);
-      })
-      .catch((error)=> {
-        console.log(error);
-      })
+    .then((data)=> {
+      setDogArray(data.data);
+      compileBreeds(data.data);
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+  }
+
+  useEffect(()=>{
+    getBreeds();
   }, []);
 
   return (
@@ -71,18 +88,38 @@ const PetRearch = () => {
         alignItems="center"
         sx={{
           paddingTop: '20px',
-          overflow: 'scroll',
+          overflow: 'hidden',
           width: '77%',
           height: '100%',
         }}
       >
-        {getBreeds()}
+
+        <Grid sx={{width: '100%', justifyContent: 'center', alignItems:"center", height: '50px'}}>
+          <Typography variant="subtitle1" gutterBottom component="div" sx={{width:'100px', margin: '0 auto'}}>
+            Dog Breeds
+          </Typography>
+        </Grid>
+
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-around"
+          alignItems="center"
+          sx={{
+            overflow: 'scroll',
+            width: '100%',
+            height: '100%',
+            pt: '20px',
+            pb: '50px',
+          }}
+        >
+        {renderBreeds()}
+        </Grid>
       </Grid>
 
 
-      <Grid item style={{}}sx={{ height: '100%', width:'23%', backgroundColor: '#C6AC8F', overflow: 'scroll'}}>
+      <Grid item style={{}}sx={{ height: '100%', width:'23%', backgroundColor: '#C6AC8F', overflowX: 'hidden', overflowY: 'scroll'}}>
         <ResearchSidebar
-          buttonText='Apply'
           dropdowns={dropDownFilters}
           breeds={breeds}
         />

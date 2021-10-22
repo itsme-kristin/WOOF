@@ -184,7 +184,7 @@ const ResearchSidebar = (props) => {
               // style={{marginRight:'20px'}}
               onClick={handleSubmit}
             >
-              Compare
+              Apply
         </Button>
           </Grid>
 

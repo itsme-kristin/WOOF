@@ -110,16 +110,16 @@ const DogCard = (props) => {
     switch (type.toLowerCase()) {
       case 'heart':
         if (activeIcon){
-          icon = <FullHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <FullHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         } else {
-          icon = <EmptyHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <EmptyHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         }
         break;
       case 'star' :
         if (activeIcon){
-          icon = <FullStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <FullStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         }  else {
-          icon = <EmptyStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <EmptyStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         }
         break;
       default:
