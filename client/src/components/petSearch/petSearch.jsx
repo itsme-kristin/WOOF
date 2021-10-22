@@ -17,25 +17,26 @@ const dropDownFilters = {
 }
 
 const traits = {
-  'Good with children': 'good_with_children' ,
-  'Good with dogs': 'good_with_dogs' ,
-  'Good with cats': 'good_with_cats' ,
-  'House trained': 'house_trained' ,
-  'Special needs': 'special_needs'
-}
+  "Good with children": "good_with_children",
+  "Good with dogs": "good_with_dogs",
+  "Good with cats": "good_with_cats",
+  "House trained": "house_trained",
+  "Special needs": "special_needs",
+};
 
 const PetSearch = () => {
-  const [dogArray, setDogArray] = useState( [] );
-  const [breeds, setBreeds] = useState ([]);
+  const [dogArray, setDogArray] = useState([]);
+  const [breeds, setBreeds] = useState([]);
 
   const renderDogs = () => {
     if (dogArray && dogArray.length > 0) {
-      return dogArray.map((dog, index)=>{
+      return dogArray.map((dog, index) => {
         // console.log('dog: ', dog);
         let name = dog.name.slice(0, 15);
         let description = `${dog.age} ${dog.breeds.primary}`;
         if (description) {
-          description = description.length > 15 ? description.slice(0,15) : description;
+          description =
+            description.length > 15 ? description.slice(0, 15) : description;
         }
         if (dog.photos.length > 0) {
           return (
@@ -64,16 +65,16 @@ const PetSearch = () => {
         }
       });
     }
-  }
+  };
 
   const compileBreeds = (breedArr) => {
     // console.log(breedArr);
     let breedNames = [];
-    breedArr.map((breed)=>{
-      breedNames.push(breed.name)
-    })
+    breedArr.map((breed) => {
+      breedNames.push(breed.name);
+    });
     setBreeds(breedNames);
-  }
+  };
 
   const getDogs = (filters) => {
     axios.get('/adopt')
@@ -81,13 +82,13 @@ const PetSearch = () => {
         // console.log(data.data);
         setDogArray(data.data);
       })
-      .then((data)=>{
-        return axios.get('/breed-details')
+      .then((data) => {
+        return axios.get("/breed-details");
       })
-      .then((data)=> {
+      .then((data) => {
         compileBreeds(data.data);
       })
-      .catch((error)=> {
+      .catch((error) => {
         console.log(error);
       })
   }
@@ -98,7 +99,7 @@ const PetSearch = () => {
 
   return (
     <Grid
-      id='petSearch'
+      id="petSearch"
       container
       direction="row"
       justifyContent="flex-start"
@@ -126,7 +127,6 @@ const PetSearch = () => {
           getDogs={getDogs}
         />
       </Grid>
-
 
       <Grid
         container
@@ -162,9 +162,8 @@ const PetSearch = () => {
           {renderDogs()}
         </Grid>
       </Grid>
-
     </Grid>
-  )
-}
+  );
+};
 
 export default PetSearch;

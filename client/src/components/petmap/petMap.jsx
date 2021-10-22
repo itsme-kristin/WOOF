@@ -6,56 +6,71 @@ import {
   Marker,
 } from "react-google-maps";
 import { googleAPI } from "../../../../config.js";
-import {
-  dogOrganizatonsObj,
-  dogOrgsLatLng,
-  petGroomersLatLng,
-} from "./dummyData.jsx";
-
-/* HR Austin TX
-Lat: 30.265020
-Lng: -97.750153
-*/
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 const googleMap = () => {
+  const { userData, organizationsBasedOnDistance, groomersBasedOnDistance } =
+    useAuth();
+  const [userDataState, setUserDataState] = userData;
+  const [
+    organizationsBasedOnDistanceState,
+    setOrganizationsBasedOnDistanceState,
+  ] = organizationsBasedOnDistance;
+
+  const [groomersBasedOnDistanceState, setGroomersBasedOnDistanceState] =
+    groomersBasedOnDistance;
+
   return (
     <GoogleMap
-      defaultZoom={12}
-      defaultCenter={{ lat: 30.26502, lng: -97.750153 }}
+      defaultZoom={11.5}
+      defaultCenter={{
+        lat: userDataState.lat,
+        lng: userDataState.lng,
+      }}
     >
       <Marker
-        position={{ lat: 30.26502, lng: -97.750153 }}
-        // icon={{
-        //   url: "/paw_print.png",
-
-        //   scaledSize: new window.google.maps.Size(25, 30)
-        // }}
+        position={{
+          lat: userDataState.lat,
+          lng: userDataState.lng,
+        }}
       />
-      {dogOrgsLatLng.map((organization, key) => {
-        return (
-          <Marker
-            key={key}
-            position={{ lat: organization[0], lng: organization[1] }}
-            icon={{
-              url: "/paw_print.png",
-
-              scaledSize: new window.google.maps.Size(25, 30),
-            }}
-          />
-        );
+      {organizationsBasedOnDistanceState.map((organization, key) => {
+        if (organization.latitude > 0) {
+          return (
+            <Marker
+              key={key}
+              position={{
+                lat: organization.latitude,
+                lng: organization.longitude,
+              }}
+              icon={{
+                url: "/paw_print.png",
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
+            />
+          );
+        } else {
+          return "";
+        }
       })}
-      {petGroomersLatLng.map((groomers, key) => {
-        return (
-          <Marker
-            key={key}
-            position={{ lat: groomers[0], lng: groomers[1] }}
-            icon={{
-              url: "/groomers.png",
-
-              scaledSize: new window.google.maps.Size(40, 40),
-            }}
-          />
-        );
+      {groomersBasedOnDistanceState.map((groomer, key) => {
+        if (groomer.geometry.location.lat > 0) {
+          return (
+            <Marker
+              key={key}
+              position={{
+                lat: groomer.geometry.location.lat,
+                lng: groomer.geometry.location.lng,
+              }}
+              icon={{
+                url: "/groomers.png",
+                scaledSize: new window.google.maps.Size(35, 35),
+              }}
+            />
+          );
+        } else {
+          return "";
+        }
       })}
     </GoogleMap>
   );

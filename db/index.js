@@ -16,12 +16,12 @@ const userSchema = new mongoose.Schema({
   city: String,
   state: String,
   zip: String,
-  lat: String,
-  lng: String,
+  lat: Number,
+  lng: Number,
   email: String,
   password: String,
   savedDogs: Array,
-  savedBreeds: Array
+  savedBreeds: Array,
 });
 
 const breedSchema = new mongoose.Schema({
@@ -64,10 +64,8 @@ const Breed = mongoose.model("Breed", breedSchema);
 
 const Description = mongoose.model("Description", breedDescriptionSchema);
 
-
 module.exports = {
   User,
   Breed,
-  Description
-}
-
+  Description,
+};
