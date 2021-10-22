@@ -16,10 +16,8 @@ import Grid from '@mui/material/Grid';
 // import Circle from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
 
-
-const height = {landscape: 200, portrait: 252};
-const width = {landscape: 252, portrait: 200};
-
+const height = { landscape: 200, portrait: 252 };
+const width = { landscape: 252, portrait: 200 };
 
 const noimgstyle = {
   width: '100%',
@@ -27,10 +25,10 @@ const noimgstyle = {
   backgroundColor: '#EAE0D5',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center',
-}
+  alignItems: 'center'
+};
 
-const DogCard = (props) => {
+const DogCard = props => {
   const image = props.image;
   const orientation = props.orientation || 'portrait';
   const text = props.text || '3 Mths | Labrador Retriever | 8 miles';
@@ -38,19 +36,19 @@ const DogCard = (props) => {
   const name = props.name || 'Oliver';
   const dogObj = props.dogObj;
   const breedObj = props.breedObj;
-  const { currentUser, signout, userData, dogOverview, breedOverview } = useAuth();
-  const [ userDataState, setUserDataState ] = userData;
-  const [ dogOverviewState, setDogOverviewState ] = dogOverview;
-  const [ breedOverviewState, setBreedOverviewState ] = breedOverview;
-  const [ activeIcon, setActiveIcon ] = useState(false);
-
+  const { currentUser, signout, userData, dogOverview, breedOverview } =
+    useAuth();
+  const [userDataState, setUserDataState] = userData;
+  const [dogOverviewState, setDogOverviewState] = dogOverview;
+  const [breedOverviewState, setBreedOverviewState] = breedOverview;
+  const [activeIcon, setActiveIcon] = useState(false);
 
   useEffect(() => {
     if (userDataState.email !== '') {
       if (orientation === 'portrait') {
         for (let i = 0; i < userDataState.savedDogs.length; i++) {
           if (userDataState.savedDogs[i].id === dogObj.id) {
-              setActiveIcon(true);
+            setActiveIcon(true);
           }
         }
       } else if (orientation === 'landscape') {
@@ -61,122 +59,176 @@ const DogCard = (props) => {
         }
       }
     }
-  }, [userDataState])
+  }, [userDataState]);
 
-  const handleIconClick = (event) => {
+  const handleIconClick = event => {
     if (orientation === 'portrait') {
       if (activeIcon) {
         setActiveIcon(false);
-        axios.put('/deleteDog', {email: userDataState.email, id: dogObj.id})
-        .then(response => {
-          console.info('Dog deleted');
-          //remove from the userData array
-          const oldState = userDataState
-          for (let i = 0; i < oldState.savedDogs.length; i++) {
-            let currentDog = oldState.savedDogs[i]
-            if (currentDog.id === dogObj.id) {
-              oldState.savedDogs.splice(i, 1);
-              break;
+        axios
+          .put('/deleteDog', { email: userDataState.email, id: dogObj.id })
+          .then(response => {
+            console.info('Dog deleted');
+            //remove from the userData array
+            const oldState = userDataState;
+            for (let i = 0; i < oldState.savedDogs.length; i++) {
+              let currentDog = oldState.savedDogs[i];
+              if (currentDog.id === dogObj.id) {
+                oldState.savedDogs.splice(i, 1);
+                break;
+              }
             }
-          }
-          setUserDataState(oldState)
-        })
-        .catch(err => {
-          console.error(err);
-        })
+            console.log(oldState, 'dog');
+            setUserDataState(oldState);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       } else {
         setActiveIcon(true);
-        axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
-        .then(response => {
-          console.info('Dog saved!');
-          //add to the userData array\
-          const oldState = userDataState
-          oldState.savedDogs.unshift(dogObj)
-          setUserDataState(oldState)
-        })
-        .catch(err => {
-          console.error(err);
-        })
+        axios
+          .put('/saveDog', { email: userDataState.email, dogObj: dogObj })
+          .then(response => {
+            console.info('Dog saved!');
+            //add to the userData array\
+            const oldState = userDataState;
+            oldState.savedDogs.unshift(dogObj);
+            console.log(oldState, 'dog');
+            setUserDataState(oldState);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       }
     } else {
       if (activeIcon) {
         setActiveIcon(false);
-        axios.put('/deleteBreed', {email: userDataState.email, id: breedObj.id})
-        .then(response => {
-          console.info('Breed deleted');
-          const oldState = userDataState
-          for (let i = 0; i < oldState.savedBreeds.length; i++) {
-            let currentBreed = oldState.savedBreeds[i]
-            if (currentBreed.id === dogObj.id) {
-              oldState.savedBreeds.splice(i, 1);
-              break;
+        axios
+          .put('/deleteBreed', { email: userDataState.email, id: breedObj.id })
+          .then(response => {
+            console.info('Breed deleted');
+            const oldState = userDataState;
+            for (let i = 0; i < oldState.savedBreeds.length; i++) {
+              let currentBreed = oldState.savedBreeds[i];
+              if (currentBreed.id === breedObj.id) {
+                oldState.savedBreeds.splice(i, 1);
+                break;
+              }
             }
-          }
-          setUserDataState(oldState)
-        })
-        .catch(err => {
-          console.error(err);
-        })
+            setUserDataState(oldState);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       } else {
         setActiveIcon(true);
-        axios.put('/saveBreed', {email: userDataState.email, breedObj: breedObj})
-        .then(response => {
-          console.info('Breed saved!');
-          const oldState = userDataState
-          oldState.savedBreeds.unshift(dogObj)
-          setUserDataState(oldState)
-        })
-        .catch(err => {
-          console.error(err);
-        })
+        axios
+          .put('/saveBreed', { email: userDataState.email, breedObj: breedObj })
+          .then(response => {
+            console.info('Breed saved!');
+            const oldState = userDataState;
+            oldState.savedBreeds.unshift(breedObj);
+            setUserDataState(oldState);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       }
     }
   };
 
-
   const getIcon = () => {
-    let icon = <div />
+    let icon = <div />;
     switch (type.toLowerCase()) {
       case 'heart':
-        if (activeIcon){
-          icon = <FullHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+        if (activeIcon) {
+          icon = (
+            <FullHeart
+              sx={{
+                color: 'error.light',
+                padding: '4px',
+                backgroundColor: '#ffffff90',
+                borderRadius: '100%',
+                width: '18px',
+                height: '18px'
+              }}
+            />
+          );
         } else {
-          icon = <EmptyHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = (
+            <EmptyHeart
+              sx={{
+                color: 'error.light',
+                padding: '4px',
+                backgroundColor: '#ffffff90',
+                borderRadius: '100%',
+                width: '18px',
+                height: '18px'
+              }}
+            />
+          );
         }
         break;
-      case 'star' :
-        if (activeIcon){
-          icon = <FullStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
-        }  else {
-          icon = <EmptyStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+      case 'star':
+        if (activeIcon) {
+          icon = (
+            <FullStar
+              sx={{
+                color: 'error.light',
+                padding: '4px',
+                backgroundColor: '#ffffff90',
+                borderRadius: '100%',
+                width: '18px',
+                height: '18px'
+              }}
+            />
+          );
+        } else {
+          icon = (
+            <EmptyStar
+              sx={{
+                color: 'error.light',
+                padding: '4px',
+                backgroundColor: '#ffffff90',
+                borderRadius: '100%',
+                width: '18px',
+                height: '18px'
+              }}
+            />
+          );
         }
         break;
       default:
         break;
     }
-    return ( icon );
-  }
+    return icon;
+  };
 
-  const getText =() => {
-    const nameElement = <Typography color="text.secondary" align='center'> {name} </Typography> ;
-    const textElement = <Typography color="text.secondary" align='center'>{text}</Typography> ;
+  const getText = () => {
+    const nameElement = (
+      <Typography color='text.secondary' align='center'>
+        {' '}
+        {name}{' '}
+      </Typography>
+    );
+    const textElement = (
+      <Typography color='text.secondary' align='center'>
+        {text}
+      </Typography>
+    );
     let fullElement;
     if (orientation === 'landscape') {
-      fullElement = (
-        <Link to='/breed'>
-          {nameElement}
-        </Link>
-      )
+      fullElement = <Link to='/breed'>{nameElement}</Link>;
     } else {
       fullElement = (
         <Link to='/animal'>
           {nameElement}
           {textElement}
         </Link>
-      )
+      );
     }
-    return(fullElement)
-  }
+    return fullElement;
+  };
 
   const handleClick = () => {
     if (orientation === 'portrait') {
@@ -184,10 +236,10 @@ const DogCard = (props) => {
     } else {
       setBreedOverviewState(breedObj);
     }
-  }
+  };
 
-//heart, portrait = dog
-//star, landscape = breed
+  //heart, portrait = dog
+  //star, landscape = breed
   const getImage = () => {
     if (orientation === 'portrait') {
       if (image) {
@@ -195,7 +247,7 @@ const DogCard = (props) => {
           <Link to='/animal'>
             <CardMedia
               onClick={handleClick}
-              component="img"
+              component='img'
               image={image}
               sx={{
                 width: '100%',
@@ -204,15 +256,15 @@ const DogCard = (props) => {
               }}
             />
           </Link>
-        )
+        );
       } else {
         return (
           <Link to='/animal'>
-            <CardMedia component="div" alt='no image' sx={noimgstyle}>
+            <CardMedia component='div' alt='no image' sx={noimgstyle}>
               No Image Provided
             </CardMedia>
           </Link>
-        )
+        );
       }
     } else {
       if (image) {
@@ -220,7 +272,7 @@ const DogCard = (props) => {
           <Link to='/breed'>
             <CardMedia
               onClick={handleClick}
-              component="img"
+              component='img'
               image={image}
               sx={{
                 width: '100%',
@@ -229,13 +281,13 @@ const DogCard = (props) => {
               }}
             />
           </Link>
-        )
+        );
       } else {
         return (
           <Link to='/breed'>
             <CardMedia
               onClick={handleClick}
-              component="img"
+              component='img'
               // image={image}
               alt='no image'
               sx={{
@@ -245,11 +297,10 @@ const DogCard = (props) => {
               }}
             />
           </Link>
-        )
+        );
       }
-
     }
-  }
+  };
 
   return (
     <Card
@@ -259,7 +310,7 @@ const DogCard = (props) => {
         width: width[orientation],
         height: height[orientation]
       }}
-      >
+    >
       <div
         style={{
           position: 'absolute',
@@ -268,26 +319,26 @@ const DogCard = (props) => {
       >
         <CardActions
           onClick={handleIconClick}
-          style={{ float: 'right'}}
+          style={{ float: 'right' }}
           sx={{
-            padding: '5px',
+            padding: '5px'
           }}
         >
-          { getIcon() }
+          {getIcon()}
         </CardActions>
       </div>
       {getImage()}
       <CardContent
-      sx={{
-        px: '4px',
-        py: '0px'
-      }}
+        sx={{
+          px: '4px',
+          py: '0px'
+        }}
       >
         <Grid
           container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
+          direction='column'
+          justifyContent='center'
+          alignItems='center'
           height={height[orientation] - 150}
           onClick={handleClick}
         >
@@ -296,6 +347,6 @@ const DogCard = (props) => {
       </CardContent>
     </Card>
   );
-}
+};
 
 export default DogCard;

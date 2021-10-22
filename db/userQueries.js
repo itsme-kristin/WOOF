@@ -1,5 +1,6 @@
-const { User } = require("./index.js");
-const axios = require("axios");
+const { User } = require('./index.js');
+const axios = require('axios');
+const { default: Email } = require('@mui/icons-material/Email');
 
 const addUser = ({
   name,
@@ -9,7 +10,7 @@ const addUser = ({
   zip,
   lat,
   lng,
-  email,
+  email
 }) => {
   return User.create({
     name: name,
@@ -21,26 +22,26 @@ const addUser = ({
     lng: lng,
     email: email,
     savedDogs: [],
-    savedBreeds: [],
+    savedBreeds: []
   })
-    .then((user) => {
+    .then(user => {
       return user;
     })
-    .catch((err) => {
-      console.info("There was an error adding a user.");
+    .catch(err => {
+      console.info('There was an error adding a user.');
     });
 };
 
-const getUser = (email) => {
+const getUser = email => {
   return User.findOne({ email })
-    .then((user) => {
+    .then(user => {
       if (user === null) {
-        throw new Error("No user found with this email");
+        throw new Error('No user found with this email');
       } else {
         return user;
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.log("Couldn't find user", err);
       return err;
     });
@@ -59,18 +60,18 @@ const updateUser = (
       state: state,
       zip: zip,
       lat: lat,
-      lng: lng,
+      lng: lng
     }
   )
-    .then((user) => {
+    .then(user => {
       if (user === null) {
-        throw new Error("No user found with this email");
+        throw new Error('No user found with this email');
       } else {
         return getUser(email);
       }
     })
-    .catch((err) => {
-      console.info("There was an error adding a user.");
+    .catch(err => {
+      console.info('There was an error adding a user.');
     });
 };
 
@@ -79,11 +80,11 @@ const addSavedDog = (email, dogObj) => {
     { email: email },
     { $push: { savedDogs: { $each: [dogObj], $position: 0 } } }
   )
-    .then((user) => {
-      console.info("Dog saved");
+    .then(user => {
+      console.info('Dog saved');
     })
-    .catch((err) => {
-      console.info("There was an error adding the dog.");
+    .catch(err => {
+      console.info('There was an error adding the dog.');
     });
 };
 
@@ -92,11 +93,11 @@ const deleteSavedDog = (email, dogId) => {
     { email: email },
     { $pull: { savedDogs: { id: dogId } } }
   )
-    .then((user) => {
-      console.info("Dog removed");
+    .then(user => {
+      console.info('Dog removed');
     })
-    .catch((err) => {
-      console.info("There was an error removing the dog.");
+    .catch(err => {
+      console.info('There was an error removing the dog.');
     });
 };
 
@@ -105,11 +106,11 @@ const addDogBreed = (email, breedObj) => {
     { email: email },
     { $push: { savedBreeds: { $each: [breedObj], $position: 0 } } }
   )
-    .then((user) => {
-      console.info("Breed saved");
+    .then(user => {
+      console.info('Breed saved');
     })
-    .catch((err) => {
-      console.info("There was an error adding the breed.");
+    .catch(err => {
+      console.info('There was an error adding the breed.');
     });
 };
 
@@ -118,11 +119,11 @@ const deleteDogBreed = (email, breedId) => {
     { email: email },
     { $pull: { savedBreeds: { id: breedId } } }
   )
-    .then((user) => {
-      console.info("Breed removed");
+    .then(user => {
+      console.info('Breed removed');
     })
-    .catch((err) => {
-      console.info("There was an error removing the breed.");
+    .catch(err => {
+      console.info('There was an error removing the breed.');
     });
 };
 
@@ -133,5 +134,5 @@ module.exports = {
   addSavedDog,
   deleteSavedDog,
   addDogBreed,
-  deleteDogBreed,
+  deleteDogBreed
 };
