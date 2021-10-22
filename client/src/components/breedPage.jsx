@@ -20,7 +20,18 @@ const BreedPage = (props) => {
   const [ breedOverviewState, setbreedOverviewState ] = breedOverview;
   const [ activeIcon, setActiveIcon ] = useState(false);
   const [ organizations, setOrganizations ] = useState([]);
+  const [ description, setDescription ] = useState([]);
 
+  useEffect(()=> {
+    axios.get(`/breed-name?name=${breedOverviewState.name}`)
+    .then((response) => {
+      console.log(response);
+      setDescription(response.data[1][0].description);
+    })
+    .catch((err)=> {
+      console.log('error in retrieving breed description');
+    })
+  }, []);
 
   useEffect(()=> {
     axios.get('/adopt', { params: { "breed": breedOverviewState.name , "limit": 3 }})
@@ -103,7 +114,7 @@ const BreedPage = (props) => {
             <Typography variant="h5">Breed origin: {breedOverviewState.origin}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1"> "null" </Typography>
+            <Typography variant="body1"> {description} </Typography>
           </Grid>
           <Grid item xs={6}>
           <Typography variant="body2" component="ul" >

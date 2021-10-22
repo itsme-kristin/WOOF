@@ -19,11 +19,13 @@ const PetRearch = () => {
 
   const getBreeds = () => {
     if (dogArray.length > 0) {
+      console.log(dogArray[0], dogArray[1])
       return dogArray.map((dog, index)=>{
         if (dog) {
           let description = dog.description;
           if (description) {
             description = description.length > 15 ? description.slice(0,15) : description;
+            console.log(description);
           }
           return ( <DogCard key={index} orientation={'landscape'} type={'star'} name={dog.name} image={dog.image.url} breedObj={dog}/> )
         }
