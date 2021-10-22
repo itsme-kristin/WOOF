@@ -17,20 +17,31 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 
 const BreedPage = (props) => {
   const { currentUser, signout, userData, breedOverview } = useAuth();
-  const [userDataState, setUserDataState] = userData;
-  const [breedOverviewState, setbreedOverviewState] = breedOverview;
-  const [activeIcon, setActiveIcon] = useState(false);
-  const [organizations, setOrganizations] = useState([]);
+<<<<<<< HEAD
+  const [ userDataState, setUserDataState ] = userData;
+  const [ breedOverviewState, setbreedOverviewState ] = breedOverview;
+  const [ activeIcon, setActiveIcon ] = useState(false);
+  const [ organizations, setOrganizations ] = useState([]);
+  const [ description, setDescription ] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("/adopt", { params: { breed: breedOverviewState.name, limit: 3 } })
-      .then((response) => {
-        setOrganizations(response.data);
-      })
-      .catch((err) => {
-        console.log("error in retrieving organizations");
-      });
+  useEffect(()=> {
+    axios.get(`/breed-name?name=${breedOverviewState.name}`)
+    .then((response) => {
+      setDescription(response.data[1][0].description);
+    })
+    .catch((err)=> {
+      console.log('error in retrieving breed description');
+    })
+  }, []);
+
+  useEffect(()=> {
+    axios.get('/adopt', { params: { "breed": breedOverviewState.name , "limit": 3 }})
+    .then((response) => {
+      setOrganizations(response.data);
+    })
+    .catch((err)=> {
+      console.log('error in retrieving organizations');
+    })
   }, []);
 
   const temperament = breedOverviewState.temperament.split(", ");
@@ -136,7 +147,7 @@ const BreedPage = (props) => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1"> "null" </Typography>
+            <Typography variant="body1"> {description} </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant="body2" component="ul">

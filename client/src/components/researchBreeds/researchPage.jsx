@@ -25,6 +25,7 @@ const PetRearch = () => {
           let description = dog.description;
           if (description) {
             description = description.length > 15 ? description.slice(0,15) : description;
+            console.log(description);
           }
           return (
             <div style={{marginBottom: '20px'}}>

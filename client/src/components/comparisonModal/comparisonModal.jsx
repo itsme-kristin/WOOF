@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import {
   Button,
-  Backdrop,
   Fade,
   Modal
   } from '@mui/material';
 import ComparisonTable from './comparisonTable.jsx';
 
 const ComparisonModal = (props) => {
-
   const [open, setOpen] = useState(false);
   const { breed1, breed2 } = props;
 
@@ -22,7 +20,7 @@ const ComparisonModal = (props) => {
 
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleOpen}>
+      <Button variant="contained" onClick={handleOpen}>
         Compare Breeds
       </Button>
 
@@ -30,17 +28,13 @@ const ComparisonModal = (props) => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
       >
         <Fade in={open}>
           <div sx={{
@@ -57,7 +51,6 @@ const ComparisonModal = (props) => {
       </Modal>
     </div>
   )
-
 }
 
 export default ComparisonModal;
