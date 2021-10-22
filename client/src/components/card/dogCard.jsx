@@ -63,7 +63,7 @@ const DogCard = props => {
 
   const handleIconClick = event => {
     if (orientation === 'portrait') {
-      console.log(dogObj)
+      // console.log(dogObj)
       if (activeIcon) {
         setActiveIcon(false);
         axios
@@ -103,7 +103,7 @@ const DogCard = props => {
       }
     } else {
       if (activeIcon) {
-        console.log(breedObj)
+        // console.log(breedObj)
         setActiveIcon(false);
         axios
           .put('/deleteBreed', { email: userDataState.email, id: breedObj.id })
