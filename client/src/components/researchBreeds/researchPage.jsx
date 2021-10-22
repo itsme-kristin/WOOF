@@ -20,7 +20,6 @@ const PetRearch = () => {
 
   const renderBreeds = () => {
     if (dogArray.length > 0) {
-      console.log(dogArray[0], dogArray[1])
       return dogArray.map((dog, index)=>{
         if (dog) {
           let description = dog.description;

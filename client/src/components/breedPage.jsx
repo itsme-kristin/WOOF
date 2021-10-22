@@ -25,7 +25,6 @@ const BreedPage = (props) => {
   useEffect(()=> {
     axios.get(`/breed-name?name=${breedOverviewState.name}`)
     .then((response) => {
-      console.log(response);
       setDescription(response.data[1][0].description);
     })
     .catch((err)=> {
