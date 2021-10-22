@@ -263,11 +263,7 @@ const DogCard = props => {
       } else {
         return (
           <Link to='/animal'>
-<<<<<<< HEAD
             <CardMedia component="div" alt='no image' sx={noimgstyle} onClick={handleClick}>
-=======
-            <CardMedia component='div' alt='no image' sx={noimgstyle}>
->>>>>>> main
               No Image Provided
             </CardMedia>
           </Link>
