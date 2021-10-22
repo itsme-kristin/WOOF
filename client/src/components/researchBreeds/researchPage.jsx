@@ -3,6 +3,7 @@ import axios from 'axios';
 import ResearchSidebar from '../sidebar/sidebarResearch.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 let height = screen.height;
 
@@ -52,7 +53,7 @@ const PetRearch = () => {
   const [dogArray, setDogArray] = useState([]);
   const [breeds, setBreeds] = useState([]);
 
-  const getBreeds = () => {
+  const renderBreeds = () => {
     if (dogArray.length > 0) {
       return dogArray.map((dog, index) => {
         if (dog) {
@@ -62,14 +63,16 @@ const PetRearch = () => {
               description.length > 15 ? description.slice(0, 15) : description;
           }
           return (
-            <DogCard
-              key={index}
-              orientation={'landscape'}
-              type={'star'}
-              name={dog.name}
-              image={dog.image.url}
-              breedObj={dog}
-            />
+            <div style={{ marginBottom: '20px' }}>
+              <DogCard
+                key={index}
+                orientation={'landscape'}
+                type={'star'}
+                name={dog.name}
+                image={dog.image.url}
+                breedObj={dog}
+              />
+            </div>
           );
         }
       });
@@ -85,7 +88,7 @@ const PetRearch = () => {
     setBreeds(breedNames);
   };
 
-  useEffect(() => {
+  const getBreeds = () => {
     axios
       .get('/breed-details')
       .then(data => {
@@ -95,6 +98,10 @@ const PetRearch = () => {
       .catch(error => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    getBreeds();
   }, []);
 
   return (
@@ -107,8 +114,7 @@ const PetRearch = () => {
       sx={{
         height: '100%',
         padding: '0px',
-        width: '1200px',
-        overflow: 'hidden'
+        width: '100%'
       }}
     >
       <Grid
@@ -118,12 +124,44 @@ const PetRearch = () => {
         alignItems='center'
         sx={{
           paddingTop: '20px',
-          overflow: 'scroll',
-          width: '900px',
+          overflow: 'hidden',
+          width: '77%',
           height: '100%'
         }}
       >
-        {getBreeds()}
+        <Grid
+          sx={{
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '50px'
+          }}
+        >
+          <Typography
+            variant='subtitle1'
+            gutterBottom
+            component='div'
+            sx={{ width: '100px', margin: '0 auto' }}
+          >
+            Dog Breeds
+          </Typography>
+        </Grid>
+
+        <Grid
+          container
+          direction='row'
+          justifyContent='space-around'
+          alignItems='center'
+          sx={{
+            overflow: 'scroll',
+            width: '100%',
+            height: '100%',
+            pt: '20px',
+            pb: '50px'
+          }}
+        >
+          {renderBreeds()}
+        </Grid>
       </Grid>
 
       <Grid
@@ -131,16 +169,13 @@ const PetRearch = () => {
         style={{}}
         sx={{
           height: '100%',
+          width: '23%',
           backgroundColor: '#C6AC8F',
-          overflow: 'scroll',
-          width: '300px'
+          overflowX: 'hidden',
+          overflowY: 'scroll'
         }}
       >
-        <ResearchSidebar
-          buttonText='compare'
-          dropdowns={dropDownFilters}
-          breeds={breeds}
-        />
+        <ResearchSidebar dropdowns={dropDownFilters} breeds={breeds} />
       </Grid>
     </Grid>
   );
