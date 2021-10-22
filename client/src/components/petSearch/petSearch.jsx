@@ -45,6 +45,7 @@ const PetSearch = () => {
               <DogCard
                 key={index}
                 type={'heart'}
+                dogObj={dog}
                 name={name}
                 image={dog.photos[0]['medium']}
                 text={description}
@@ -57,6 +58,7 @@ const PetSearch = () => {
               <DogCard
                 key={index}
                 type={'heart'}
+                dogObj={dog}
                 name={name}
                 text={description}
               />
