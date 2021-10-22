@@ -11,7 +11,7 @@ const FavoriteDogs = () => {
     <Carousel cols={3} rows={1} loop>
       {userDataState.savedBreeds.map((breed, index) => {
         if (breed) {
-          console.log(breed);
+          // console.log(breed);
           return (
             <Carousel.Item key={index}>
               <DogCard
