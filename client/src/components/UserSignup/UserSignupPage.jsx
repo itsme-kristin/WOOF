@@ -65,7 +65,7 @@ const UserSignup = ({ history }) => {
           } else if (error.code === 'auth/weak-password') {
             setErrorMessage('Password must be at least 6 characters');
           } else if (error.code === 'auth/invalid-email') {
-            setErrorMessage('Email not valid');
+            setErrorMessage('Invalid email address');
           }
         });
     } else {
