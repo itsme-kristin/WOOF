@@ -32,6 +32,7 @@ const AuthProvider = ({ children }) => {
     savedBreeds: [],
     savedDogs: [],
   });
+  const [zipSearch, setZipSearch] = useState('');
 
   const [organizationsBasedOnDistance, setOrganizationsBasedOnDistance] =
     useState([{ latitude: 30.2672, longitude: 97.7431 }]);
@@ -314,6 +315,7 @@ const AuthProvider = ({ children }) => {
     signup,
     signout,
     signin,
+    zipSearch: [zipSearch, setZipSearch],
     userData: [userData, setUserData],
     organizationsBasedOnDistance: [
       organizationsBasedOnDistance,
