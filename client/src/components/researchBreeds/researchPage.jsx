@@ -27,7 +27,7 @@ const PetRearch = () => {
             description = description.length > 15 ? description.slice(0,15) : description;
           }
           return (
-            <div style={{marginBottom: '20px'}}>
+            <div style={{marginBottom: '20px'}} key={index}>
               <DogCard
                 key={index}
                 orientation={'landscape'}
