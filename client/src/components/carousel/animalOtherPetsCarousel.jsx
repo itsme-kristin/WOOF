@@ -12,7 +12,7 @@ const AnimalOtherPetsCarousel = (props) => {
           <div style={{ padding: 8 }}>
             <DogCard
               dogObj={elem}
-              image={elem.photos[0].medium ? elem.photos[0].medium : undefined}
+              image={elem.photos[0]?.medium ? elem.photos[0].medium : undefined}
               text={`${elem.age} ${elem.breeds.primary}`}
               type='heart'
               name={elem.name}
