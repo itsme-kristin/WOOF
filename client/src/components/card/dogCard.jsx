@@ -36,7 +36,7 @@ const DogCard = (props) => {
 
 
   useEffect(() => {
-    if (userDataState.email.length > 0){
+    if (userDataState.length > 0){
       if (orientation === 'portrait') {
         for (let i = 0; i < userDataState.savedDogs.length; i++) {
           if (userDataState.savedDogs[i].id === dogObj.id) {
@@ -60,6 +60,7 @@ const DogCard = (props) => {
         axios.put('/deleteDog', {email: userDataState.email, id: dogObj.id})
         .then(response => {
           console.info('Dog deleted');
+          //remove from the userData array
         })
         .catch(err => {
           console.error(err);
@@ -69,7 +70,8 @@ const DogCard = (props) => {
         axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
         .then(response => {
           console.info('Dog saved!');
-          //need to get userdata again?
+          //add to the userData array
+
         })
         .catch(err => {
           console.error(err);

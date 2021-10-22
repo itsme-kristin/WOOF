@@ -280,8 +280,8 @@ const AuthProvider = ({ children }) => {
     if (currentUser) {
       axios.get(`/userData?email=${currentUser.email}`)
           .then(response => {
-            console.log(response.data)
-            // setUserData(response.data)
+            // console.log(response.data)
+            setUserData(response.data)
           })
           .catch(err => {
             console.error(err);
@@ -291,6 +291,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // window.localStorage.setItem('userData', JSON.stringify(userData));
+    console.log(userData);
     if (userData.lat) {
       fetchNearByOrganizations();
       fetchNearByGroomers();
