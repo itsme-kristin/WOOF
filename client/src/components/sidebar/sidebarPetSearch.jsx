@@ -20,6 +20,7 @@ const Sidebar = (props) => {
   },[props.breeds])
 
   const updateFilter = (key, value) => {
+    console.log(`${key}, ${value}`);
     if (value) {
       setActiveFilters({ ...activeFilters, [key]: value });
     } else {
