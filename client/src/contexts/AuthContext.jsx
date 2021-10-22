@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
     password: "",
     street_address: "",
     lat: 30.2672,
-    lng: 97.7431,
+    lng: -97.7431,
     city: "",
     state: "",
     zip: "",
@@ -34,10 +34,10 @@ const AuthProvider = ({ children }) => {
   });
 
   const [organizationsBasedOnDistance, setOrganizationsBasedOnDistance] =
-    useState([{ latitude: 30.2672, longitude: 97.7431 }]);
+    useState([{ latitude: 30.2672, longitude: -97.7431 }]);
 
   const [groomersBasedOnDistance, setGroomersBasedOnDistance] = useState([
-    { geometry: { location: { lat: 30.2672, lng: 97.7431 } } },
+    { geometry: { location: { lat: 30.2672, lng: -97.7431 } } },
   ]);
 
   const convertAddressToLatLng = (strAddress) => {
@@ -76,7 +76,7 @@ const AuthProvider = ({ children }) => {
                 org.longitude = lng;
               })
               .catch((error) => {
-                console.log('used to be an error here! but we defeated it!!');
+                console.log("used to be an error here! but we defeated it!!");
               });
           });
           setOrganizationsBasedOnDistance(nearbyOrganizations.data);
@@ -258,7 +258,6 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -267,27 +266,27 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-
-    setBreedOverview(JSON.parse(window.localStorage.getItem('breedOverview')))
-    const data = (window.localStorage.getItem('userData'))
+    setBreedOverview(JSON.parse(window.localStorage.getItem("breedOverview")));
+    const data = window.localStorage.getItem("userData");
     // if (JSON.parse(data).name.length > 0) {
     //   setUserData(JSON.parse(data));
     // }
-    setDogOverview(JSON.parse(window.localStorage.getItem('dogOverview')))
-  }, [])
+    setDogOverview(JSON.parse(window.localStorage.getItem("dogOverview")));
+  }, []);
 
   useEffect(() => {
     if (currentUser) {
-      axios.get(`/userData?email=${currentUser.email}`)
-          .then(response => {
-            // console.log(response.data)
-            setUserData(response.data)
-          })
-          .catch(err => {
-            console.error(err);
-          })
+      axios
+        .get(`/userData?email=${currentUser.email}`)
+        .then((response) => {
+          // console.log(response.data)
+          setUserData(response.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
-  }, [currentUser])
+  }, [currentUser]);
 
   useEffect(() => {
     // window.localStorage.setItem('userData', JSON.stringify(userData));
@@ -296,18 +295,15 @@ const AuthProvider = ({ children }) => {
       fetchNearByOrganizations();
       fetchNearByGroomers();
     }
-  }, [userData])
+  }, [userData]);
 
   useEffect(() => {
-    window.localStorage.setItem('dogOverview', JSON.stringify(dogOverview))
-  }, [dogOverview])
+    window.localStorage.setItem("dogOverview", JSON.stringify(dogOverview));
+  }, [dogOverview]);
 
   useEffect(() => {
-    window.localStorage.setItem('breedOverview', JSON.stringify(breedOverview))
-  }, [breedOverview])
-
-
-
+    window.localStorage.setItem("breedOverview", JSON.stringify(breedOverview));
+  }, [breedOverview]);
 
   const value = {
     currentUser,
