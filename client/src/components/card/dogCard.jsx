@@ -20,6 +20,16 @@ import { Link } from 'react-router-dom';
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
 
+
+const noimgstyle = {
+  width: '100%',
+  height: '150px',
+  backgroundColor: '#EAE0D5',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
 const DogCard = (props) => {
   const image = props.image;
   const orientation = props.orientation || 'portrait';
@@ -129,16 +139,16 @@ const DogCard = (props) => {
     switch (type.toLowerCase()) {
       case 'heart':
         if (activeIcon){
-          icon = <FullHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <FullHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         } else {
-          icon = <EmptyHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <EmptyHeart sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         }
         break;
       case 'star' :
         if (activeIcon){
-          icon = <FullStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <FullStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         }  else {
-          icon = <EmptyStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff70', borderRadius: '100%', width: '18px', height: '18px'}}/>;
+          icon = <EmptyStar sx={{color:'error.light', padding: '4px', backgroundColor: '#ffffff90', borderRadius: '100%', width: '18px', height: '18px'}}/>;
         }
         break;
       default:
@@ -200,17 +210,9 @@ const DogCard = (props) => {
       } else {
         return (
           <Link to='/animal'>
-            <CardMedia
-              onClick={handleClick}
-              component="img"
-              // image={image}
-              alt='no image'
-              sx={{
-                width: '100%',
-                height: '150px',
-                backgroundColor: 'linen'
-              }}
-            />
+            <CardMedia component="div" alt='no image' sx={noimgstyle}>
+              No Image Provided
+            </CardMedia>
           </Link>
         )
       }

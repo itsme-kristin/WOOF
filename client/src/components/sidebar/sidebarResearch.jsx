@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -11,8 +12,8 @@ const ResearchSidebar = (props) => {
   const [breeds, setBreeds] = useState(props.breeds || []);
 
   const [activeFilters, setActiveFilters] = useState({});
-  const [breed1, setBreed1] = useState(null);
-  const [breed2, setBreed2] = useState(null);
+  const [breed1, setBreed1] = useState('Affenpinscher');
+  const [breed2, setBreed2] = useState('Affenpinscher');
 
   const updateFilter = (key, value) => {
     if (value) {
@@ -24,16 +25,23 @@ const ResearchSidebar = (props) => {
 
   //needs to update breed1 to store breed1 information object
   const updateBreed1 = (key, value) => {
-    if (value) {
-      setBreed1({ [key]: value });
-    }
-  }
+    axios.get(`/breed-name?name=${value}`)
+    .then((response) => {
+      setBreed1(response.data);
+    })
+    .catch((err)=> {
+      console.log('error in retrieving breed1 description');
+    })
+  };
 
-  //needs to update breed2 to store breed2 information object
   const updateBreed2 = (key, value) => {
-    if (value) {
-      setBreed2({ [key]: value });
-    }
+    axios.get(`/breed-name?name=${value}`)
+    .then((response) => {
+      setBreed2(response.data);
+    })
+    .catch((err)=> {
+      console.log('error in retrieving breed2 description');
+    })
   }
 
   useEffect(()=>{
@@ -101,12 +109,12 @@ const ResearchSidebar = (props) => {
           item
           container
           alignItems="flex-start"
-          id='breed1'
-          key='breed1'
+          id='Breed1'
+          key='Breed1'
         >
           <Dropdown
             // key={index}
-            text='breed1'
+            text='Select first breed to compare'
             style={{float:'left'}}
             updateFilter={updateBreed1}
             values={breeds}
@@ -129,7 +137,7 @@ const ResearchSidebar = (props) => {
         >
           <Dropdown
             // key={index}
-            text='Breed2'
+            text='Select 2nd breed to compare'
             style={{float:'left'}}
             updateFilter={updateBreed2}
            values={breeds}
@@ -148,7 +156,8 @@ const ResearchSidebar = (props) => {
         alignItems="flex-start"
         sx={{
           width: '300px',
-          px: '5px'
+          px: '5px',
+          overflow: 'scroll'
         }}
       >
         <br />
@@ -183,7 +192,7 @@ const ResearchSidebar = (props) => {
               // style={{marginRight:'20px'}}
               onClick={handleSubmit}
             >
-              Compare
+              Apply
         </Button>
           </Grid>
 
