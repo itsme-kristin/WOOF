@@ -154,10 +154,8 @@ const DogCard = (props) => {
   const handleClick = () => {
     if (orientation === 'portrait') {
       setDogOverviewState(dogObj);
-      console.log('dog object state changed');
     } else {
       setBreedOverviewState(breedObj);
-      console.log('breed object state changed');
     }
   }
 
