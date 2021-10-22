@@ -258,18 +258,39 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return unsubscribe;
+  }, []);
+
   useEffect(() => {
 
     setBreedOverview(JSON.parse(window.localStorage.getItem('breedOverview')))
     const data = (window.localStorage.getItem('userData'))
     // if (JSON.parse(data).name.length > 0) {
-      setUserData(JSON.parse(data));
+    //   setUserData(JSON.parse(data));
     // }
     setDogOverview(JSON.parse(window.localStorage.getItem('dogOverview')))
   }, [])
 
   useEffect(() => {
-    window.localStorage.setItem('userData', JSON.stringify(userData));
+    if (currentUser) {
+      axios.get(`/userData?email=${currentUser.email}`)
+          .then(response => {
+            console.log(response.data)
+            // setUserData(response.data)
+          })
+          .catch(err => {
+            console.error(err);
+          })
+    }
+  }, [currentUser])
+
+  useEffect(() => {
+    // window.localStorage.setItem('userData', JSON.stringify(userData));
     if (userData.lat) {
       fetchNearByOrganizations();
       fetchNearByGroomers();
@@ -285,12 +306,7 @@ const AuthProvider = ({ children }) => {
   }, [breedOverview])
 
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-    return unsubscribe;
-  }, []);
+
 
   const value = {
     currentUser,

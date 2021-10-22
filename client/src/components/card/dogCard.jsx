@@ -16,6 +16,7 @@ import Grid from '@mui/material/Grid';
 // import Circle from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
 
+
 const height = {landscape: 200, portrait: 252};
 const width = {landscape: 252, portrait: 200};
 
@@ -28,14 +29,14 @@ const DogCard = (props) => {
   const dogObj = props.dogObj;
   const breedObj = props.breedObj;
   const { currentUser, signout, userData, dogOverview, breedOverview } = useAuth();
-  const [userDataState, setUserDataState] = userData;
-  const [dogOverviewState, setDogOverviewState] = dogOverview;
-  const [breedOverviewState, setBreedOverviewState] = breedOverview;
+  const [ userDataState, setUserDataState ] = userData;
+  const [ dogOverviewState, setDogOverviewState ] = dogOverview;
+  const [ breedOverviewState, setBreedOverviewState ] = breedOverview;
   const [ activeIcon, setActiveIcon ] = useState(false);
 
 
   useEffect(() => {
-    if (userDataState.length > 0){
+    if (userDataState.email.length > 0){
       if (orientation === 'portrait') {
         for (let i = 0; i < userDataState.savedDogs.length; i++) {
           if (userDataState.savedDogs[i].id === dogObj.id) {
@@ -68,6 +69,7 @@ const DogCard = (props) => {
         axios.put('/saveDog', {email: userDataState.email, dogObj: dogObj})
         .then(response => {
           console.info('Dog saved!');
+          //need to get userdata again?
         })
         .catch(err => {
           console.error(err);
