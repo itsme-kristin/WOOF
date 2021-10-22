@@ -49,14 +49,24 @@ const UserPage = () => {
           </Grid>
         </Grid>
         <Grid item xs={8}>
-          <Grid container justifyContent="center" sx={style.content}>
-            <Grid item xs={12}>
+          <Grid container justifyContent="center" sx={style.content} spacing={3}>
+            <Grid item xs='auto'>
               <Typography variant="h5" align="center" sx={{ width: '100%' }}>
                 User Profile
               </Typography>
             </Grid>
             <Grid item xs={12}>
+              <Typography variant="h6">
+                Favorite Breeds:
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
               <FavoriteBreeds />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6">
+                Favorite Adoptions:
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <FavoriteDogs />

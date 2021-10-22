@@ -11,7 +11,7 @@ const FavoriteBreeds = () => {
 
 
   return (
-    <Carousel cols={3} rows={1} loop>
+    <Carousel cols={4} rows={1} loop>
       {userDataState.savedDogs.map((dog, index) => {
         if (dog) {
           return (
