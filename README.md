@@ -37,9 +37,18 @@
 **Rob Williams** - Full Stack Engineer<br>
 [GitHub](https://github.com/robwilliams-it) • [LinkedIn](https://www.linkedin.com/in/rob-williams-swe/)
 
+##Table of Contents##
+
+ - [Installation](#install)
+ - [About this project](#about)
+ - [Technologies](#technologies)
+ - [Links](#links)
+ - [Workflow](#workflow)
+ - [Packages](#packages)
+
 ## Installation <a name="install"></a>
 
-Woof requires both NodeJs and npm to run
+WOOF requires both `NodeJs` and `npm` to run
 
 1. Download the repo using git
 
@@ -73,22 +82,19 @@ npm install
   FIREBASE_MESSAGING_SENDER_ID: '{{ Firebase Messaging Sender ID }}',
   FIREBASE_APP_ID: '{{ Firebase App ID }}',
 ```
-
-- Note, this file is ignored in .gitignore but can be used for any API(s) that require authentication.
+ - **Note:** See the [Links](#links) section for these services to generate your authentication
 
 4. Run the Webpack compiler
 
-In Production:
+ - In Production:<br>
+   ```
+   npm run build
+   ```
 
-```
-npm run build
-```
-
-In Development:
-
-```
-npm run build-dev
-```
+ - In Development:<br>
+   ```
+   npm run build-dev
+   ```
 
 5. Start the Server
 
