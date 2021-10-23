@@ -91,6 +91,12 @@ const PetSearch = () => {
     const config = {};
     setActive(false);
     if (filters) {
+      if (filters.location) {
+        filters.location = filters.location.toString();
+        if (filters.location.toString().length < 5) {
+          delete filters.location;
+        }
+      }
       config.params = filters
     }
 
