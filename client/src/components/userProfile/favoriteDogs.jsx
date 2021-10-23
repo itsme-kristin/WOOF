@@ -19,7 +19,7 @@ const FavoriteBreeds = () => {
               <DogCard
                 orientation='portrait'
                 dogObj={dog}
-                image={dog.photos[0].medium ? dog.photos[0].medium : undefined}
+                image={dog.photos[0]?.medium ? dog.photos[0].medium : undefined}
                 name={dog.name}
                 text={`${dog.age} ${dog.breeds.primary}`}
                 type='heart'

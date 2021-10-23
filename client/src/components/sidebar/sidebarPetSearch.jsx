@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import SearchBar from './searchbar.jsx';
-import Dropdown from './dropdown.jsx';
-import Box from '@mui/material/Box';
-import TraitCheckbox from './traitcheckbox.jsx';
-import PetMap from '../petmap/petMap.jsx';
+import React, { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import SearchBar from "./searchbar.jsx";
+import Dropdown from "./dropdown.jsx";
+import Box from "@mui/material/Box";
+import TraitCheckbox from "./traitcheckbox.jsx";
+import PetMap from "../petmap/petMap.jsx";
 
 const Sidebar = (props) => {
   const [breeds, setBreeds] = useState(props.breeds || []);
   const [dropDownFilters] = useState(props.dropdowns);
   const [checkboxTraits] = useState(props.checkboxs);
-  const [buttonType] = useState(props.buttonText || 'apply');
+  const [buttonType] = useState(props.buttonText || "apply");
   const [activeFilters, setActiveFilters] = useState({});
   const getDogs = props.getDogs;
   const active = props.active;
 
-  useEffect(()=>{
+  useEffect(() => {
     setBreeds(props.breeds);
-  },[props.breeds])
+  }, [props.breeds]);
 
   const updateFilter = (key, value) => {
     // console.log(`${key}, ${value}`);
@@ -28,48 +28,36 @@ const Sidebar = (props) => {
     } else {
       delete activeFilters[key];
     }
-  }
+  };
 
   const handleSubmit = (event) => {
-    console.log(activeFilters);
+    // console.log(activeFilters);
     getDogs(activeFilters);
   }
 
   const getFilters = () => {
     if (dropDownFilters) {
-      return Object.keys(dropDownFilters).map((filter, index)=>{
+      return Object.keys(dropDownFilters).map((filter, index) => {
         // console.log(filter);
         return (
-          <Grid
-            item
-            container
-            alignItems="flex-start"
-            id={filter}
-            key={filter}
-          >
+          <Grid item container alignItems="flex-start" id={filter} key={filter}>
             <Dropdown
               key={index}
               text={filter}
-              style={{float:'left'}}
+              style={{ float: "left" }}
               updateFilter={updateFilter}
               values={dropDownFilters[filter]}
             />
           </Grid>
-        )
+        );
       });
     }
-  }
+  };
 
   const getBreedFilter = () => {
     if (breeds.length > 0) {
       return (
-        <Grid
-          item
-          container
-          alignItems="flex-start"
-          id='breeds'
-          key='breeds'
-        >
+        <Grid item container alignItems="flex-start" id="breeds" key="breeds">
           <Dropdown
             // key={index}
             text='breeds'
@@ -80,12 +68,12 @@ const Sidebar = (props) => {
         </Grid>
       );
     }
-  }
+  };
 
   const getChecksboxs = () => {
     if (checkboxTraits) {
       const traitArr = Object.keys(checkboxTraits);
-      return (traitArr.map((traitName)=>{
+      return traitArr.map((traitName) => {
         return (
           <TraitCheckbox
             key={traitName}
@@ -93,11 +81,10 @@ const Sidebar = (props) => {
             text={traitName}
             textKey={checkboxTraits[traitName]}
           />
-        )
-      }
-      ))
+        );
+      });
     }
-  }
+  };
 
   return (
     <div>
@@ -109,18 +96,14 @@ const Sidebar = (props) => {
         paddingLeft="15px"
       >
         <br />
-        <SearchBar updateFilter={updateFilter}/>
+        <SearchBar updateFilter={updateFilter} />
         <br />
         <Box
           id="googleMap"
           sx={{
             width: 256,
             height: 197,
-            backgroundColor: 'white',
-            '&:hover': {
-              backgroundColor: 'primary.main',
-              opacity: [0.9, 0.8, 0.7],
-            },
+            backgroundColor: "white",
           }}
         >
           <PetMap />
@@ -131,7 +114,7 @@ const Sidebar = (props) => {
           direction="column"
           justifyContent="center"
           alignItems="flex-start"
-          sx={{ width: '200px' }}
+          sx={{ width: "200px" }}
           rowSpacing={3}
         >
           <br />
@@ -140,14 +123,19 @@ const Sidebar = (props) => {
         </Grid>
         <br />
         <br />
-        <Stack spacing={.1} direction="column">
+        <Stack spacing={0.1} direction="column">
           {getChecksboxs()}
         </Stack>
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-end"
-            alignItems="center"
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="center"
+        >
+          <Button
+            variant="contained"
+            style={{ marginRight: "20px" }}
+            onClick={handleSubmit}
           >
             <Button
               variant="contained"
@@ -160,7 +148,7 @@ const Sidebar = (props) => {
           </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
 export default Sidebar;

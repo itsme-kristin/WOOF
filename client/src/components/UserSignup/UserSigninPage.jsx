@@ -7,26 +7,38 @@ const UserSignIn = ({ history }) => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { signin, userData } = useAuth();
-  const [userDataState, setUserDataState] = userData
+  const [userDataState, setUserDataState] = userData;
+  const [errorMessage, setErrorMessage] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
 
     signin(emailRef.current.value, passwordRef.current.value)
       .then(userCredential => {
+        setErrorMessage('');
         const user = userCredential.user;
-        console.log(emailRef.current.value)
-        axios.get(`/userData?email=${emailRef.current.value}`)
-          .then((response) => {
+        console.log(emailRef.current.value);
+        axios
+          .get(`/userData?email=${emailRef.current.value}`)
+          .then(response => {
             console.log('get request response', response);
-            setUserDataState(response.data)
+            setUserDataState(response.data);
           })
           .catch(error => {
-            console.error(error)
-          })
+            console.error(error);
+          });
         history.push('/');
       })
       .catch(error => {
         console.error(error);
+        if (error.code === 'auth/user-not-found') {
+          setErrorMessage('No account found with this email');
+        } else if (error.code === 'auth/wrong-password') {
+          setErrorMessage('Incorrect password');
+        } else if (error.code === 'auth/invalid-email') {
+          setErrorMessage('Invalid email address');
+        } else if (error.code === 'auth/user-disabled') {
+          setErrorMessage('Account had been disabled');
+        }
       });
   };
 
@@ -45,6 +57,11 @@ const UserSignIn = ({ history }) => {
         </Grid>
         <br />
         <form id='signupForm'>
+          {errorMessage.length > 0 ? (
+            <Grid item>
+              <Typography sx={{ color: 'red' }}>{errorMessage}</Typography>
+            </Grid>
+          ) : null}
           <Grid item>
             <TextField
               id='emailField'
