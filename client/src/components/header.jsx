@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../styles.css';
 
@@ -36,7 +36,8 @@ const icon = {
 };
 
 const Header = () => {
-  const { currentUser, signout } = useAuth();
+  const { currentUser, signout, userData } = useAuth();
+  const [userDataState, setUserDataState] = userData;
 
   return (
     <>
@@ -106,7 +107,20 @@ const Header = () => {
                       variant='text'
                       color='inherit'
                       startIcon={<LogoutIcon sx={icon} />}
-                      onClick={() => signout()}
+                      onClick={() => {
+                        signout()
+                        // setUserDataState({
+                        //   name: '',
+                        //   email: '',
+                        //   password: '',
+                        //   street_address: '',
+                        //   city: '',
+                        //   state: '',
+                        //   zip: '',
+                        //   savedBreeds: [],
+                        //   savedDogs: [],})
+                      }
+                      }
                     >
                       Logout
                     </Button>

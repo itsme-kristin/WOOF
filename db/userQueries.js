@@ -1,26 +1,6 @@
-const { User } = require("./index.js");
-const { iptv } = require("../config.js");
-const axios = require("axios");
-
-const getCoordinates = ({ street_address, city, state, zip }) => {
-  let latitudeStr = "";
-  let longitudeStr = "";
-  const pieces = street_address.split(" ");
-  const specialJoin = pieces.join("%");
-  return axios
-    .get(
-      `https://api.myptv.com/geocoding/v1/locations/by-text?searchText=${specialJoin}%${city}%${state}%${zip}&apiKey=${iptv}`
-    )
-    .then(({ data }) => {
-      const latitudeInt = data.locations[0].referencePosition.latitude;
-      latitudeStr = latitudeInt.toString();
-      const longitudeInt = data.locations[0].referencePosition.longitude;
-      longitudeStr = longitudeInt.toString();
-
-      return { latitudeStr, longitudeStr };
-    })
-    .catch((err) => console.error("There was an error updating the user."));
-};
+const { User } = require('./index.js');
+const axios = require('axios');
+const { default: Email } = require('@mui/icons-material/Email');
 
 const addUser = ({
   name,
@@ -28,112 +8,125 @@ const addUser = ({
   city,
   state,
   zip,
-  email,
-  password,
+  lat,
+  lng,
+  email
 }) => {
-  return getCoordinates({ street_address, city, state, zip })
-    .then(({ latitudeStr, longitudeStr }) => {
-      return User.create({
-        name: name,
-        street_address: street_address,
-        city: city,
-        state: state,
-        zip: zip,
-        lat: latitudeStr,
-        lng: longitudeStr,
-        email: email,
-        password: password,
-        savedDogs: [],
-        savedBreeds: []
-      });
+  return User.create({
+    name: name,
+    street_address: street_address,
+    city: city,
+    state: state,
+    zip: zip,
+    lat: lat,
+    lng: lng,
+    email: email,
+    savedDogs: [],
+    savedBreeds: []
+  })
+    .then(user => {
+      return user;
     })
-    .catch((err) => {
-      console.info("There was an error adding a user.");
+    .catch(err => {
+      console.info('There was an error adding a user.');
     });
 };
 
-const getUser = (email) => {
+const getUser = email => {
   return User.findOne({ email })
-    .then((user) => {
-      return user;
+    .then(user => {
+      if (user === null) {
+        throw new Error('No user found with this email');
+      } else {
+        return user;
+      }
     })
-    .catch((err) => {
-      console.log("Couldn't find user");
+    .catch(err => {
+      console.log("Couldn't find user", err);
       return err;
     });
 };
 
 const updateUser = (
   email,
-  { name, street_address, city, state, zip, password }
+  { name, street_address, city, state, zip, lat, lng }
 ) => {
-  return getCoordinates({ street_address, city, state, zip })
-    .then(({ latitudeStr, longitudeStr }) => {
-      let update = {
-        name: name,
-        street_address: street_address,
-        city: city,
-        state: state,
-        zip: zip,
-        lat: latitudeStr,
-        lng: longitudeStr,
-        password: password,
-      };
-      return User.updateOne({ email: email }, update)
-        .then((result) => {
-          console.info("User updated.");
-        })
-        .catch((err) => console.error("Error updating user."));
+  return User.findOneAndUpdate(
+    { email: email },
+    {
+      name: name,
+      street_address: street_address,
+      city: city,
+      state: state,
+      zip: zip,
+      lat: lat,
+      lng: lng
+    }
+  )
+    .then(user => {
+      if (user === null) {
+        throw new Error('No user found with this email');
+      } else {
+        return getUser(email);
+      }
     })
-    .catch((err) => {
-      console.info("There was an error adding a user.");
+    .catch(err => {
+      console.info('There was an error adding a user.');
     });
 };
 
 const addSavedDog = (email, dogObj) => {
-  return User.updateOne({ email: email }, {$push: {savedDogs: { $each: [dogObj], $position: 0}}})
+  return User.updateOne(
+    { email: email },
+    { $push: { savedDogs: { $each: [dogObj], $position: 0 } } }
+  )
     .then(user => {
       console.info('Dog saved');
     })
     .catch(err => {
       console.info('There was an error adding the dog.');
-    })
-}
+    });
+};
 
 const deleteSavedDog = (email, dogId) => {
-  return User.updateOne({ email: email }, {'$pull': { savedDogs: { id: dogId}}})
-  .then(user => {
-    console.info('Dog removed');
-  })
-  .catch(err => {
-    console.info('There was an error removing the dog.')
-  })
-}
+  return User.updateOne(
+    { email: email },
+    { $pull: { savedDogs: { id: dogId } } }
+  )
+    .then(user => {
+      console.info('Dog removed');
+    })
+    .catch(err => {
+      console.info('There was an error removing the dog.');
+    });
+};
 
 const addDogBreed = (email, breedObj) => {
-  return User.updateOne({ email: email },
-    {$push: {savedBreeds: { $each: [breedObj], $position: 0}}})
-      .then(user => {
-        console.info('Breed saved');
-      })
-      .catch(err => {
-        console.info('There was an error adding the breed.');
-      })
-}
+  return User.updateOne(
+    { email: email },
+    { $push: { savedBreeds: { $each: [breedObj], $position: 0 } } }
+  )
+    .then(user => {
+      console.info('Breed saved');
+    })
+    .catch(err => {
+      console.info('There was an error adding the breed.');
+    });
+};
 
 const deleteDogBreed = (email, breedId) => {
-  return User.updateOne({ email: email }, {'$pull': { savedBreeds: { id: breedId}}})
-  .then(user => {
-    console.info('Breed removed');
-  })
-  .catch(err => {
-    console.info('There was an error removing the breed.')
-  })
-}
+  return User.updateOne(
+    { email: email },
+    { $pull: { savedBreeds: { id: breedId } } }
+  )
+    .then(user => {
+      console.info('Breed removed');
+    })
+    .catch(err => {
+      console.info('There was an error removing the breed.');
+    });
+};
 
-// addUser({name: 'Kristin', street_address: '1901 Ashberry Trl', city: 'Georgetown', state: 'TX', zip: '78626', email: 'awesome.com', password: 'password'});
-
-deleteDogBreed('awesome.com', 264);
 module.exports = {
   addUser,
   getUser,
@@ -142,4 +135,4 @@ module.exports = {
   deleteSavedDog,
   addDogBreed,
   deleteDogBreed
-}
+};

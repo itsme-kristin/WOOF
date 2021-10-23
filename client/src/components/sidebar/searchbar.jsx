@@ -14,16 +14,21 @@ const SearchBar = (props) => {
   const [values, setValues] = useState('');
 
   const handleChange = (event) => {
-    setValues(event.target.value);
+    let zip = event.target.value;
+    zip = zip.slice(0,5);
+    zip = Number(zip);
+    if (Number.isInteger(zip)) {
+      setValues(zip);
+    }
   }
 
   useEffect(()=>{
-    updateFilter('search', values);
+    updateFilter('location', values);
   }, [values]);
 
   return (
     <FormControl sx={{ m: 1, width: '256px', marginLeft: '0px'}}>
-      <InputLabel htmlFor="outlined-adornment-password"> SEARCH </InputLabel>
+      <InputLabel htmlFor="outlined-adornment-password"> Zip Code </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"
         value={values}
@@ -37,7 +42,7 @@ const SearchBar = (props) => {
             </IconButton>
           </InputAdornment>
         }
-        label="Search"
+        label="Zip Code"
       />
     </FormControl>
   )

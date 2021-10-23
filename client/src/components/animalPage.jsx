@@ -1,167 +1,282 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import AnimalPhotoCarousel from './carousel/animalPhotoCarousel.jsx';
 import AnimalOtherPetsCarousel from './carousel/animalOtherPetsCarousel.jsx';
 import {
   Box,
+  Button,
   Card,
   CardContent,
+  Link,
   Grid,
-  Typography } from '@mui/material';
-  import CheckIcon from '@mui/icons-material/Check';
-  import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
-  import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
-  import EmailIcon from '@mui/icons-material/Email';
+  Typography
+} from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import EmailIcon from '@mui/icons-material/Email';
+import PublicIcon from '@mui/icons-material/Public';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
-const AnimalPage = (props) => {
-  const animalInfo = {
-    "organization_id": "MA393",
-    "age": "Senior",
-    "gender": "Male",
-    "size": "Medium",
-    "coat": "short",
-    "attributes": {
-      "spayed_neutered": true,
-      "house_trained": true,
-      "declawed": false,
-      "special_needs": false,
-      "shots_current": true
-    },
-    "environment": {
-      "children": false,
-      "dogs": false,
-      "cats": false
-    },
-    "name": "Tofu",
-    "description": "Say hello to Tofu!!! Say hello to Tofu!!!Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!! Say hello to Tofu!!!",
-    "photos": [{
-      "small": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "medium": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "large": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "full": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg'
-    },{
-      "small": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "medium": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "large": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "full": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg'
-    },{
-      "small": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "medium": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "large": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg',
-      "full": 'https://www.translationvalley.com/wp-content/uploads/2020/03/no-iamge-placeholder.jpg'
-    }],
-    "contact": {
-      "email": "brian@gmail.com",
-      "phone": "555-555-5555",
-      "address": {
-        "address1": "ADDRESS 1",
-        "address2": null,
-        "city": "Austin",
-        "state": "TX",
-        "postcode": "78754"
+const style = {
+  button: {
+    margin: 0,
+    width: '350px'
+  }
+};
+
+const AnimalPage = props => {
+  const { currentUser, signout, userData, dogOverview } = useAuth();
+  const [userDataState, setUserDataState] = userData;
+  const [dogOverviewState, setDogOverviewState] = dogOverview;
+  const [activeButton, setActiveButton] = useState(false);
+  const [orgName, setOrgName] = useState([]);
+  const [orgWebsite, setOrgWebsite] = useState([]);
+  const [otherPets, setOtherPets] = useState([]);
+
+  useEffect(() => {
+    if (userDataState.email !== '') {
+      for (let i = 0; i < userDataState.savedDogs.length; i++) {
+        if (userDataState.savedDogs[i].id === dogOverviewState.id) {
+          setActiveButton(true);
+          break;
+        }
       }
     }
-  }
+  }, [userDataState]);
+
+  const handleButtonClick = event => {
+    if (activeButton) {
+      setActiveButton(false);
+      axios
+        .put('/deleteDog', {
+          email: userDataState.email,
+          id: dogOverviewState.id
+        })
+        .then(response => {
+          console.info('Dog deleted');
+          const oldState = userDataState;
+          for (let i = 0; i < oldState.savedDogs.length; i++) {
+            let currentDog = oldState.savedDogs[i];
+            if (currentDog.id === dogOverviewState.id) {
+              oldState.savedDogs.splice(i, 1);
+              break;
+            }
+          }
+          setUserDataState(oldState);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    } else {
+      setActiveButton(true);
+      axios
+        .put('/saveDog', {
+          email: userDataState.email,
+          dogObj: dogOverviewState
+        })
+        .then(response => {
+          console.info('Dog saved!');
+          const oldState = userDataState;
+          oldState.savedDogs.unshift(dogOverviewState);
+          setUserDataState(oldState);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    axios
+      .get(`/organization?id=${dogOverviewState.organization_id}`)
+      .then(response => {
+        setOrgName(response.data[0]);
+        setOrgWebsite(response.data[1]);
+        setOtherPets(response.data[2]);
+      })
+      .catch(err => {
+        console.log('error in retrieving other pets from this organization');
+      });
+  }, []);
 
   return (
     <Box>
       <Grid container spacing={3}>
-        <Grid item xs={12} align="center" marginTop="4px">
-          <Typography variant="h2"> {animalInfo.name}</Typography>
+        <Grid item xs={12} align='center' marginTop='4px'>
+          <Typography variant='h3'> {dogOverviewState.name}</Typography>
+          <Typography variant='h5'>
+            {' '}
+            {dogOverviewState.breeds.primary}
+          </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <AnimalPhotoCarousel photos={animalInfo.photos} numItems={3} />
+        <Grid item xs={12} sx={{ backgroundColor: '#C6AC8F' }}>
+          <AnimalPhotoCarousel photos={dogOverviewState.photos} numItems={3} />
         </Grid>
         <Grid container item xs={8} spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              {animalInfo.description}
+          <Grid item xs={12} sx={{ marginLeft: '15px' }}>
+            <Typography variant='body1'>
+              {dogOverviewState.description}
             </Typography>
           </Grid>
           <Grid item xs={6}>
-          <Typography variant="body2" component="ul" >
-            <li>
-              Age: {animalInfo.age}{' '}
-            </li>
-            <li>
-              Gender: {animalInfo.gender}{' '}
-            </li>
-          </Typography>
+            <Typography variant='body2' component='ul'>
+              <li>Age: {dogOverviewState.age} </li>
+              <li>Gender: {dogOverviewState.gender} </li>
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-          <Typography variant="body2" component="ul" >
-            <li>
-              Size: {animalInfo.size}{' '}
-            </li>
-            <li>
-              Coat: {animalInfo.coat !== null ? animalInfo.coat : 'not available'}{' '}
-            </li>
-          </Typography>
+            <Typography variant='body2' component='ul'>
+              <li>Size: {dogOverviewState.size} </li>
+              <li>
+                Coat:{' '}
+                {dogOverviewState.coat !== null
+                  ? dogOverviewState.coat
+                  : 'not available'}{' '}
+              </li>
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-          <Typography variant="body2" component="ul" >
+            <Typography variant='body2' component='ul'>
               <li>
-             {(animalInfo.attributes.spayed_neutered === true) ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Spayed/Neutered
-             </li>
+                {dogOverviewState.attributes.spayed_neutered === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Spayed/Neutered
+              </li>
               <li>
-             {(animalInfo.attributes.house_trained === true) ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}House Trained
-             </li>
+                {dogOverviewState.attributes.house_trained === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                House Trained
+              </li>
               <li>
-             {animalInfo.attributes.declawed === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Declawed
-             </li>
+                {dogOverviewState.attributes.declawed === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Declawed
+              </li>
               <li>
-             {animalInfo.attributes.special_needs === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Special Needs
-             </li>
+                {dogOverviewState.attributes.special_needs === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Special Needs
+              </li>
               <li>
-             {animalInfo.attributes.shots_current === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Shots Current
-             </li>
-           </Typography>
+                {dogOverviewState.attributes.shots_current === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Shots Current
+              </li>
+            </Typography>
           </Grid>
           <Grid item xs={6}>
-           <Typography variant="body2" component="ul" >
-           Good with:
+            <Typography variant='body2' component='ul'>
+              Good with:
               <li>
-             {animalInfo.environment.children === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Children
-             </li>
+                {dogOverviewState.environment.children === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Children
+              </li>
               <li>
-             {animalInfo.environment.dogs === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Dogs
-             </li>
+                {dogOverviewState.environment.dogs === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Dogs
+              </li>
               <li>
-             {animalInfo.environment.cats === true ? (<CheckIcon />) : (<DoNotDisturbIcon />)}{' '}Cats
-             </li>
-             </Typography>
+                {dogOverviewState.environment.cats === true ? (
+                  <CheckIcon />
+                ) : (
+                  <DoNotDisturbIcon />
+                )}{' '}
+                Cats
+              </li>
+            </Typography>
           </Grid>
         </Grid>
         <Grid item container xs={4} spacing={1}>
-          <Card sx={{height:"100%"}}>
-            <Typography variant="h4">Organization Name???</Typography>
-            <br />
-            <Typography variant="body1">
-              {animalInfo.contact.address.address1}
-            </Typography>
-            <Typography>
-              {animalInfo.contact.address.address2}
-            </Typography>
-            <Typography>
-              {animalInfo.contact.address.city}{', '}{animalInfo.contact.address.state}{' '}{animalInfo.contact.address.postcode}
-            </Typography>
-            <br />
-            <Typography variant="body1">
-              {(<EmailIcon />)}{' '}{animalInfo.contact.email}
-            </Typography>
-            <Typography variant="body1">
-              {(<PhoneIphoneIcon />)}{' '}{animalInfo.contact.phone}
-            </Typography>
-          </Card>
+          <Grid item xs={12} align='center'>
+            <Button
+              variant='contained'
+              sx={style.button}
+              onClick={handleButtonClick}
+            >
+              Add {dogOverviewState.name} to your favorite animals list
+            </Button>
+          </Grid>
+          <Grid item xs={12} sx={{ marginRight: '15px' }}>
+            <Card sx={{ height: '100%', padding: '10px' }}>
+              <Typography variant='h5'>{orgName}</Typography>
+              <br />
+              <Typography variant='body1'>
+                {dogOverviewState.contact.address.address1}
+              </Typography>
+              <Typography>
+                {dogOverviewState.contact.address.address2}
+              </Typography>
+              <Typography>
+                {dogOverviewState.contact.address.city}
+                {', '}
+                {dogOverviewState.contact.address.state}{' '}
+                {dogOverviewState.contact.address.postcode}
+              </Typography>
+              <br />
+              <Typography variant='body1'>
+                {dogOverviewState.contact.email !== null ? (
+                  <Link
+                    href={`mailto:${dogOverviewState.contact.email}`}
+                    target='_blank'
+                  >
+                    <EmailIcon /> {dogOverviewState.contact.email}
+                  </Link>
+                ) : null}
+              </Typography>
+              <Typography variant='body1'>
+                {dogOverviewState.contact.phone !== null ? (
+                  <>
+                    <PhoneIphoneIcon /> {dogOverviewState.contact.phone}
+                  </>
+                ) : null}
+              </Typography>
+              <Typography variant='body1'>
+                {orgWebsite !== null ? (
+                  <a href={orgWebsite}>
+                    {' '}
+                    <PublicIcon /> {orgWebsite}
+                  </a>
+                ) : null}
+              </Typography>
+            </Card>
+          </Grid>
         </Grid>
-        <Grid item xs={12} align="center">
-          <Typography variant="h2"> OTHER PETS FROM "LOCATION" </Typography>
+        <Grid item xs={12} align='center'>
+          <Typography variant='h4'>
+            {' '}
+            View other pets at {dogOverviewState.organization_name}{' '}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
-          <AnimalOtherPetsCarousel orgId={animalInfo.organization_id} numItems={4} />
+          <AnimalOtherPetsCarousel otherPets={otherPets} numItems={5} />
         </Grid>
       </Grid>
     </Box>
-  )
-}
+  );
+};
 
 export default AnimalPage;

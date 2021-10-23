@@ -14,8 +14,9 @@ a {
 #appContainer {
   font-family: 'Montserrat', sans-serif;
   background-color: white;
+  padding: 0;
+  height: calc(100vh - 140px);
   overflow: auto;
-  height: calc(100vh - 140px)
 }
 
 .header {
