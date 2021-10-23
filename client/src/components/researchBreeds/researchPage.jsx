@@ -24,6 +24,7 @@ const filterConversion = {
 const PetRearch = () => {
   const [dogArray, setDogArray] = useState( [] );
   const [breeds, setBreeds] = useState ([]);
+  const [active, setActive] = useState(false);
 
   const renderBreeds = () => {
     if (dogArray.length > 0) {
@@ -49,9 +50,13 @@ const PetRearch = () => {
       });
     } else {
       return (
-        <Typography variant="subtitle1" gutterBottom component="div" sx={{width:'168px', margin: '0 auto'}}>
-            No Matching Breeds
-          </Typography>
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          component="div"
+          sx={{width:'168px', margin: '0 auto'}}>
+          No Matching Breeds
+        </Typography>
       )
     }
   }
@@ -82,6 +87,7 @@ const PetRearch = () => {
 
     axios.get(url)
     .then((data)=> {
+      setActive(true);
       setDogArray(data.data);
       compileBreeds(data.data);
     })
@@ -149,6 +155,7 @@ const PetRearch = () => {
           dropdowns={dropDownFilters}
           breeds={breeds}
           getBreeds={getBreeds}
+          active={active}
         />
       </Grid>
 

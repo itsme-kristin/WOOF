@@ -14,6 +14,8 @@ const Sidebar = (props) => {
   const [checkboxTraits] = useState(props.checkboxs);
   const [buttonType] = useState(props.buttonText || 'apply');
   const [activeFilters, setActiveFilters] = useState({});
+  const getDogs = props.getDogs;
+  const active = props.active;
 
   useEffect(()=>{
     setBreeds(props.breeds);
@@ -30,6 +32,7 @@ const Sidebar = (props) => {
 
   const handleSubmit = (event) => {
     console.log(activeFilters);
+    getDogs(activeFilters);
   }
 
   const getFilters = () => {
@@ -148,6 +151,7 @@ const Sidebar = (props) => {
           >
             <Button
               variant="contained"
+              disabled={!active}
               style={{marginRight:'20px'}}
               onClick={handleSubmit}
             >

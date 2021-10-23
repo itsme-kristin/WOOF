@@ -13,7 +13,7 @@ const Dropdown = (props) => {
 
   const handleChange = (event) => {
     setActiveValue(event.target.value);
-    updateFilter(text, event.target.value);
+    updateFilter(text.toLowerCase(), event.target.value);
   }
 
   return (

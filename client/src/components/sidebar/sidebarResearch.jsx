@@ -16,6 +16,8 @@ const ResearchSidebar = (props) => {
   const [breed1, setBreed1] = useState('Affenpinscher');
   const [breed2, setBreed2] = useState('Affenpinscher');
 
+  const active = props.active;
+
   const updateFilter = (key, value) => {
     if (value && value !== 'None') {
       setActiveFilters({ ...activeFilters, [key]: value });
@@ -190,6 +192,7 @@ const ResearchSidebar = (props) => {
             alignItems="center"
           >
             <Button
+              disabled={!active}
               variant="contained"
               // style={{marginRight:'20px'}}
               onClick={handleSubmit}
