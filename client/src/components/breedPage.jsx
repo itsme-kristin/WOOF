@@ -134,7 +134,7 @@ const BreedPage = props => {
 
   return (
     <Box>
-      <Grid container spacing={3} marginTop='4px'>
+      <Grid container spacing={3} sx={{marginTop:'4px'}}>
         <Grid item xs={4} sx={{ marginLeft: '15px'}}>
           <Card>
             <CardMedia
@@ -160,15 +160,16 @@ const BreedPage = props => {
             </CardMedia>
           </Card>
         </Grid>
-        <Grid item container xs={5}>
+        <Grid item container xs={7}>
           <Grid item xs={12}>
             <Typography variant='h3'>{breedOverviewState.name}</Typography>
             <Typography variant='h5'>
-              Breed origin: {breedOverviewState.origin}
+              Breed origin: {breedOverviewState?.origin ? breedOverviewState.origin : 'N/A' }
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='body1'> {description} </Typography>
+            <Typography variant='body1'>
+              {console.log('descr', description.length)}
+              Description: {(description.length !== 0) ? description : 'N/A'}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant='body2' component='ul'>
@@ -184,17 +185,17 @@ const BreedPage = props => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid item xs={3} sx={{marginLeft: ' 15px' , marginRight: '15px'}}>
+        <Grid item xs={4} sx={{marginLeft: ' 15px'}}>
           <Card sx={{ height: '100%', backgroundColor: '#C6AC8F' }}>
-            <Typography variant='h5' align='center'> Breed Temperament </Typography>
-            <Typography variant='body2' component='ul' marginTop='10px'>
+            <Typography variant='h5' sx={{align:'center'}}> Breed Temperament </Typography>
+            <Typography variant='body1' component='ul' sx={{marginTop:'10px'}}>
               {temperament.map((elem, i) => {
                 return <li key={i}>{elem}</li>;
               })}
             </Typography>
           </Card>
         </Grid>
-        <Grid item container spacing={1} xs={8} sx={{ height: '100%' }}>
+        <Grid item container spacing={1} xs={7} sx={{ height: '100%' }}>
           {organizations.map((elem, i) => {
             return (
               <Grid item key={i}>
