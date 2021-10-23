@@ -48,9 +48,9 @@ const ComparisonTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
+            {rows.map((row, i) => {
               return (
-                <TableRow hover key={row.code}>
+                <TableRow hover key={i}>
                   {columns.map((column, i) => {
                     const value = row[column.id];
                     return (
