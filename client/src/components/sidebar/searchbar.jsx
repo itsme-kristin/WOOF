@@ -33,15 +33,6 @@ const SearchBar = (props) => {
         id="outlined-adornment-password"
         value={values}
         onChange={handleChange}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-            >
-              <SearchIcon />
-            </IconButton>
-          </InputAdornment>
-        }
         label="Zip Code"
       />
     </FormControl>
