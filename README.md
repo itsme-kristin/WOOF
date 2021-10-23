@@ -225,6 +225,8 @@ We implemented Git Feature Branch Workflow.  All pull requests in Github were re
 <br />
 <a href="https://www.figma.com/file/KaLenlfZ7lHquYeXoVAdh1/Woof?node-id=0%3A1">Link to Figma Wireframes</a>
 
+<a href="https://www.notion.so/Woof-Engineering-Journal-0bced2f6f68b4d48995b9700d367e65f">Link to Engineering Journal - WOOF</a>
+
 We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
 <hr />
 <br />
