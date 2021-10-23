@@ -211,14 +211,20 @@ const AnimalPage = props => {
           </Grid>
         </Grid>
         <Grid item container xs={4} spacing={1}>
-          <Grid item xs={12} align='center'>
-            <Button
+          <Grid item xs={12}>
+            {(activeButton) ? (<Button
               variant='contained'
               sx={style.button}
               onClick={handleButtonClick}
             >
-              Add {dogOverviewState.name} to your favorite animals list
-            </Button>
+              Remove {dogOverviewState.name} from your favorite animals
+            </Button>) : (<Button
+              variant='outlined'
+              sx={style.button}
+              onClick={handleButtonClick}
+            >
+              Add {dogOverviewState.name} to your favorite animals
+            </Button>)}
           </Grid>
           <Grid item xs={12} sx={{ marginRight: '15px' }}>
             <Card sx={{ height: '100%', padding: '10px' }}>
