@@ -20,7 +20,7 @@ const SearchBar = (props) => {
   }
 
   useEffect(()=>{
-    updateFilter('search', values);
+    updateFilter('location', values);
   }, [values]);
 
   return (

@@ -9,14 +9,15 @@ let height = screen.height;
 
 const dropDownFilters = {
   'Breed Group': ['None','Toy', 'Terrier', 'Hound', 'Mixed', 'Working', 'Non-Sporting', 'Sporting', 'Herding'],
-  'Weight': ['None','small','medium','large'],
-  'Tempurment': ['None','Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
+  'Size': ['None','small','medium','large'],
+  'Temperament': ['None','Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
 }
 
 
 const PetRearch = () => {
   const [dogArray, setDogArray] = useState( [] );
   const [breeds, setBreeds] = useState ([]);
+  const [active, setActive] = useState(false);
 
   const renderBreeds = () => {
     if (dogArray.length > 0) {
@@ -27,7 +28,7 @@ const PetRearch = () => {
             description = description.length > 15 ? description.slice(0,15) : description;
           }
           return (
-            <div style={{marginBottom: '20px'}} key={index}>
+            <div style={{marginBottom: '20px'}}>
               <DogCard
                 key={index}
                 orientation={'landscape'}
@@ -40,6 +41,16 @@ const PetRearch = () => {
           )
         }
       });
+    } else {
+      return (
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          component="div"
+          sx={{width:'168px', margin: '0 auto'}}>
+          No Matching Breeds
+        </Typography>
+      )
     }
   }
 
@@ -53,14 +64,32 @@ const PetRearch = () => {
   }
 
 
-  const getBreeds = () => {
-    axios.get('/breed-details')
+  const getBreeds = (filters) => {
+    let url = '/breed-details'
+
+    if (filters) {
+      url += '?';
+      for (const filter in filters) {
+        let key = filter;
+        key = 'breed group' ? 'breed_group' : key;
+        let value = filters[filter];
+        url += `${key}=${value}`;
+        url += '&';
+      }
+      url = url.slice(0, length - 1) ;
+    }
+
+    console.log(url);
+    axios.get(url)
     .then((data)=> {
+      console.log(data.data);
+      setActive(true);
       setDogArray(data.data);
       compileBreeds(data.data);
     })
     .catch((error)=> {
       console.log(error);
+      setActive(true);
     })
   }
 
@@ -122,6 +151,8 @@ const PetRearch = () => {
         <ResearchSidebar
           dropdowns={dropDownFilters}
           breeds={breeds}
+          getBreeds={getBreeds}
+          active={active}
         />
       </Grid>
 

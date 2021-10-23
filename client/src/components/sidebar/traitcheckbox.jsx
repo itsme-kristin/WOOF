@@ -7,14 +7,9 @@ const TraitCheckbox = (props) => {
   const text = props.text || 'empty';
   const textKey = props.textKey;
   const updateFilter = props.updateFilter;
-  const [value, setValue] = useState(false);
 
-  useEffect(()=>{
-    updateFilter(textKey, value);
-  }, [value]);
-
-  const handleClick = () =>{
-    setValue(!value);
+  const handleClick = (event) =>{
+    updateFilter(textKey, event.target.checked);
   }
 
   return (

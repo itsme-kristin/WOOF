@@ -14,6 +14,8 @@ const Sidebar = (props) => {
   const [checkboxTraits] = useState(props.checkboxs);
   const [buttonType] = useState(props.buttonText || "apply");
   const [activeFilters, setActiveFilters] = useState({});
+  const getDogs = props.getDogs;
+  const active = props.active;
 
   useEffect(() => {
     setBreeds(props.breeds);
@@ -21,7 +23,7 @@ const Sidebar = (props) => {
 
   const updateFilter = (key, value) => {
     // console.log(`${key}, ${value}`);
-    if (value) {
+    if (value && value !== 'None') {
       setActiveFilters({ ...activeFilters, [key]: value });
     } else {
       delete activeFilters[key];
@@ -29,8 +31,9 @@ const Sidebar = (props) => {
   };
 
   const handleSubmit = (event) => {
-    console.log(activeFilters);
-  };
+    // console.log(activeFilters);
+    getDogs(activeFilters);
+  }
 
   const getFilters = () => {
     if (dropDownFilters) {
@@ -57,9 +60,9 @@ const Sidebar = (props) => {
         <Grid item container alignItems="flex-start" id="breeds" key="breeds">
           <Dropdown
             // key={index}
-            text="breeds"
-            style={{ float: "left" }}
-            updateFilter={updateFilter}
+            text='breeds'
+            style={{float:'left'}}
+            // updateFilter={updateFilter}
             values={breeds}
           />
         </Grid>
@@ -131,6 +134,7 @@ const Sidebar = (props) => {
         >
           <Button
             variant="contained"
+            disabled={!active}
             style={{ marginRight: "20px" }}
             onClick={handleSubmit}
           >
