@@ -1,7 +1,7 @@
 <h1 align="center"> WOOF</h1>
 
-## Meet the Dogg House team:
-
+# Meet the Dogg House team (possibly change to Contributors?):
+<br />
 <img  align="left" class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/83591602?s=88&amp;v=4" width="44" height="44" alt="@aliciav-texas">
 
 **Alicia Villanueva** - Project Manager<br>
@@ -29,7 +29,7 @@
 
 <img align="left" class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/84642987?s=88&amp;v=4" width="44" height="44" alt="@itsme-kristin">
 
-**Kristen Gadgil** - Full Stack Engineer<br>
+**Kristin Gadgil** - Full Stack Engineer<br>
 [GitHub](https://github.com/itsme-kristin) • [LinkedIn](https://www.linkedin.com/in/kristingadgil/)
 
 <img align="left" class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/85043190?s=88&amp;v=4" width="44" height="44" alt="@robwilliams-it">
@@ -37,7 +37,94 @@
 **Rob Williams** - Full Stack Engineer<br>
 [GitHub](https://github.com/robwilliams-it) • [LinkedIn](https://www.linkedin.com/in/rob-williams-swe/)
 
-## Stack
+<br />
+<hr />
+<br />
+
+# About the Project
+Woof is a one-stop shop for a user to research dog breeds, find a pet nearby ready for its forever home, and locate nearby groomers. The user can create an authenticated account to save their favorite dogs and breeds and have a tailored experience based on their location.
+
+THIS WILL BE A GIF OF LANDING PAGE
+
+## Key Features
+- User authentication
+- Displays dogs nearby available for adoption
+- Explore breeds and compare
+- Select dogs and breeds to add to favorites
+- View favorite dogs and breeds on user profile
+- Contact rescues and shelters with the adoptable dog selected
+
+## Home Page
+
+THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE HOME PAGE
+
+- Click on a dog to see more information
+- Click the heart icon to add dog to your favorites or delete
+- Enter your zip code to search for dogs near you
+- Click the GET STARTED button to research dog breeds
+
+## User Authentication
+
+THIS WILL BE A GIF OF THE FUNCTIONALITY OF USER AUTHENTICATION
+
+- Click on SIGN UP  to create a new account
+- Enter information that will be used for authentication and website personalization
+- Click on SIGN IN to access your account
+- Click on LOGOUT to exit your account
+
+## Adopt
+
+THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE ADOPT PAGE
+
+- Enter your zip code to find dogs near you
+- View map that shows your location and nearby organizations and groomers
+- Click on a map icons to see more information about the organization or groomer
+- Click on a dog card to see more dog information
+- Click the heart icon to add dog to your favorites or delete
+- Filter dogs shown based on distance, size, gender, age, coat, and other relevant information
+
+## Pet Overview
+
+THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE PET OVERVIEW
+
+- View all pictures of the specific dog
+- View description of the dog
+- View information on where the dog is located
+- Add or delete the dog from your favorites
+- Click on the email link to contact the organization
+- View other pets available at the organization
+
+## Breeds
+
+THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE BREEDS PAGE
+
+- View all dog breeds available for research
+- Filter dog breeds based on breed group, size, temperament
+- View comparison of two selected dog breeds
+- Click on a breed card to see more breed information
+- Click the star icon to add breed to your favorites or delete
+
+## Breed Overview
+
+THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE BREED OVERVIEW
+
+- View information about the selected breed
+- Click the star icon to add breed to your favorites or delete
+- View map that shows your location and nearby organizations and groomers
+- Click on the map icons to see more information about the organization or groomer
+
+## My Profile
+
+THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
+
+- View your information associated with your account
+- Update your information associated with your account
+- View your favorite breeds
+- View your favorite dogs
+- Click on a card to see more information about the dog or breed
+- Click on an icon to add more remove from your favorites.
+
+# Stack
 
 <table>
   <tbody>
@@ -97,7 +184,24 @@
   </tbody>
 </table>
 
-## Installation <a name="install"></a>
+<hr />
+<br />
+
+# Workflow
+Our team used Agile workflow for this sprint.
+
+## Trello
+A Trello board was used to create and track tickets.  We held daily scrum meetings to discuss accomplishments, challenges, and upcoming tickets.  To effectively collaborate remotely while allowing for quick communication if needed, we utilized Discord, Slack, and Zoom.
+
+## Version Control
+We implemented Git Feature Branch Workflow.  All pull requests in Github were reviewed by another team member before being merged into the main branch.
+
+<hr />
+<br />
+
+# Installation <a name="install"></a>
+
+<br />
 
 Woof requires both NodeJs and npm to run
 
