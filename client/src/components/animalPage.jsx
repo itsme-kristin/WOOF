@@ -25,14 +25,14 @@ const style = {
   }
 };
 
-const AnimalPage = (props) => {
+const AnimalPage = props => {
   const { currentUser, signout, userData, dogOverview } = useAuth();
   const [userDataState, setUserDataState] = userData;
   const [dogOverviewState, setDogOverviewState] = dogOverview;
-  const [ activeButton, setActiveButton ] = useState(false);
-  const [ orgName, setOrgName ] = useState([]);
-  const [ orgWebsite, setOrgWebsite ] = useState([]);
-  const [ otherPets, setOtherPets ] = useState([]);
+  const [activeButton, setActiveButton] = useState(false);
+  const [orgName, setOrgName] = useState([]);
+  const [orgWebsite, setOrgWebsite] = useState([]);
+  const [otherPets, setOtherPets] = useState([]);
 
   useEffect(() => {
     if (userDataState.email !== '') {
@@ -45,50 +45,59 @@ const AnimalPage = (props) => {
     }
   }, [userDataState]);
 
-  const handleButtonClick = (event) => {
+  const handleButtonClick = event => {
     if (activeButton) {
       setActiveButton(false);
-      axios.put('/deleteDog', {email: userDataState.email, id: dogOverviewState.id})
-      .then(response => {
-        console.info('Dog deleted');
-        const oldState = userDataState;
-        for (let i = 0; i < oldState.savedDogs.length; i++) {
-          let currentDog = oldState.savedDogs[i];
-          if (currentDog.id === dogOverviewState.id) {
-            oldState.savedDogs.splice(i, 1);
-            break;
+      axios
+        .put('/deleteDog', {
+          email: userDataState.email,
+          id: dogOverviewState.id
+        })
+        .then(response => {
+          console.info('Dog deleted');
+          const oldState = userDataState;
+          for (let i = 0; i < oldState.savedDogs.length; i++) {
+            let currentDog = oldState.savedDogs[i];
+            if (currentDog.id === dogOverviewState.id) {
+              oldState.savedDogs.splice(i, 1);
+              break;
+            }
           }
-        }
-        setUserDataState(oldState);
-      })
-      .catch(err => {
-        console.error(err);
-      })
+          setUserDataState(oldState);
+        })
+        .catch(err => {
+          console.error(err);
+        });
     } else {
       setActiveButton(true);
-      axios.put('/saveDog', {email: userDataState.email, dogObj: dogOverviewState})
-      .then(response => {
-        console.info('Dog saved!');
-        const oldState = userDataState;
-        oldState.savedDogs.unshift(dogOverviewState);
-        setUserDataState(oldState);
-      })
-      .catch(err => {
-        console.error(err);
-      })
+      axios
+        .put('/saveDog', {
+          email: userDataState.email,
+          dogObj: dogOverviewState
+        })
+        .then(response => {
+          console.info('Dog saved!');
+          const oldState = userDataState;
+          oldState.savedDogs.unshift(dogOverviewState);
+          setUserDataState(oldState);
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   };
 
-  useEffect(()=> {
-    axios.get(`/organization?id=${dogOverviewState.organization_id}`)
-    .then((response) => {
-      setOrgName(response.data[0]);
-      setOrgWebsite(response.data[1]);
-      setOtherPets(response.data[2]);
-    })
-    .catch((err)=> {
-      console.log('error in retrieving other pets from this organization');
-    })
+  useEffect(() => {
+    axios
+      .get(`/organization?id=${dogOverviewState.organization_id}`)
+      .then(response => {
+        setOrgName(response.data[0]);
+        setOrgWebsite(response.data[1]);
+        setOtherPets(response.data[2]);
+      })
+      .catch(err => {
+        console.log('error in retrieving other pets from this organization');
+      });
   }, []);
 
   return (
@@ -96,14 +105,19 @@ const AnimalPage = (props) => {
       <Grid container spacing={3}>
         <Grid item xs={12} align='center' marginTop='4px'>
           <Typography variant='h3'> {dogOverviewState.name}</Typography>
-          <Typography variant='h5'> {dogOverviewState.breeds.primary}</Typography>
+          <Typography variant='h5'>
+            {' '}
+            {dogOverviewState.breeds.primary}
+          </Typography>
         </Grid>
         <Grid item xs={12} sx={{ backgroundColor: '#C6AC8F' }}>
           <AnimalPhotoCarousel photos={dogOverviewState.photos} numItems={3} />
         </Grid>
         <Grid container item xs={8} spacing={2}>
-          <Grid item xs={12} sx={{ marginLeft: '15px'}}>
-            <Typography variant='body1'>{dogOverviewState.description}</Typography>
+          <Grid item xs={12} sx={{ marginLeft: '15px' }}>
+            <Typography variant='body1'>
+              {dogOverviewState.description}
+            </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography variant='body2' component='ul'>
@@ -116,7 +130,9 @@ const AnimalPage = (props) => {
               <li>Size: {dogOverviewState.size} </li>
               <li>
                 Coat:{' '}
-                {dogOverviewState.coat !== null ? dogOverviewState.coat : 'not available'}{' '}
+                {dogOverviewState.coat !== null
+                  ? dogOverviewState.coat
+                  : 'not available'}{' '}
               </li>
             </Typography>
           </Grid>
@@ -195,38 +211,59 @@ const AnimalPage = (props) => {
           </Grid>
         </Grid>
         <Grid item container xs={4} spacing={1}>
-          <Grid item xs={12} align="center">
-          <Button variant="contained" sx={style.button} onClick={handleButtonClick}>
-            Add {dogOverviewState.name} to your favorite animals list
-          </Button>
-        </Grid>
-        <Grid item xs={12} sx={{marginRight: '15px'}}>
-          <Card sx={{height:"100%", padding:"10px"}}>
-            <Typography variant="h5">{orgName}</Typography>
-            <br />
-            <Typography variant="body1">
-              {dogOverviewState.contact.address.address1}
-            </Typography>
-            <Typography>
-              {dogOverviewState.contact.address.address2}
-            </Typography>
-            <Typography>
-              {dogOverviewState.contact.address.city}{', '}{dogOverviewState.contact.address.state}{' '}{dogOverviewState.contact.address.postcode}
-            </Typography>
-            <br />
-            <Typography variant="body1">
-              {dogOverviewState.contact.email !== null ? (<Link href={`mailto:${dogOverviewState.contact.email}`}><EmailIcon />
-                {' '}{dogOverviewState.contact.email}
-              </Link>) : null}
-            </Typography>
-            <Typography variant="body1">
-              {dogOverviewState.contact.phone !== null ? (<><PhoneIphoneIcon />{' '}{dogOverviewState.contact.phone}</>) : null}
-            </Typography>
-            <Typography variant="body1">
-              {orgWebsite !== null ? (<a href={orgWebsite}> <PublicIcon />{' '}{orgWebsite}</a>) : null}
-            </Typography>
-          </Card>
-        </Grid>
+          <Grid item xs={12} align='center'>
+            <Button
+              variant='contained'
+              sx={style.button}
+              onClick={handleButtonClick}
+            >
+              Add {dogOverviewState.name} to your favorite animals list
+            </Button>
+          </Grid>
+          <Grid item xs={12} sx={{ marginRight: '15px' }}>
+            <Card sx={{ height: '100%', padding: '10px' }}>
+              <Typography variant='h5'>{orgName}</Typography>
+              <br />
+              <Typography variant='body1'>
+                {dogOverviewState.contact.address.address1}
+              </Typography>
+              <Typography>
+                {dogOverviewState.contact.address.address2}
+              </Typography>
+              <Typography>
+                {dogOverviewState.contact.address.city}
+                {', '}
+                {dogOverviewState.contact.address.state}{' '}
+                {dogOverviewState.contact.address.postcode}
+              </Typography>
+              <br />
+              <Typography variant='body1'>
+                {dogOverviewState.contact.email !== null ? (
+                  <Link
+                    href={`mailto:${dogOverviewState.contact.email}`}
+                    target='_blank'
+                  >
+                    <EmailIcon /> {dogOverviewState.contact.email}
+                  </Link>
+                ) : null}
+              </Typography>
+              <Typography variant='body1'>
+                {dogOverviewState.contact.phone !== null ? (
+                  <>
+                    <PhoneIphoneIcon /> {dogOverviewState.contact.phone}
+                  </>
+                ) : null}
+              </Typography>
+              <Typography variant='body1'>
+                {orgWebsite !== null ? (
+                  <a href={orgWebsite}>
+                    {' '}
+                    <PublicIcon /> {orgWebsite}
+                  </a>
+                ) : null}
+              </Typography>
+            </Card>
+          </Grid>
         </Grid>
         <Grid item xs={12} align='center'>
           <Typography variant='h4'>
