@@ -7,9 +7,11 @@ const breed = require("../db/breedQueries.js");
 const app = express();
 const port = 3030;
 const { googleAPI } = require("../config.js");
+const compression = require("compression");
 
 app.use(express.static("client/dist"));
 app.use(express.json());
+app.use(compression());
 
 app.listen(port, (e) => {
   console.log(
