@@ -34,7 +34,7 @@ const OrganizationCard = props => {
 
   return (
     <Box sx={{ border: 0.5, borderRadius: 2 }}>
-      <Grid container sx={{width:'100%'}}>
+      <Grid container sx={{width:'100%', margin:'5px 10px'}}>
         <Grid item xs={12}>
           <Typography variant='h4'>
             {' '}
