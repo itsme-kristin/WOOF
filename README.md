@@ -132,7 +132,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
 - View your favorite breeds
 - View your favorite dogs
 - Click on a card to see more information about the dog or breed
-- Click on an icon to add more remove from your favorites.
+- Click on an icon to add more remove from your favorites
 
 
 </hr>
@@ -215,8 +215,17 @@ We implemented Git Feature Branch Workflow.  All pull requests in Github were re
 <br />
 
 # Links <a name="links"></a>
-We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
 
+<img src="./media/HomePage.png" width="150" alt="Home Page">
+<img src="./media/UserProfile.png" width="150" alt="User Profile">
+<img src="./media/AdoptPage.png" width="150" alt="Adopt Page">
+<img src="./media/DogOverview.png" width="150" alt="Dog Overview">
+<img src="./media/ResearchBreeds.png" width="150" alt="Research Breeds">
+<img src="./media/BreedOverview.png" width="150" alt="Breed Overview">
+<br />
+<a href="https://www.figma.com/file/KaLenlfZ7lHquYeXoVAdh1/Woof?node-id=0%3A1">Link to Figma Wireframes</a>
+
+We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
 <hr />
 <br />
 
