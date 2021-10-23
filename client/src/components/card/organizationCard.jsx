@@ -41,7 +41,7 @@ const OrganizationCard = props => {
         <Grid item xs={6}>
           <Typography variant='body1'>
             {<EmailIcon />}{' '}
-            <Link href={`mailto:${organization.contact.email}`}>
+            <Link target='_blank' href={`mailto:${organization.contact.email}`}>
               {organization.contact.email}
             </Link>
           </Typography>
