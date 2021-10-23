@@ -1,6 +1,6 @@
 <h1 align="center"> WOOF</h1>
 
-# Meet the Dogg House team (possibly change to Contributors?):
+# Contributors:
 <br />
 <img  align="left" class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/83591602?s=88&amp;v=4" width="44" height="44" alt="@aliciav-texas">
 
@@ -38,10 +38,20 @@
 [GitHub](https://github.com/robwilliams-it) • [LinkedIn](https://www.linkedin.com/in/rob-williams-swe/)
 
 <br />
+
+# Table of Contents
+
+ - [About this project](#about)
+ - [Workflow](#workflow)
+ - [Technologies](#technologies)
+ - [Links](#links)
+ - [Installation](#install)
+ - [APIs](#apis)
+
 <hr />
 <br />
 
-# About the Project
+# About the Project <a name="about"></a>
 Woof is a one-stop shop for a user to research dog breeds, find a pet nearby ready for its forever home, and locate nearby groomers. The user can create an authenticated account to save their favorite dogs and breeds and have a tailored experience based on their location.
 
 THIS WILL BE A GIF OF LANDING PAGE
@@ -128,7 +138,19 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
 </hr>
 </br>
 
-# Stack
+# Workflow <a name="workflow"></a>
+Our team used Agile workflow for this sprint.
+
+## Trello
+A Trello board was used to create and track tickets.  We held daily meetings to discuss accomplishments, challenges, and upcoming tickets.  To effectively collaborate remotely while allowing for quick communication if needed, we utilized Discord and Zoom.
+
+## Version Control
+We implemented Git Feature Branch Workflow.  All pull requests in Github were reviewed by another team member before being merged into the main branch.
+
+<hr />
+<br />
+
+# Technologies <a name="technologies"></a>
 
 <table>
   <tbody>
@@ -153,6 +175,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
         <img alt="ExpressJS" src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/>
         <img alt="NodeJS" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/>
         <img alt="MongoDB" src="https://camo.githubusercontent.com/b38bbb1cba49a754ade66ca1ca45541ed07ab31a3b01166157f513b44fb35f70/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4d6f6e676f44422d2532333465613934622e7376673f267374796c653d666f722d7468652d6261646765266c6f676f3d6d6f6e676f6462266c6f676f436f6c6f723d7768697465"/>
+        <img alt="Firebase" src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase"/>
       </td>
     </tr>
       <td>Design</td>
@@ -181,7 +204,6 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
     <tr>
       <td>Deployment</td>
       <td>
-        <img alt="Firebase" src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase"/>
         <img alt="MongoDB Atlas" src="https://img.shields.io/badge/MongoDB Atlas-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/>
         <img alt="AWS" src="https://img.shields.io/badge/AWS%20-%23FF9900.svg?&style=for-the-badge&logo=amazon-aws&logoColor=white"/>
       </td>
@@ -192,14 +214,13 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
 <hr />
 <br />
 
-# Workflow
-Our team used Agile workflow for this sprint.
+# Links <a name="links"></a>
+We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
 
-## Trello
-A Trello board was used to create and track tickets.  We held daily meetings to discuss accomplishments, challenges, and upcoming tickets.  To effectively collaborate remotely while allowing for quick communication if needed, we utilized Discord and Zoom.
+<hr />
+<br />
 
-## Version Control
-We implemented Git Feature Branch Workflow.  All pull requests in Github were reviewed by another team member before being merged into the main branch.
+# APIs <a name="apis"></a>
 
 <hr />
 <br />
@@ -208,7 +229,8 @@ We implemented Git Feature Branch Workflow.  All pull requests in Github were re
 
 <br />
 
-Woof requires both NodeJs and npm to run
+
+WOOF requires both `NodeJs` and `npm` to run
 
 1. Download the repo using git
 
@@ -242,22 +264,19 @@ npm install
   FIREBASE_MESSAGING_SENDER_ID: '{{ Firebase Messaging Sender ID }}',
   FIREBASE_APP_ID: '{{ Firebase App ID }}',
 ```
-
-- Note, this file is ignored in .gitignore but can be used for any API(s) that require authentication.
+ - **Note:** See the [Links](#links) section for these services to generate your authentication
 
 4. Run the Webpack compiler
 
-In Production:
+ - In Production:<br>
+   ```
+   npm run build
+   ```
 
-```
-npm run build
-```
-
-In Development:
-
-```
-npm run build-dev
-```
+ - In Development:<br>
+   ```
+   npm run build-dev
+   ```
 
 5. Start the Server
 
