@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
 
 import UserMenu from './userMenu.jsx';
 import { useAuth } from '../../contexts/AuthContext.jsx';
@@ -44,13 +45,25 @@ const SideBar = () => {
   const [editMode, setEditMode] = useState(false);
   const [userDataState, setUserDataState] = userData;
 
+  let formData = { ...userDataState }
+
   const toggleEdit = () => {
-    if (editMode) {
-      // get the state of the form fields
-      // put the updated data to the server
-      // update the userDataState
+    if (!editMode) {
+      formData = { ...userDataState };
+      setEditMode(!editMode);
     }
-    setEditMode(!editMode);
+    if (editMode) {
+      // put the updated data to the server
+      axios.put('/userData', formData)
+      // update the current user state
+      .then(() => setUserDataState(formData))
+      // confirm the user data was updated
+      .then(() => console.log('User data has been updated!'))
+      // toggle the edit/save button
+      .then(() => setEditMode(!editMode))
+      // log if an error occurred
+      .catch(() => console.log('User data failed to update'));
+    }
   };
 
   const statesArray = [
@@ -113,6 +126,10 @@ const SideBar = () => {
     (<MenuItem key="wy" value="WY">Wyoming</MenuItem>)
   ]
 
+const updateField = (e) => {
+  formData[e.target.id] = e.target.value;
+}
+
   const editForm = () => (
     < >
       <Box id="account-form" component="form">
@@ -121,24 +138,24 @@ const SideBar = () => {
         </Typography>
         <Typography sx={style.form.editList} component='ul' gutterBottom>
           <li style={style.form.listItem}>
-            <TextField label="Name:" id="name" size='small' defaultValue={userDataState.name} fullWidth />
+            <TextField label="Name:" id="name" size='small' defaultValue={formData.name} onChange={updateField} fullWidth />
           </li>
           <li style={style.form.listItem}>
-            <TextField label="Street:" id="street" size='small' defaultValue={userDataState.street_address} fullWidth />
+            <TextField label="Street:" id="street_address" size='small' defaultValue={formData.street_address} onChange={updateField} fullWidth />
           </li>
           <li style={style.form.listItem}>
-            <TextField label="City:" id="city" size="small" defaultValue={userDataState.city} fullWidth />
+            <TextField label="City:" id="city" size="small" defaultValue={formData.city} onChange={updateField} fullWidth />
           </li>
           <li style={style.form.listItem}>
             <FormControl fullWidth>
               <InputLabel id="state-label-form" shrink>State:</InputLabel>
-              <Select labelId="state-label-form" label="State:" id="state" size="small" value={userDataState.state}>
+              <Select labelId="state-label-form" label="State:" id="state" size="small" value={formData.state} onChange={updateField} >
                 {statesArray}
               </Select>
             </FormControl>
           </li>
           <li style={style.form.listItem}>
-            <TextField label="Postal Code:" id="zip" size="small" defaultValue={userDataState.zip} fullWidth />
+            <TextField label="Postal Code:" id="zip" size="small" defaultValue={formData.zip} onChange={updateField} fullWidth />
           </li>
         </Typography>
         <Typography sx={style.form.title}>
