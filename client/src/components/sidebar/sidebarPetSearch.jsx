@@ -14,6 +14,7 @@ const Sidebar = (props) => {
   const [checkboxTraits] = useState(props.checkboxs);
   const [buttonType] = useState(props.buttonText || "apply");
   const [activeFilters, setActiveFilters] = useState({});
+  const distance = props.distance;
   const getDogs = props.getDogs;
   const active = props.active;
 
@@ -106,7 +107,7 @@ const Sidebar = (props) => {
             backgroundColor: "white",
           }}
         >
-          <PetMap />
+          <PetMap distance={distance}/>
         </Box>
 
         <Grid

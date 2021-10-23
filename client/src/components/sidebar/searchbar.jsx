@@ -16,8 +16,8 @@ const SearchBar = (props) => {
   const handleChange = (event) => {
     let zip = event.target.value;
     zip = zip.slice(0,5);
-    zip = Number(zip);
-    if (Number.isInteger(zip)) {
+    const zipN = Number(zip);
+    if (Number.isInteger(zipN)) {
       setValues(zip);
     }
   }

@@ -4,9 +4,8 @@ import SideBar from '../sidebar/sidebarPetSearch.jsx';
 import DogCard from '../card/dogCard.jsx';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 
-// const dogArray = new Array(12).fill('dog');
-let height = screen.height;
 
 const dropDownFilters = {
   'Distance': ['None',5,10,25,50],
@@ -28,6 +27,9 @@ const PetSearch = () => {
   const [dogArray, setDogArray] = useState([]);
   const [breeds, setBreeds] = useState([]);
   const [active, setActive] = useState(false);
+  const { zipSearch } = useAuth();
+  const [ zipcode, setZipcode ] = zipSearch;
+  const [ mapDistance, setMapDistance ] = useState(10);
 
   const renderDogs = () => {
     if (dogArray && dogArray.length > 0) {
@@ -91,15 +93,25 @@ const PetSearch = () => {
     const config = {};
     setActive(false);
     if (filters) {
+      // if zipcode provided
+      // convert the zipcodenumber to string
+      // check that the length is 5
+      // if it is not then replace with context zipcode
+      //  if it is then update context zipcode to match and proceed
       if (filters.location) {
-        filters.location = filters.location.toString();
         if (filters.location.toString().length < 5) {
-          delete filters.location;
+          filters.location = zipcode;
+        } else {
+          setZipcode(filters.location);
         }
+      }
+      if (filters.distance) {
+        setMapDistance(filters.distance);
       }
       config.params = filters
     }
 
+    console.log(config);
     axios.get('/adopt', config)
       .then((data)=> {
         setDogArray(data.data);
@@ -150,6 +162,7 @@ const PetSearch = () => {
           checkboxs={traits}
           getDogs={getDogs}
           active={active}
+          distance={mapDistance}
         />
       </Grid>
 
