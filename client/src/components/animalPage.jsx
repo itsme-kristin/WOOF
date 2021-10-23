@@ -15,6 +15,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import EmailIcon from '@mui/icons-material/Email';
+import PublicIcon from '@mui/icons-material/Public';
 import { useAuth } from '../contexts/AuthContext.jsx';
 
 const style = {
@@ -29,39 +30,43 @@ const AnimalPage = (props) => {
   const [userDataState, setUserDataState] = userData;
   const [dogOverviewState, setDogOverviewState] = dogOverview;
   const [ activeButton, setActiveButton ] = useState(false);
+  const [ orgName, setOrgName ] = useState([]);
+  const [ orgWebsite, setOrgWebsite ] = useState([]);
   const [ otherPets, setOtherPets ] = useState([]);
 
   const handleButtonClick = (event) => {
-      if (activeButton) {
-        setActiveButton(false);
-        axios.put('/deleteDog', {email: userDataState.email, id: dogOverviewState.id})
-        .then(response => {
-          console.info('Dog deleted');
-        })
-        .catch(err => {
-          console.error(err);
-        })
-      } else {
-        setActiveButton(true);
-        axios.put('/saveDog', {email: userDataState.email, dogObj: dogOverviewState})
-        .then(response => {
-          console.info('Dog saved!');
-        })
-        .catch(err => {
-          console.error(err);
-        })
-      }
-    };
+    if (activeButton) {
+      setActiveButton(false);
+      axios.put('/deleteDog', {email: userDataState.email, id: dogOverviewState.id})
+      .then(response => {
+        console.info('Dog deleted');
+      })
+      .catch(err => {
+        console.error(err);
+      })
+    } else {
+      setActiveButton(true);
+      axios.put('/saveDog', {email: userDataState.email, dogObj: dogOverviewState})
+      .then(response => {
+        console.info('Dog saved!');
+      })
+      .catch(err => {
+        console.error(err);
+      })
+    }
+  };
 
   useEffect(()=> {
     axios.get(`/organization?id=${dogOverviewState.organization_id}`)
     .then((response) => {
+      setOrgName(response.data[0]);
+      setOrgWebsite(response.data[1]);
       setOtherPets(response.data[2]);
     })
     .catch((err)=> {
       console.log('error in retrieving other pets from this organization');
     })
-  },[]);
+  }, []);
 
   return (
     <Box>
@@ -174,7 +179,7 @@ const AnimalPage = (props) => {
         </Grid>
         <Grid item xs={12} sx={{marginRight: '15px'}}>
           <Card sx={{height:"100%", padding:"10px"}}>
-            <Typography variant="h5">{dogOverviewState.organization_name}</Typography>
+            <Typography variant="h5">{orgName}</Typography>
             <br />
             <Typography variant="body1">
               {dogOverviewState.contact.address.address1}
@@ -187,13 +192,15 @@ const AnimalPage = (props) => {
             </Typography>
             <br />
             <Typography variant="body1">
-              {(<EmailIcon />)}{' '}
-              <Link href={`mailto:${dogOverviewState.contact.email}`}>
-                {dogOverviewState.contact.email}
-              </Link>
+              {dogOverviewState.contact.email !== null ? (<Link href={`mailto:${dogOverviewState.contact.email}`}><EmailIcon />
+                {' '}{dogOverviewState.contact.email}
+              </Link>) : null}
             </Typography>
             <Typography variant="body1">
-              {(<PhoneIphoneIcon />)}{' '}{dogOverviewState.contact.phone}
+              {dogOverviewState.contact.phone !== null ? (<><PhoneIphoneIcon />{' '}{dogOverviewState.contact.phone}</>) : null}
+            </Typography>
+            <Typography variant="body1">
+              {orgWebsite !== null ? (<a href={orgWebsite}> <PublicIcon />{' '}{orgWebsite}</a>) : null}
             </Typography>
           </Card>
         </Grid>
