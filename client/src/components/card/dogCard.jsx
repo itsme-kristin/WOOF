@@ -323,9 +323,9 @@ const DogCard = props => {
         >
           <CardActions
             onClick={handleIconClick}
-            style={{ float: 'right' }}
             sx={{
-              padding: '5px'
+              padding: '5px',
+              float: 'right'
             }}
           >
             {getIcon()}
