@@ -1,12 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './app.jsx';
-import theme from './theme.jsx';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./app.jsx";
+import theme from "./theme.jsx";
+import AuthProvider from "./contexts/AuthContext.jsx";
 
-import { ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider } from "@mui/material/styles";
 
 ReactDOM.render(
-<ThemeProvider theme={theme}>
-<App />
-</ThemeProvider>
-, document.getElementById('app'));
+  <ThemeProvider theme={theme}>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </ThemeProvider>,
+  document.getElementById("app")
+);

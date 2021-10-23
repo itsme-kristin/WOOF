@@ -19,6 +19,7 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -273,6 +274,7 @@ const AuthProvider = ({ children }) => {
     //   setUserData(JSON.parse(data));
     // }
     setDogOverview(JSON.parse(window.localStorage.getItem("dogOverview")));
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -324,6 +326,7 @@ const AuthProvider = ({ children }) => {
     ],
     dogOverview: [dogOverview, setDogOverview],
     breedOverview: [breedOverview, setBreedOverview],
+    isLoading: [isLoading, setIsLoading],
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
