@@ -14,7 +14,7 @@ const dropDownFilters = {
 }
 
 
-const PetRearch = () => {
+const PetResearch = () => {
   const [dogArray, setDogArray] = useState( [] );
   const [breeds, setBreeds] = useState ([]);
   const [active, setActive] = useState(false);
@@ -28,7 +28,7 @@ const PetRearch = () => {
             description = description.length > 15 ? description.slice(0,15) : description;
           }
           return (
-            <div style={{marginBottom: '20px'}}>
+            <div style={{marginBottom: '20px'}} key={index}>
               <DogCard
                 key={index}
                 orientation={'landscape'}
@@ -71,7 +71,7 @@ const PetRearch = () => {
       url += '?';
       for (const filter in filters) {
         let key = filter;
-        key = 'breed group' ? 'breed_group' : key;
+        key = key === 'breed group' ? 'breed_group' : key;
         let value = filters[filter];
         url += `${key}=${value}`;
         url += '&';
@@ -79,10 +79,9 @@ const PetRearch = () => {
       url = url.slice(0, length - 1) ;
     }
 
-    console.log(url);
+
     axios.get(url)
     .then((data)=> {
-      console.log(data.data);
       setActive(true);
       setDogArray(data.data);
       compileBreeds(data.data);
@@ -160,4 +159,4 @@ const PetRearch = () => {
   )
 }
 
-export default PetRearch;
+export default PetResearch;
