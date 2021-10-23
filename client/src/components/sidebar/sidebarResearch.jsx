@@ -52,7 +52,7 @@ const ResearchSidebar = (props) => {
   },[props.breeds])
 
   const handleSubmit = (event) => {
-    console.log(activeFilters);
+    // console.log(activeFilters);
     getBreeds(activeFilters);
   }
 

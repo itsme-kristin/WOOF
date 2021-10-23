@@ -107,6 +107,7 @@ const PetSearch = () => {
       })
       .catch((error) => {
         console.log(error);
+        setActive(true);
       })
   }
 

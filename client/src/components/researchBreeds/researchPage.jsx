@@ -13,13 +13,6 @@ const dropDownFilters = {
   'Temperament': ['None','Playful', 'Loyal', 'Independent', 'Intelligent', 'Happy', 'Friendly', 'Devoted', 'Reserved', 'Gentle', 'Confident', 'Loving', 'Alert', 'Fearless', 'Spirited', 'Agile', 'Active', 'Courageous', 'Kind', 'Reliable', 'Trustworthy', 'Powerful', 'Sensitive', 'Watchful', 'Inquisitive', 'Cheerful', 'Tolerant'],
 }
 
-const filterConversion = {
-  'Temperament': 'temperament',
-  'Breed Group': 'breed_group',
-  'Sporting' : 'sporting',
-  'Size' : 'size',
-}
-
 
 const PetRearch = () => {
   const [dogArray, setDogArray] = useState( [] );
@@ -77,7 +70,8 @@ const PetRearch = () => {
     if (filters) {
       url += '?';
       for (const filter in filters) {
-        let key = filterConversion[filter];
+        let key = filter;
+        key = 'breed group' ? 'breed_group' : key;
         let value = filters[filter];
         url += `${key}=${value}`;
         url += '&';
@@ -85,14 +79,17 @@ const PetRearch = () => {
       url = url.slice(0, length - 1) ;
     }
 
+    console.log(url);
     axios.get(url)
     .then((data)=> {
+      console.log(data.data);
       setActive(true);
       setDogArray(data.data);
       compileBreeds(data.data);
     })
     .catch((error)=> {
       console.log(error);
+      setActive(true);
     })
   }
 

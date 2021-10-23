@@ -134,18 +134,13 @@ const Sidebar = (props) => {
         >
           <Button
             variant="contained"
+            disabled={!active}
             style={{ marginRight: "20px" }}
             onClick={handleSubmit}
           >
-            <Button
-              variant="contained"
-              disabled={!active}
-              style={{marginRight:'20px'}}
-              onClick={handleSubmit}
-            >
-              Apply
-            </Button>
-          </Grid>
+            Apply
+          </Button>
+        </Grid>
       </Grid>
     </div>
   );
