@@ -12,9 +12,8 @@ import FullHeart from '@mui/icons-material/Favorite';
 import EmptyStar from '@mui/icons-material/StarBorder';
 import FullStar from '@mui/icons-material/Star';
 import Grid from '@mui/material/Grid';
-// import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
-// import Circle from '@mui/icons-material/Circle';
 import { Link } from 'react-router-dom';
+import { CardActionArea } from '@mui/material';
 
 const height = { landscape: 200, portrait: 252 };
 const width = { landscape: 252, portrait: 200 };
@@ -314,40 +313,43 @@ const DogCard = props => {
         height: height[orientation]
       }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          width: width[orientation]
-        }}
-      >
-        <CardActions
-          onClick={handleIconClick}
-          style={{ float: 'right' }}
-          sx={{
-            padding: '5px'
+
+      <CardActionArea>
+        <div
+          style={{
+            position: 'absolute',
+            width: width[orientation]
           }}
         >
-          {getIcon()}
-        </CardActions>
-      </div>
-      {getImage()}
-      <CardContent
-        sx={{
-          px: '4px',
-          py: '0px'
-        }}
-      >
-        <Grid
-          container
-          direction='column'
-          justifyContent='center'
-          alignItems='center'
-          height={height[orientation] - 150}
-          onClick={handleClick}
+          <CardActions
+            onClick={handleIconClick}
+            sx={{
+              padding: '5px',
+              float: 'right'
+            }}
+          >
+            {getIcon()}
+          </CardActions>
+        </div>
+        {getImage()}
+        <CardContent
+          sx={{
+            px: '4px',
+            py: '0px'
+          }}
         >
-          {getText()}
-        </Grid>
-      </CardContent>
+          <Grid
+            container
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
+            height={height[orientation] - 150}
+            onClick={handleClick}
+          >
+            {getText()}
+          </Grid>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 };

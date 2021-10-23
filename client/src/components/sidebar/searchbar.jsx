@@ -14,9 +14,12 @@ const SearchBar = (props) => {
   const [values, setValues] = useState('');
 
   const handleChange = (event) => {
-    let str = event.target.value;
-    str = str.length > 5 ? str.slice(0,5) : str;
-    setValues(str);
+    let zip = event.target.value;
+    zip = zip.slice(0,5);
+    zip = Number(zip);
+    if (Number.isInteger(zip)) {
+      setValues(zip);
+    }
   }
 
   useEffect(()=>{

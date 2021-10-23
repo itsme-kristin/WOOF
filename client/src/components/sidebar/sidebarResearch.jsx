@@ -3,7 +3,6 @@ import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import SearchBar from './searchbar.jsx';
 import Dropdown from './dropdown.jsx';
 import ComparisonModal from '../comparisonModal/comparisonModal.jsx';
 
@@ -164,9 +163,6 @@ const ResearchSidebar = (props) => {
           overflow: 'scroll'
         }}
       >
-        <br />
-        <SearchBar updateFilter={updateFilter}/>
-        <br />
 
         <Grid
           id='testing'
