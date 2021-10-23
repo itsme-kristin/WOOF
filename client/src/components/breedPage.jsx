@@ -167,7 +167,6 @@ const BreedPage = props => {
               Breed origin: {breedOverviewState?.origin ? breedOverviewState.origin : 'N/A' }
             </Typography>
             <Typography variant='body1'>
-              {console.log('descr', description.length)}
               Description: {(description.length !== 0) ? description : 'N/A'}
             </Typography>
           </Grid>
@@ -186,8 +185,8 @@ const BreedPage = props => {
           </Grid>
         </Grid>
         <Grid item xs={4} sx={{marginLeft: ' 15px'}}>
-          <Card sx={{ height: '100%', backgroundColor: '#C6AC8F' }}>
-            <Typography variant='h5' sx={{align:'center'}}> Breed Temperament </Typography>
+          <Card sx={{ height: '100%', backgroundColor: '#C6AC8F', padding:'5px'}}>
+            <Typography variant='h5' sx={{alignItems:'center'}}> Breed Temperament </Typography>
             <Typography variant='body1' component='ul' sx={{marginTop:'10px'}}>
               {temperament.map((elem, i) => {
                 return <li key={i}>{elem}</li>;
