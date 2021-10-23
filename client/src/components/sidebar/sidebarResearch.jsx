@@ -8,6 +8,7 @@ import Dropdown from './dropdown.jsx';
 import ComparisonModal from '../comparisonModal/comparisonModal.jsx';
 
 const ResearchSidebar = (props) => {
+  const getBreeds = props.getBreeds;
   const [dropDownFilters] = useState(props.dropdowns);
   const [breeds, setBreeds] = useState(props.breeds || []);
 
@@ -15,8 +16,10 @@ const ResearchSidebar = (props) => {
   const [breed1, setBreed1] = useState('Affenpinscher');
   const [breed2, setBreed2] = useState('Affenpinscher');
 
+  const active = props.active;
+
   const updateFilter = (key, value) => {
-    if (value) {
+    if (value && value !== 'None') {
       setActiveFilters({ ...activeFilters, [key]: value });
     } else {
       delete activeFilters[key];
@@ -49,7 +52,8 @@ const ResearchSidebar = (props) => {
   },[props.breeds])
 
   const handleSubmit = (event) => {
-    console.log(activeFilters);
+    // console.log(activeFilters);
+    getBreeds(activeFilters);
   }
 
 
@@ -93,7 +97,7 @@ const ResearchSidebar = (props) => {
             // key={index}
             text='breeds'
             style={{float:'left'}}
-            updateFilter={updateFilter}
+            // updateFilter={updateFilter}
             values={breeds}
           />
         </Grid>
@@ -188,6 +192,7 @@ const ResearchSidebar = (props) => {
             alignItems="center"
           >
             <Button
+              disabled={!active}
               variant="contained"
               // style={{marginRight:'20px'}}
               onClick={handleSubmit}

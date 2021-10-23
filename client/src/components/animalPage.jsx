@@ -34,12 +34,32 @@ const AnimalPage = (props) => {
   const [ orgWebsite, setOrgWebsite ] = useState([]);
   const [ otherPets, setOtherPets ] = useState([]);
 
+  useEffect(() => {
+    if (userDataState.email !== '') {
+      for (let i = 0; i < userDataState.savedDogs.length; i++) {
+        if (userDataState.savedDogs[i].id === dogOverviewState.id) {
+          setActiveButton(true);
+          break;
+        }
+      }
+    }
+  }, [userDataState]);
+
   const handleButtonClick = (event) => {
     if (activeButton) {
       setActiveButton(false);
       axios.put('/deleteDog', {email: userDataState.email, id: dogOverviewState.id})
       .then(response => {
         console.info('Dog deleted');
+        const oldState = userDataState;
+        for (let i = 0; i < oldState.savedDogs.length; i++) {
+          let currentDog = oldState.savedDogs[i];
+          if (currentDog.id === dogOverviewState.id) {
+            oldState.savedDogs.splice(i, 1);
+            break;
+          }
+        }
+        setUserDataState(oldState);
       })
       .catch(err => {
         console.error(err);
@@ -49,6 +69,9 @@ const AnimalPage = (props) => {
       axios.put('/saveDog', {email: userDataState.email, dogObj: dogOverviewState})
       .then(response => {
         console.info('Dog saved!');
+        const oldState = userDataState;
+        oldState.savedDogs.unshift(dogOverviewState);
+        setUserDataState(oldState);
       })
       .catch(err => {
         console.error(err);

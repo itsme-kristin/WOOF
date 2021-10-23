@@ -27,11 +27,11 @@ const traits = {
 const PetSearch = () => {
   const [dogArray, setDogArray] = useState([]);
   const [breeds, setBreeds] = useState([]);
+  const [active, setActive] = useState(false);
 
   const renderDogs = () => {
     if (dogArray && dogArray.length > 0) {
       return dogArray.map((dog, index) => {
-        // console.log('dog: ', dog);
         let name = dog.name.slice(0, 15);
         let description = `${dog.age} ${dog.breeds.primary}`;
         if (description) {
@@ -41,7 +41,7 @@ const PetSearch = () => {
         if (dog.photos.length > 0) {
           return (
 
-            <div style={{marginBottom: '20px'}}>
+            <div style={{marginBottom: '20px'}} key={index}>
               <DogCard
                 key={index}
                 type={'heart'}
@@ -54,7 +54,7 @@ const PetSearch = () => {
           )
         } else {
           return (
-            <div style={{marginBottom: '20px'}}>
+            <div style={{marginBottom: '20px'}} key={index}>
               <DogCard
                 key={index}
                 type={'heart'}
@@ -66,11 +66,20 @@ const PetSearch = () => {
           )
         }
       });
+    } else {
+      return (
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          component="div"
+          sx={{width:'168px', margin: '0 auto'}}>
+          No Matching Dogs
+        </Typography>
+      )
     }
   };
 
   const compileBreeds = (breedArr) => {
-    // console.log(breedArr);
     let breedNames = [];
     breedArr.map((breed) => {
       breedNames.push(breed.name);
@@ -79,12 +88,18 @@ const PetSearch = () => {
   };
 
   const getDogs = (filters) => {
-    axios.get('/adopt')
+    const config = {};
+    setActive(false);
+    if (filters) {
+      config.params = filters
+    }
+
+    axios.get('/adopt', config)
       .then((data)=> {
-        // console.log(data.data);
         setDogArray(data.data);
       })
       .then((data) => {
+        setActive(true);
         return axios.get("/breed-details");
       })
       .then((data) => {
@@ -92,6 +107,7 @@ const PetSearch = () => {
       })
       .catch((error) => {
         console.log(error);
+        setActive(true);
       })
   }
 
@@ -127,6 +143,7 @@ const PetSearch = () => {
           breeds={breeds}
           checkboxs={traits}
           getDogs={getDogs}
+          active={active}
         />
       </Grid>
 

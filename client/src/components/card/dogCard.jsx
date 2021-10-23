@@ -63,6 +63,7 @@ const DogCard = props => {
 
   const handleIconClick = event => {
     if (orientation === 'portrait') {
+      // console.log(dogObj)
       if (activeIcon) {
         setActiveIcon(false);
         axios
@@ -102,6 +103,7 @@ const DogCard = props => {
       }
     } else {
       if (activeIcon) {
+        // console.log(breedObj)
         setActiveIcon(false);
         axios
           .put('/deleteBreed', { email: userDataState.email, id: breedObj.id })
@@ -121,6 +123,7 @@ const DogCard = props => {
             console.error(err);
           });
       } else {
+        console.log(breedObj)
         setActiveIcon(true);
         axios
           .put('/saveBreed', { email: userDataState.email, breedObj: breedObj })
@@ -260,7 +263,7 @@ const DogCard = props => {
       } else {
         return (
           <Link to='/animal'>
-            <CardMedia component='div' alt='no image' sx={noimgstyle}>
+            <CardMedia component="div" alt='no image' sx={noimgstyle} onClick={handleClick}>
               No Image Provided
             </CardMedia>
           </Link>

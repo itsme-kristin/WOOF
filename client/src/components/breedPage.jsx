@@ -24,6 +24,17 @@ const BreedPage = props => {
   const [description, setDescription] = useState([]);
 
   useEffect(() => {
+    if (userDataState.email !== '') {
+      for (let i = 0; i < userDataState.savedBreeds.length; i++) {
+        if (userDataState.savedBreeds[i].id === breedOverviewState.id) {
+          setActiveIcon(true);
+          break;
+        }
+      }
+    }
+  }, [userDataState]);
+
+  useEffect(() => {
     axios
       .get(`/breed-name?name=${breedOverviewState.name}`)
       .then(response => {
@@ -47,9 +58,6 @@ const BreedPage = props => {
 
   const temperament = breedOverviewState.temperament.split(', ');
 
-  const handleClick = event => {
-    setActiveIcon(!activeIcon);
-  };
   const getIcon = () => {
     let icon = <div />;
     if (activeIcon) {
@@ -92,6 +100,15 @@ const BreedPage = props => {
         })
         .then(response => {
           console.info('Breed deleted');
+          const oldState = userDataState;
+          for (let i = 0; i < oldState.savedBreeds.length; i++) {
+            let currentBreed = oldState.savedBreeds[i];
+            if (currentBreed.id === breedOverviewState.id) {
+              oldState.savedBreeds.splice(i, 1);
+              break;
+            }
+          }
+          setUserDataState(oldState);
         })
         .catch(err => {
           console.error(err);
@@ -105,6 +122,9 @@ const BreedPage = props => {
         })
         .then(response => {
           console.info('Breed saved!');
+          const oldState = userDataState;
+          oldState.savedBreeds.unshift(breedOverviewState);
+          setUserDataState(oldState);
         })
         .catch(err => {
           console.error(err);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,12 +13,8 @@ const Dropdown = (props) => {
 
   const handleChange = (event) => {
     setActiveValue(event.target.value);
+    updateFilter(text.toLowerCase(), event.target.value);
   }
-
-  useEffect(()=>{
-    // console.log(text, values.indexOf(activeValue));
-    updateFilter(text, activeValue);
-  }, [activeValue])
 
   return (
     <TextField
