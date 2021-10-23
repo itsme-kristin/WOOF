@@ -191,7 +191,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
 Our team used Agile workflow for this sprint.
 
 ## Trello
-A Trello board was used to create and track tickets.  We held daily scrum meetings to discuss accomplishments, challenges, and upcoming tickets.  To effectively collaborate remotely while allowing for quick communication if needed, we utilized Discord, Slack, and Zoom.
+A Trello board was used to create and track tickets.  We held daily meetings to discuss accomplishments, challenges, and upcoming tickets.  To effectively collaborate remotely while allowing for quick communication if needed, we utilized Discord and Zoom.
 
 ## Version Control
 We implemented Git Feature Branch Workflow.  All pull requests in Github were reviewed by another team member before being merged into the main branch.
