@@ -220,11 +220,6 @@ We pulled our breed information from...and then we...you can use whichever API t
 <hr />
 <br />
 
-# APIs <a name="apis"></a>
-
-<hr />
-<br />
-
 # Installation <a name="install"></a>
 
 <br />
@@ -283,3 +278,8 @@ npm install
 ```
 npm start
 ```
+
+# APIs <a name="apis"></a>
+
+<hr />
+<br />
