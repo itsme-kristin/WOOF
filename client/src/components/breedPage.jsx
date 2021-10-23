@@ -56,7 +56,7 @@ const BreedPage = props => {
       });
   }, []);
 
-  const temperament = breedOverviewState.temperament.split(', ');
+  const temperament = (breedOverviewState?.temperament ? breedOverviewState.temperament.split(', ') : ['']);
 
   const getIcon = () => {
     let icon = <div />;
@@ -133,12 +133,12 @@ const BreedPage = props => {
   };
 
   return (
-    <Box sx={{ marginTop: '10px', padding: 25 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
+    <Box>
+      <Grid container spacing={3} marginTop='4px'>
+        <Grid item xs={4} sx={{ marginLeft: '15px'}}>
           <Card>
             <CardMedia
-              image={breedOverviewState.image.url}
+              image={(breedOverviewState.image?.url ? breedOverviewState.image.url : undefined)}
               alt='Oliver the dog'
               sx={{
                 width: '100%',
@@ -184,10 +184,10 @@ const BreedPage = props => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={3} sx={{marginLeft: ' 15px' , marginRight: '15px'}}>
           <Card sx={{ height: '100%', backgroundColor: '#C6AC8F' }}>
-            <Typography variant='h5'> Breed Temperament </Typography>
-            <Typography variant='body2' component='ul'>
+            <Typography variant='h5' align='center'> Breed Temperament </Typography>
+            <Typography variant='body2' component='ul' marginTop='10px'>
               {temperament.map((elem, i) => {
                 return <li key={i}>{elem}</li>;
               })}
@@ -195,7 +195,6 @@ const BreedPage = props => {
           </Card>
         </Grid>
         <Grid item container spacing={1} xs={8} sx={{ height: '100%' }}>
-          {/* map over the organizations array and populate this section with organizationCards */}
           {organizations.map((elem, i) => {
             return (
               <Grid item key={i}>
@@ -204,12 +203,11 @@ const BreedPage = props => {
             );
           })}
         </Grid>
-        <Grid height='315' width='315' item xs={4} sx={{ height: '100%' }}>
+        <Grid item xs={12} align='center' sx={{ height: '100%'}}>
           <Box
             id='googleMap'
             sx={{
-              width: 315,
-              height: 315,
+              width: 500,
               backgroundColor: 'white',
               '&:hover': {
                 backgroundColor: 'primary.main',
