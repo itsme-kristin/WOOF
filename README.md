@@ -124,6 +124,10 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
 - Click on a card to see more information about the dog or breed
 - Click on an icon to add more remove from your favorites.
 
+
+</hr>
+</br>
+
 # Stack
 
 <table>
@@ -179,6 +183,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
       <td>
         <img alt="Firebase" src="https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase"/>
         <img alt="MongoDB Atlas" src="https://img.shields.io/badge/MongoDB Atlas-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/>
+        <img alt="AWS" src="https://img.shields.io/badge/AWS%20-%23FF9900.svg?&style=for-the-badge&logo=amazon-aws&logoColor=white"/>
       </td>
     </tr>
   </tbody>
