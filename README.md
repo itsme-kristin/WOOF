@@ -216,14 +216,34 @@ We implemented Git Feature Branch Workflow.  All pull requests in Github were re
 
 # Links <a name="links"></a>
 
-<img src="./media/HomePage.png" width="150" alt="Home Page">
-<img src="./media/UserProfile.png" width="150" alt="User Profile">
-<img src="./media/AdoptPage.png" width="150" alt="Adopt Page">
-<img src="./media/DogOverview.png" width="150" alt="Dog Overview">
-<img src="./media/ResearchBreeds.png" width="150" alt="Research Breeds">
-<img src="./media/BreedOverview.png" width="150" alt="Breed Overview">
-<br />
 <a href="https://www.figma.com/file/KaLenlfZ7lHquYeXoVAdh1/Woof?node-id=0%3A1">Link to Figma Wireframes</a>
+
+<table>
+ <tbody>
+  <tr>
+   <td>
+    <img src="./media/HomePage.png" width="150" alt="Home Page">
+   </td>
+   <td>
+    <img src="./media/UserProfile.png" width="150" alt="User Profile">
+   </td>
+   <td>
+    <img src="./media/AdoptPage.png" width="150" alt="Adopt Page">
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <img src="./media/DogOverview.png" width="150" alt="Dog Overview">
+   </td>
+   <td>
+    <img src="./media/ResearchBreeds.png" width="150" alt="Research Breeds">
+   </td>
+   <td>
+    <img src="./media/BreedOverview.png" width="150" alt="Breed Overview">
+   </td>
+  </tr>
+ </tbody>
+</table>
 
 <a href="https://www.notion.so/Woof-Engineering-Journal-0bced2f6f68b4d48995b9700d367e65f">Link to Engineering Journal - WOOF</a>
 
