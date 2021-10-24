@@ -54,7 +54,7 @@
 # About the Project <a name="about"></a>
 Woof is a one-stop shop for a user to research dog breeds, find a pet nearby ready for its forever home, and locate nearby groomers. The user can create an authenticated account to save their favorite dogs and breeds and have a tailored experience based on their location.
 
-THIS WILL BE A GIF OF LANDING PAGE
+<img src="./media/HomePageScreen.png" alt="woof home page screen" />
 
 ## Key Features
 - User authentication
@@ -66,7 +66,7 @@ THIS WILL BE A GIF OF LANDING PAGE
 
 ## Home Page
 
-THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE HOME PAGE
+<img src="./media/HomePageDemo.gif" alt="woof home page demo" />
 
 - Click on a dog to see more information
 - Click the heart icon to add dog to your favorites or delete
@@ -75,7 +75,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE HOME PAGE
 
 ## User Authentication
 
-THIS WILL BE A GIF OF THE FUNCTIONALITY OF USER AUTHENTICATION
+<img src="./media/Authentication.gif" alt="woof authentication" />
 
 - Click on SIGN UP  to create a new account
 - Enter information that will be used for authentication and website personalization
@@ -84,7 +84,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF USER AUTHENTICATION
 
 ## Adopt
 
-THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE ADOPT PAGE
+<img src="./media/Adopt.gif" alt="woof adopt" />
 
 - Enter your zip code to find dogs near you
 - View map that shows your location and nearby organizations and groomers
@@ -95,7 +95,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE ADOPT PAGE
 
 ## Pet Overview
 
-THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE PET OVERVIEW
+<img src="./media/DogOverview.gif" alt="woof dog overview" />
 
 - View all pictures of the specific dog
 - View description of the dog
@@ -106,7 +106,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE PET OVERVIEW
 
 ## Breeds
 
-THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE BREEDS PAGE
+<img src="./media/Breeds.gif" alt="woof breeds" />
 
 - View all dog breeds available for research
 - Filter dog breeds based on breed group, size, temperament
@@ -116,7 +116,7 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE BREEDS PAGE
 
 ## Breed Overview
 
-THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE BREED OVERVIEW
+<img src="./media/BreedOverview.gif" alt="woof breed overview" />
 
 - View information about the selected breed
 - Click the star icon to add breed to your favorites or delete
@@ -125,14 +125,14 @@ THIS WILL BE A GIF OF THE FUNCTIONALITY OF THE BREED OVERVIEW
 
 ## My Profile
 
-THIS WILL BE A GIF OF THE FUNCTIONALITY OF MY PROFILE
+<img src="./media/UserProfile.gif" alt="woof user profile" />
 
 - View your information associated with your account
 - Update your information associated with your account
 - View your favorite breeds
 - View your favorite dogs
 - Click on a card to see more information about the dog or breed
-- Click on an icon to add more remove from your favorites.
+- Click on an icon to add more remove from your favorites
 
 
 </hr>
@@ -215,13 +215,19 @@ We implemented Git Feature Branch Workflow.  All pull requests in Github were re
 <br />
 
 # Links <a name="links"></a>
-We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
 
-<hr />
+<img src="./media/HomePage.png" width="150" alt="Home Page">
+<img src="./media/UserProfile.png" width="150" alt="User Profile">
+<img src="./media/AdoptPage.png" width="150" alt="Adopt Page">
+<img src="./media/DogOverview.png" width="150" alt="Dog Overview">
+<img src="./media/ResearchBreeds.png" width="150" alt="Research Breeds">
+<img src="./media/BreedOverview.png" width="150" alt="Breed Overview">
 <br />
+<a href="https://www.figma.com/file/KaLenlfZ7lHquYeXoVAdh1/Woof?node-id=0%3A1">Link to Figma Wireframes</a>
 
-# APIs <a name="apis"></a>
+<a href="https://www.notion.so/Woof-Engineering-Journal-0bced2f6f68b4d48995b9700d367e65f">Link to Engineering Journal - WOOF</a>
 
+We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
 <hr />
 <br />
 
@@ -283,3 +289,8 @@ npm install
 ```
 npm start
 ```
+
+# APIs <a name="apis"></a>
+
+<hr />
+<br />
