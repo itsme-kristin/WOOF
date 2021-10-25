@@ -1,6 +1,7 @@
 <h1 align="center"> WOOF</h1>
 
 # Contributors:
+
 <br />
 <img  align="left" class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/83591602?s=88&amp;v=4" width="44" height="44" alt="@aliciav-texas">
 
@@ -41,22 +42,24 @@
 
 # Table of Contents
 
- - [About this project](#about)
- - [Workflow](#workflow)
- - [Technologies](#technologies)
- - [Links](#links)
- - [Installation](#install)
- - [APIs](#apis)
+- [About this project](#about)
+- [Workflow](#workflow)
+- [Technologies](#technologies)
+- [Links](#links)
+- [Installation](#install)
+- [APIs](#apis)
 
 <hr />
 <br />
 
 # About the Project <a name="about"></a>
+
 Woof is a one-stop shop for a user to research dog breeds, find a pet nearby ready for its forever home, and locate nearby groomers. The user can create an authenticated account to save their favorite dogs and breeds and have a tailored experience based on their location.
 
 <img src="./media/HomePageScreen.png" alt="woof home page screen" />
 
 ## Key Features
+
 - User authentication
 - Displays dogs nearby available for adoption
 - Explore breeds and compare
@@ -77,7 +80,7 @@ Woof is a one-stop shop for a user to research dog breeds, find a pet nearby rea
 
 <img src="./media/Authentication.gif" alt="woof authentication" />
 
-- Click on SIGN UP  to create a new account
+- Click on SIGN UP to create a new account
 - Enter information that will be used for authentication and website personalization
 - Click on SIGN IN to access your account
 - Click on LOGOUT to exit your account
@@ -134,18 +137,20 @@ Woof is a one-stop shop for a user to research dog breeds, find a pet nearby rea
 - Click on a card to see more information about the dog or breed
 - Click on an icon to add more remove from your favorites
 
-
 </hr>
 </br>
 
 # Workflow <a name="workflow"></a>
+
 Our team used Agile workflow for this sprint.
 
 ## Trello
-A Trello board was used to create and track tickets.  We held daily meetings to discuss accomplishments, challenges, and upcoming tickets.  To effectively collaborate remotely while allowing for quick communication if needed, we utilized Discord and Zoom.
+
+A Trello board was used to create and track tickets. We held daily meetings to discuss accomplishments, challenges, and upcoming tickets. To effectively collaborate remotely while allowing for quick communication if needed, we utilized Discord and Zoom.
 
 ## Version Control
-We implemented Git Feature Branch Workflow.  All pull requests in Github were reviewed by another team member before being merged into the main branch.
+
+We implemented Git Feature Branch Workflow. All pull requests in Github were reviewed by another team member before being merged into the main branch.
 
 <hr />
 <br />
@@ -248,6 +253,7 @@ We implemented Git Feature Branch Workflow.  All pull requests in Github were re
 <a href="https://www.notion.so/Woof-Engineering-Journal-0bced2f6f68b4d48995b9700d367e65f">Link to Engineering Journal - WOOF</a>
 
 We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
+
 <hr />
 <br />
 
@@ -255,8 +261,7 @@ We pulled our breed information from...and then we...you can use whichever API t
 
 <br />
 
-
-WOOF requires both `NodeJs` and `npm` to run
+WOOF requires both `Node.js` and `npm` to run
 
 1. Download the repo using git
 
@@ -290,19 +295,21 @@ npm install
   FIREBASE_MESSAGING_SENDER_ID: '{{ Firebase Messaging Sender ID }}',
   FIREBASE_APP_ID: '{{ Firebase App ID }}',
 ```
- - **Note:** See the [Links](#links) section for these services to generate your authentication
+
+- **Note:** See the [Links](#links) section for these services to generate your authentication
 
 4. Run the Webpack compiler
 
- - In Production:<br>
-   ```
-   npm run build
-   ```
+- In Production:<br>
 
- - In Development:<br>
-   ```
-   npm run build-dev
-   ```
+  ```
+  npm run build
+  ```
+
+- In Development:<br>
+  ```
+  npm run build-dev
+  ```
 
 5. Start the Server
 
@@ -313,108 +320,109 @@ npm start
 # APIs <a name="apis"></a>
 
 `GET: /adopt`
- - **Description:** responds with a list of available adoptions
- - **Query Parameters:**
-   <table>
-    <thead>
-     <tr>
-      <th>Parameter</th>
-      <th>Type</th>
-      <th>Description</th>
-    </thead>
-    <tbody>
-     <tr>
-      <td>location</td>
-      <td>string</td>
-      <td>a string containing `"{latitude}, {longitude}"` or `"{5 digit postal code}"`</td>
-     </tr>
-     <tr>
-      <td>distance</td>
-      <td>number</td>
-      <td>a number representing the distance from location in multiples of 5</td>
-     </tr>
-     <tr>
-      <td>breed</td>
-      <td>string</td>
-      <td>a string representing the keyword for breed</td>
-     </tr>
-     <tr>
-      <td>size</td>
-      <td>string</td>
-      <td>one of four available options: `small`, `medium`, `large`, `xlarge`.</td>
-     </tr>
-     <tr>
-      <td>gender</td>
-      <td>string</td>
-      <td>one of two available options: `male`, `female`.</td>
-     </tr>
-     <tr>
-      <td>age</td>
-      <td>string</td>
-      <td>one of four available options: `baby`, `young`, `adult`, `senior`</td>
-     </tr>
-     <tr>
-      <td>coat</td>
-      <td>string</td>
-      <td>one of five available options: `short`, `medium`, `long`, `wire`, `hairless`.</td>
-     </tr>
-     <tr>
-      <td>good_with_children</td>
-      <td>boolean</td>
-      <td>filter dogs who are good with children</td>
-     </tr>
-     <tr>
-      <td>good_with_dogs</td>
-      <td>boolean</td>
-      <td>filter dogs who are good with other dogs</td>
-     </tr>
-     <tr>
-      <td>good_with_cats</td>
-      <td>boolean</td>
-      <td>filter dogs who are good with cats</td>
-     </tr>
-     <tr>
-      <td>house_trained</td>
-      <td>boolean</td>
-      <td>filter dogs who have already been determined to be house trained</td>
-     </tr>
-     <tr>
-      <td>special_needs</td>
-      <td>boolean</td>
-      <td>filter dogs with special needs</td>
-     </tr>
-     <tr>
-      <td>limit</td>
-      <td>number</td>
-      <td>limits the number of adoption results provided in the response (default: 5)</td>
-     </tr>
-    </tbody>
-   </table>
 
+- **Description:** responds with a list of available adoptions
+- **Query Parameters:**
+  <table>
+   <thead>
+    <tr>
+     <th>Parameter</th>
+     <th>Type</th>
+     <th>Description</th>
+   </thead>
+   <tbody>
+    <tr>
+     <td>location</td>
+     <td>string</td>
+     <td>a string containing `"{latitude}, {longitude}"` or `"{5 digit postal code}"`</td>
+    </tr>
+    <tr>
+     <td>distance</td>
+     <td>number</td>
+     <td>a number representing the distance from location in multiples of 5</td>
+    </tr>
+    <tr>
+     <td>breed</td>
+     <td>string</td>
+     <td>a string representing the keyword for breed</td>
+    </tr>
+    <tr>
+     <td>size</td>
+     <td>string</td>
+     <td>one of four available options: `small`, `medium`, `large`, `xlarge`.</td>
+    </tr>
+    <tr>
+     <td>gender</td>
+     <td>string</td>
+     <td>one of two available options: `male`, `female`.</td>
+    </tr>
+    <tr>
+     <td>age</td>
+     <td>string</td>
+     <td>one of four available options: `baby`, `young`, `adult`, `senior`</td>
+    </tr>
+    <tr>
+     <td>coat</td>
+     <td>string</td>
+     <td>one of five available options: `short`, `medium`, `long`, `wire`, `hairless`.</td>
+    </tr>
+    <tr>
+     <td>good_with_children</td>
+     <td>boolean</td>
+     <td>filter dogs who are good with children</td>
+    </tr>
+    <tr>
+     <td>good_with_dogs</td>
+     <td>boolean</td>
+     <td>filter dogs who are good with other dogs</td>
+    </tr>
+    <tr>
+     <td>good_with_cats</td>
+     <td>boolean</td>
+     <td>filter dogs who are good with cats</td>
+    </tr>
+    <tr>
+     <td>house_trained</td>
+     <td>boolean</td>
+     <td>filter dogs who have already been determined to be house trained</td>
+    </tr>
+    <tr>
+     <td>special_needs</td>
+     <td>boolean</td>
+     <td>filter dogs with special needs</td>
+    </tr>
+    <tr>
+     <td>limit</td>
+     <td>number</td>
+     <td>limits the number of adoption results provided in the response (default: 5)</td>
+    </tr>
+   </tbody>
+  </table>
 
 `GET: /organization`
- - **Description:** responds with a list of available adoptions from a specified organization
- - **Query Parameters:**
-   <table>
-    <thead>
-     <tr>
-      <th>Parameter</th>
-      <th>Type</th>
-      <th>Description</th>
-    </thead>
-    <tbody>
-     <tr>
-      <td>id</td>
-      <td>string</td>
-      <td>a string value representing the organization id. (required value)</td>
-     </tr>
-    </tbody>
-   </table>
 
+- **Description:** responds with a list of available adoptions from a specified organization
+- **Query Parameters:**
+  <table>
+   <thead>
+    <tr>
+     <th>Parameter</th>
+     <th>Type</th>
+     <th>Description</th>
+   </thead>
+   <tbody>
+    <tr>
+     <td>id</td>
+     <td>string</td>
+     <td>a string value representing the organization id. (required value)</td>
+    </tr>
+   </tbody>
+  </table>
 
 `GET: /nearbyOrgs`
+
 - **Description:** response with a list of nearby organizations based on the location and distance.
-- **Query Paramters:**
+- **Query Parameters:**
    <table>
     <thead>
      <tr>
@@ -435,11 +443,11 @@ npm start
      </tr>
     </tbody>
   </table>
-  
-  
+
 `GET: /userData`
+
 - **Description:** retrieves a specific user from the database
-- **Query Paramters:**
+- **Query Parameters:**
    <table>
     <thead>
      <tr>
@@ -455,10 +463,11 @@ npm start
      </tr>
     </tbody>
    </table>
-   
+
 `POST: /userData`
+
 - **Description:** creates a new user record in the database excluding authentication info
-- **Body Paramters:**
+- **Body Parameters:**
    <table>
     <thead>
      <tr>
@@ -510,10 +519,10 @@ npm start
     </tbody>
    </table>
 
-
 `PUT: /userData`
+
 - **Description:** updates a specific user record based on the provided email
-- **Body Paramters:**
+- **Body Parameters:**
    <table>
     <thead>
      <tr>
@@ -564,11 +573,11 @@ npm start
      </tr>
     </tbody>
    </table>
-   
-   
+
 `PUT: /saveDog`
+
 - **Description:** adds a saved dog to the specific user record based on the provided email.
-- **Body Paramters:**
+- **Body Parameters:**
    <table>
     <thead>
      <tr>
@@ -589,11 +598,11 @@ npm start
      </tr>
     </tbody>
    </table>
-   
-   
+
 `PUT: /deleteDog`
+
 - **Description:** removes a saved dog from the specific user record based on the provided email
-- **Body Paramters:**
+- **Body Parameters:**
    <table>
     <thead>
      <tr>
@@ -614,11 +623,11 @@ npm start
      </tr>
     </tbody>
    </table>
-   
-   
+
 `PUT: /saveBreed`
+
 - **Description:** adds a saved breed to the specific user record based on the provided email.
-- **Body Paramters:**
+- **Body Parameters:**
    <table>
     <thead>
      <tr>
@@ -639,11 +648,11 @@ npm start
      </tr>
     </tbody>
    </table>
-   
-   
+
 `PUT: /deleteBreed`
+
 - **Description:** removes a saved breed from the specific user record based on the provided email
-- **Body Paramters:**
+- **Body Parameters:**
    <table>
     <thead>
      <tr>
@@ -664,11 +673,11 @@ npm start
      </tr>
     </tbody>
    </table>
-   
-   
+
 `GET: /breed-name`
+
 - **Description:** returns 3 organizations that have adoptions of the specified breed available
-- **Query Paramters:**
+- **Query Parameters:**
    <table>
     <thead>
      <tr>
@@ -691,11 +700,11 @@ npm start
      </tr>
     </tbody>
    </table>
-   
-   
+
 `GET: /breed-details`
+
 - **Description:** responds with a list of breeds based on the available filters
-- **Query Paramters:**
+- **Query Parameters:**
    <table>
     <thead>
      <tr>
@@ -726,5 +735,3 @@ npm start
      </tr>
     </tbody>
    </table>
-   
-   
