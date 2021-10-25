@@ -216,14 +216,34 @@ We implemented Git Feature Branch Workflow.  All pull requests in Github were re
 
 # Links <a name="links"></a>
 
-<img src="./media/HomePage.png" width="150" alt="Home Page">
-<img src="./media/UserProfile.png" width="150" alt="User Profile">
-<img src="./media/AdoptPage.png" width="150" alt="Adopt Page">
-<img src="./media/DogOverview.png" width="150" alt="Dog Overview">
-<img src="./media/ResearchBreeds.png" width="150" alt="Research Breeds">
-<img src="./media/BreedOverview.png" width="150" alt="Breed Overview">
-<br />
 <a href="https://www.figma.com/file/KaLenlfZ7lHquYeXoVAdh1/Woof?node-id=0%3A1">Link to Figma Wireframes</a>
+
+<table>
+ <tbody>
+  <tr>
+   <td>
+    <img src="./media/HomePage.png" width="150" alt="Home Page">
+   </td>
+   <td>
+    <img src="./media/UserProfile.png" width="150" alt="User Profile">
+   </td>
+   <td>
+    <img src="./media/AdoptPage.png" width="150" alt="Adopt Page">
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <img src="./media/DogOverview.png" width="150" alt="Dog Overview">
+   </td>
+   <td>
+    <img src="./media/ResearchBreeds.png" width="150" alt="Research Breeds">
+   </td>
+   <td>
+    <img src="./media/BreedOverview.png" width="150" alt="Breed Overview">
+   </td>
+  </tr>
+ </tbody>
+</table>
 
 <a href="https://www.notion.so/Woof-Engineering-Journal-0bced2f6f68b4d48995b9700d367e65f">Link to Engineering Journal - WOOF</a>
 
@@ -292,5 +312,419 @@ npm start
 
 # APIs <a name="apis"></a>
 
-<hr />
-<br />
+`GET: /adopt`
+ - **Description:** responds with a list of available adoptions
+ - **Query Parameters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>location</td>
+      <td>string</td>
+      <td>a string containing `"{latitude}, {longitude}"` or `"{5 digit postal code}"`</td>
+     </tr>
+     <tr>
+      <td>distance</td>
+      <td>number</td>
+      <td>a number representing the distance from location in multiples of 5</td>
+     </tr>
+     <tr>
+      <td>breed</td>
+      <td>string</td>
+      <td>a string representing the keyword for breed</td>
+     </tr>
+     <tr>
+      <td>size</td>
+      <td>string</td>
+      <td>one of four available options: `small`, `medium`, `large`, `xlarge`.</td>
+     </tr>
+     <tr>
+      <td>gender</td>
+      <td>string</td>
+      <td>one of two available options: `male`, `female`.</td>
+     </tr>
+     <tr>
+      <td>age</td>
+      <td>string</td>
+      <td>one of four available options: `baby`, `young`, `adult`, `senior`</td>
+     </tr>
+     <tr>
+      <td>coat</td>
+      <td>string</td>
+      <td>one of five available options: `short`, `medium`, `long`, `wire`, `hairless`.</td>
+     </tr>
+     <tr>
+      <td>good_with_children</td>
+      <td>boolean</td>
+      <td>filter dogs who are good with children</td>
+     </tr>
+     <tr>
+      <td>good_with_dogs</td>
+      <td>boolean</td>
+      <td>filter dogs who are good with other dogs</td>
+     </tr>
+     <tr>
+      <td>good_with_cats</td>
+      <td>boolean</td>
+      <td>filter dogs who are good with cats</td>
+     </tr>
+     <tr>
+      <td>house_trained</td>
+      <td>boolean</td>
+      <td>filter dogs who have already been determined to be house trained</td>
+     </tr>
+     <tr>
+      <td>special_needs</td>
+      <td>boolean</td>
+      <td>filter dogs with special needs</td>
+     </tr>
+     <tr>
+      <td>limit</td>
+      <td>number</td>
+      <td>limits the number of adoption results provided in the response (default: 5)</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+`GET: /organization`
+ - **Description:** responds with a list of available adoptions from a specified organization
+ - **Query Parameters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>id</td>
+      <td>string</td>
+      <td>a string value representing the organization id. (required value)</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+`GET: /nearbyOrgs`
+- **Description:** response with a list of nearby organizations based on the location and distance.
+- **Query Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>location</td>
+      <td>string</td>
+      <td>a string containing `"{latitude}, {longitude}"` or `"{5 digit postal code}"`. (required value)</td>
+     </tr>
+     <tr>
+      <td>distance</td>
+      <td>number</td>
+      <td>a number representing the distance from location in multiples of 5. (required value)</td>
+     </tr>
+    </tbody>
+  </table>
+  
+  
+`GET: /userData`
+- **Description:** retrieves a specific user from the database
+- **Query Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>email</td>
+      <td>string</td>
+      <td>a string representing the email address of the user. (required value)</td>
+     </tr>
+    </tbody>
+   </table>
+   
+`POST: /userData`
+- **Description:** creates a new user record in the database excluding authentication info
+- **Body Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>name</td>
+      <td>string</td>
+      <td>a string representing the name of the user</td>
+     </tr>
+     <tr>
+      <td>street_address</td>
+      <td>string</td>
+      <td>a string representing the full street address of the user</td>
+     </tr>
+     <tr>
+      <td>city</td>
+      <td>string</td>
+      <td>a string representing the user's city</td>
+     </tr>
+     <tr>
+      <td>state</td>
+      <td>string</td>
+      <td>a string representing the user's state (abbreviated)</td>
+     </tr>
+     <tr>
+      <td>zip</td>
+      <td>string</td>
+      <td>a string representing the user's 5 digit postal code</td>
+     </tr>
+     <tr>
+      <td>email</td>
+      <td>string</td>
+      <td>a string representing the user's email address.</td>
+     </tr>
+     <tr>
+      <td>lat</td>
+      <td>number</td>
+      <td>a number representing the user's latitude</td>
+     </tr>
+     <tr>
+      <td>lng</td>
+      <td>number</td>
+      <td>a number representing the user's longitude</td>
+     </tr>
+    </tbody>
+   </table>
+
+
+`PUT: /userData`
+- **Description:** updates a specific user record based on the provided email
+- **Body Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>email</td>
+      <td>string</td>
+      <td>a string representing the user's email address. (required value)</td>
+     </tr>
+     <tr>
+      <td>name</td>
+      <td>string</td>
+      <td>a string representing the name of the user</td>
+     </tr>
+     <tr>
+      <td>street_address</td>
+      <td>string</td>
+      <td>a string representing the full street address of the user</td>
+     </tr>
+     <tr>
+      <td>city</td>
+      <td>string</td>
+      <td>a string representing the user's city</td>
+     </tr>
+     <tr>
+      <td>state</td>
+      <td>string</td>
+      <td>a string representing the user's state (abbreviated)</td>
+     </tr>
+     <tr>
+      <td>zip</td>
+      <td>string</td>
+      <td>a string representing the user's 5 digit postal code</td>
+     </tr>
+     <tr>
+      <td>lat</td>
+      <td>number</td>
+      <td>a number representing the user's latitude</td>
+     </tr>
+     <tr>
+      <td>lng</td>
+      <td>number</td>
+      <td>a number representing the user's longitude</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+`PUT: /saveDog`
+- **Description:** adds a saved dog to the specific user record based on the provided email.
+- **Body Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>email</td>
+      <td>string</td>
+      <td>a string representing the user's email address. (required value)</td>
+     </tr>
+     <tr>
+      <td>dogObj</td>
+      <td>object</td>
+      <td>the dog object selected by the user when clicking the favorite icon (required object)</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+`PUT: /deleteDog`
+- **Description:** removes a saved dog from the specific user record based on the provided email
+- **Body Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>email</td>
+      <td>string</td>
+      <td>a string representing the user's email address. (required value)</td>
+     </tr>
+     <tr>
+      <td>dogObj</td>
+      <td>object</td>
+      <td>the dog object selected by the user when clicking the favorite icon (required object)</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+`PUT: /saveBreed`
+- **Description:** adds a saved breed to the specific user record based on the provided email.
+- **Body Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>email</td>
+      <td>string</td>
+      <td>a string representing the user's email address. (required value)</td>
+     </tr>
+     <tr>
+      <td>dogObj</td>
+      <td>object</td>
+      <td>the breed object selected by the user when clicking the favorite icon (required object)</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+`PUT: /deleteBreed`
+- **Description:** removes a saved breed from the specific user record based on the provided email
+- **Body Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>email</td>
+      <td>string</td>
+      <td>a string representing the user's email address. (required value)</td>
+     </tr>
+     <tr>
+      <td>dogObj</td>
+      <td>object</td>
+      <td>the breed object selected by the user when clicking the favorite icon (required object)</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+`GET: /breed-name`
+- **Description:** returns 3 organizations that have adoptions of the specified breed available
+- **Query Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>name</td>
+      <td>string</td>
+      <td>a string representing the name of the breed being searched for</td>
+     </tr>
+     <tr>
+     <tr>
+      <td>limit</td>
+      <td>number</td>
+      <td>limits the number of organizations provided in the response</td>
+     </tr>
+     </tr>
+    </tbody>
+   </table>
+   
+   
+`GET: /breed-details`
+- **Description:** responds with a list of breeds based on the available filters
+- **Query Paramters:**
+   <table>
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Type</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+     <tr>
+      <td>name</td>
+      <td>string</td>
+      <td>a string representing a keyword to filter the list of breeds displayed</td>
+     </tr>
+     <tr>
+      <td>group</td>
+      <td>string</td>
+      <td>a string representing a keyword to filter for a specific breed group</td>
+     </tr>
+     <tr>
+      <td>size</td>
+      <td>string</td>
+      <td>one of four available options: `small`, `medium`, `large`, `xlarge`.</td>
+     </tr>
+     <tr>
+      <td>temperament</td>
+      <td>string</td>
+      <td>a string representing a keyword to filter for a specific temperament</td>
+     </tr>
+    </tbody>
+   </table>
+   
+   
