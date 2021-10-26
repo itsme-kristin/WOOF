@@ -252,8 +252,6 @@ We implemented Git Feature Branch Workflow. All pull requests in Github were rev
 
 <a href="https://www.notion.so/Woof-Engineering-Journal-0bced2f6f68b4d48995b9700d367e65f">Link to Engineering Journal - WOOF</a>
 
-We pulled our breed information from...and then we...you can use whichever API that best suits your needs.
-
 <hr />
 <br />
 
