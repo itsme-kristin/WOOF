@@ -100,7 +100,6 @@ const ResearchSidebar = props => {
     }
   };
 
-  //needs to update breed1 to store breed1 information object
   const updateBreed1 = (key, value) => {
     axios
       .get(`/breed-name?name=${value}`)
@@ -128,14 +127,12 @@ const ResearchSidebar = props => {
   }, [props.breeds]);
 
   const handleSubmit = event => {
-    // console.log(activeFilters);
     getBreeds(activeFilters);
   };
 
   const getFilters = () => {
     if (dropDownFilters) {
       return Object.keys(dropDownFilters).map((filter, index) => {
-        // console.log(filter);
         return (
           <Grid item container alignItems='flex-start' id={filter} key={filter}>
             <Dropdown
@@ -152,15 +149,12 @@ const ResearchSidebar = props => {
   };
 
   const getBreedFilter = () => {
-    // console.log('breeds gotten');
     if (breeds.length > 0) {
       return (
         <Grid item container alignItems='flex-start' id='breeds' key='breeds'>
           <Dropdown
-            // key={index}
             text='breeds'
             style={{ float: 'left' }}
-            // updateFilter={updateFilter}
             values={breeds}
           />
         </Grid>
@@ -169,12 +163,10 @@ const ResearchSidebar = props => {
   };
 
   const getBreed1 = () => {
-    // console.log('breeds gotten');
     if (breeds.length > 0) {
       return (
         <Grid item container alignItems='flex-start' id='Breed1' key='Breed1'>
           <Dropdown
-            // key={index}
             text='Select first breed to compare'
             style={{ float: 'left' }}
             updateFilter={updateBreed1}
@@ -186,12 +178,10 @@ const ResearchSidebar = props => {
   };
 
   const getBreed2 = () => {
-    // console.log('breeds gotten');
     if (breeds.length > 0) {
       return (
         <Grid item container alignItems='flex-start' id='Breed2' key='Breed2'>
           <Dropdown
-            // key={index}
             text='Select 2nd breed to compare'
             style={{ float: 'left' }}
             updateFilter={updateBreed2}
