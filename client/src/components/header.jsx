@@ -69,14 +69,6 @@ const Header = () => {
                 </Button>
               </Link>
             </Grid>
-            {/* <Grid item xs={12} sm='auto'>
-                <Button
-                variant="text"
-                color='inherit'
-                startIcon={<RoomServiceIcon sx={icon}/>}>
-                  Services
-                </Button>
-              </Grid> */}
             <Grid item xs={12} sm='auto'>
               <Link to='/research'>
                 <Button
@@ -159,6 +151,5 @@ const Header = () => {
     </>
   );
 };
-//check out material ui's avatar component mixed with the menu component
 
 export default Header;
