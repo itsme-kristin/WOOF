@@ -50,14 +50,12 @@ const UserSignup = ({ history }) => {
           axios
             .post('/userData', params)
             .then(response => {
-              console.log('response from post: ', response.data);
               setUserDataState(response.data);
               history.push('/user');
             })
             .catch(error => {
               console.error(error);
             });
-          //set context for current user.email location (passed to homepage, and adopt), password, savedDog, savedBreed
         })
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {
@@ -69,7 +67,6 @@ const UserSignup = ({ history }) => {
           }
         });
     } else {
-      //error with matching passwords
       setErrorMessage('Passwords do not match');
     }
   };
