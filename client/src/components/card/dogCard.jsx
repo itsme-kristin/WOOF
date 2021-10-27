@@ -62,14 +62,12 @@ const DogCard = props => {
 
   const handleIconClick = event => {
     if (orientation === 'portrait') {
-      // console.log(dogObj)
       if (activeIcon) {
         setActiveIcon(false);
         axios
           .put('/deleteDog', { email: userDataState.email, id: dogObj.id })
           .then(response => {
             console.info('Dog deleted');
-            //remove from the userData array
             const oldState = userDataState;
             for (let i = 0; i < oldState.savedDogs.length; i++) {
               let currentDog = oldState.savedDogs[i];
@@ -78,7 +76,6 @@ const DogCard = props => {
                 break;
               }
             }
-            console.log(oldState, 'dog');
             setUserDataState(oldState);
           })
           .catch(err => {
@@ -90,10 +87,8 @@ const DogCard = props => {
           .put('/saveDog', { email: userDataState.email, dogObj: dogObj })
           .then(response => {
             console.info('Dog saved!');
-            //add to the userData array\
             const oldState = userDataState;
             oldState.savedDogs.unshift(dogObj);
-            console.log(oldState, 'dog');
             setUserDataState(oldState);
           })
           .catch(err => {
@@ -102,7 +97,6 @@ const DogCard = props => {
       }
     } else {
       if (activeIcon) {
-        // console.log(breedObj)
         setActiveIcon(false);
         axios
           .put('/deleteBreed', { email: userDataState.email, id: breedObj.id })
@@ -240,8 +234,6 @@ const DogCard = props => {
     }
   };
 
-  //heart, portrait = dog
-  //star, landscape = breed
   const getImage = () => {
     if (orientation === 'portrait') {
       if (image) {
