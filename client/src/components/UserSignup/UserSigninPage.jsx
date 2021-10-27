@@ -16,11 +16,9 @@ const UserSignIn = ({ history }) => {
       .then(userCredential => {
         setErrorMessage('');
         const user = userCredential.user;
-        console.log(emailRef.current.value);
         axios
           .get(`/userData?email=${emailRef.current.value}`)
           .then(response => {
-            console.log('get request response', response);
             setUserDataState(response.data);
           })
           .catch(error => {
