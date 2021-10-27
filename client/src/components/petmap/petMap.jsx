@@ -17,7 +17,6 @@ import PetsIcon from '@mui/icons-material/Pets';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 const googleMap = () => {
-  // === Context
   const { userData, organizationsBasedOnDistance, groomersBasedOnDistance } =
     useAuth();
   const [userDataState, setUserDataState] = userData;
@@ -29,7 +28,6 @@ const googleMap = () => {
   const [groomersBasedOnDistanceState, setGroomersBasedOnDistanceState] =
     groomersBasedOnDistance;
 
-  // === State
   const [selectedOrganization, setSelectedOrganization] = useState(null);
 
   const [selectedGroomer, setSelectedGroomer] = useState(null);
