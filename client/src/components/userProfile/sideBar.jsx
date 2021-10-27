@@ -53,15 +53,10 @@ const SideBar = () => {
       setEditMode(!editMode);
     }
     if (editMode) {
-      // put the updated data to the server
       axios.put('/userData', formData)
-      // update the current user state
       .then(() => setUserDataState(formData))
-      // confirm the user data was updated
       .then(() => console.log('User data has been updated!'))
-      // toggle the edit/save button
       .then(() => setEditMode(!editMode))
-      // log if an error occurred
       .catch(() => console.log('User data failed to update'));
     }
   };
