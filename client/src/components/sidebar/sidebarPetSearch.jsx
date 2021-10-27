@@ -23,7 +23,6 @@ const Sidebar = (props) => {
   }, [props.breeds]);
 
   const updateFilter = (key, value) => {
-    // console.log(`${key}, ${value}`);
     if (value && value !== 'None') {
       setActiveFilters({ ...activeFilters, [key]: value });
     } else {
@@ -32,14 +31,12 @@ const Sidebar = (props) => {
   };
 
   const handleSubmit = (event) => {
-    // console.log(activeFilters);
     getDogs(activeFilters);
   }
 
   const getFilters = () => {
     if (dropDownFilters) {
       return Object.keys(dropDownFilters).map((filter, index) => {
-        // console.log(filter);
         return (
           <Grid item container alignItems="flex-start" id={filter} key={filter}>
             <Dropdown
@@ -60,10 +57,8 @@ const Sidebar = (props) => {
       return (
         <Grid item container alignItems="flex-start" id="breeds" key="breeds">
           <Dropdown
-            // key={index}
             text='breeds'
             style={{float:'left'}}
-            // updateFilter={updateFilter}
             values={breeds}
           />
         </Grid>
