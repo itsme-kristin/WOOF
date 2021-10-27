@@ -62,7 +62,6 @@ const AuthProvider = ({ children }) => {
           `/nearbyOrgs?location=${userData.lat},${userData.lng}&distance=${10}`
         )
         .then((nearbyOrganizations) => {
-          // console.log(nearbyOrganizations.data);
           nearbyOrganizations.data.forEach((org) => {
             let address = org.address.address1;
             let city = org.address.city;
@@ -72,7 +71,6 @@ const AuthProvider = ({ children }) => {
 
             Geocode.fromAddress(latLngQueryString)
               .then((response) => {
-                // console.log(response.results);
                 const { lat, lng } = response.results[0].geometry.location;
                 org.latitude = lat;
                 org.longitude = lng;
@@ -270,9 +268,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setBreedOverview(JSON.parse(window.localStorage.getItem("breedOverview")));
     const data = window.localStorage.getItem("userData");
-    // if (JSON.parse(data).name.length > 0) {
-    //   setUserData(JSON.parse(data));
-    // }
     setDogOverview(JSON.parse(window.localStorage.getItem("dogOverview")));
     setIsLoading(false);
   }, []);
@@ -282,7 +277,6 @@ const AuthProvider = ({ children }) => {
       axios
         .get(`/userData?email=${currentUser.email}`)
         .then((response) => {
-          // console.log(response.data)
           setUserData(response.data);
         })
         .catch((err) => {
@@ -292,8 +286,6 @@ const AuthProvider = ({ children }) => {
   }, [currentUser]);
 
   useEffect(() => {
-    // window.localStorage.setItem('userData', JSON.stringify(userData));
-    // console.log(userData);
     if (userData.lat) {
       fetchNearByOrganizations();
       fetchNearByGroomers();
