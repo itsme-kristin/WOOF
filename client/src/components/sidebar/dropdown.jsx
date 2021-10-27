@@ -25,7 +25,6 @@ const Dropdown = (props) => {
       value={activeValue}
       onChange={handleChange}
       sx={{ m: 1, width: '100%', height: '28px', mx: '0px'}}
-      // helperText="Please select your currency"
     >
       {values.map((option, index) => (
         <MenuItem key={index} value={option}>
