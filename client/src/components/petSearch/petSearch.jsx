@@ -93,11 +93,6 @@ const PetSearch = () => {
     const config = {};
     setActive(false);
     if (filters) {
-      // if zipcode provided
-      // convert the zipcodenumber to string
-      // check that the length is 5
-      // if it is not then replace with context zipcode
-      //  if it is then update context zipcode to match and proceed
       if (filters.location) {
         if (filters.location.toString().length < 5) {
           filters.location = zipcode;
@@ -111,7 +106,6 @@ const PetSearch = () => {
       config.params = filters
     }
 
-    console.log(config);
     axios.get('/adopt', config)
       .then((data)=> {
         setDogArray(data.data);
