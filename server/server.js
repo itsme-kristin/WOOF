@@ -147,8 +147,6 @@ app.get("/organization", (req, res) => {
 });
 
 app.get("/nearbyOrgs", (req, res) => {
-  console.log(req.query.location);
-  // let location = [req.query.lat, ",+", req.query.lng].join("");
   pf.getNearbyOrgs(req.query.location, req.query.distance)
     .then(({ data }) => {
       res.send(data.organizations);
@@ -257,9 +255,6 @@ app.get("/breed-name", (req, res) => {
     });
 });
 
-//breed-details?breed_name=breed+name&breed_group=breed+group&size=size&temperament=temperament
-
-///breed-details?breed_name=Airedale+Terrier&breed_group=Terrier&size=medium&temperament=Friendly
 
 //**filters on Front End need to be case sensitive**
 app.get("/breed-details", (req, res) => {
