@@ -116,7 +116,6 @@ const DogCard = props => {
             console.error(err);
           });
       } else {
-        console.log(breedObj)
         setActiveIcon(true);
         axios
           .put('/saveBreed', { email: userDataState.email, breedObj: breedObj })
